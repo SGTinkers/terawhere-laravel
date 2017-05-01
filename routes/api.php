@@ -29,6 +29,7 @@ Route::group(['prefix' => '/v1'], function(){
 	Route::get('bookings/user/{user}', 'BookingController@getUsersBookings');
 	Route::get('bookings/offer/{offer}', 'BookingController@getOffersBookings');
 
+	Route::post('offers/nearby', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
 	Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');

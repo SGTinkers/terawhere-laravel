@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Booking;
 use App\Offer;
 
@@ -38,33 +39,34 @@ class BookingController extends Controller
 	public function store(Request $request)
     {
  		
-    	if(!$request->user_id){
-            return \Response::json([
-                'error' => [
-                    'message' => 'Please provide user_id.'
-                ]
-            ], 422);
-        }elseif(!$request->offer_id){
-            return \Response::json([
-                'error' => [
-                    'message' => 'Please provide offer_id.'
-                ]
-            ], 422);
+    	$rules = [
+            'user_id' => 'required|integer',
+            'offer_id' => 'required|integer',
+            'status' => 'required|integer'
+    	]; 
+
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+        return \Response::json(['errors'=>$validator->errors()]);
         }
 
 
-        $this->validate($request, [
-        'user_id' => 'required',
-    	]); //TO BE IMPLEMENTED
-
         $offer = Offer::where('id', $request->offer_id)->first();
-        $vacancy = $offer->vacancy; //get the vacancy of that offer
+       
+       	if(!$offer){
+    	return \Response::json([
+                'error' => [
+                    'message' => 'That offer does not exist.'
+                ]
+            ], 422);
+    	}
 
         $bookings = Booking::where('offer_id', $request->offer_id)->get();
         $allBookings = Booking::all();
         $dailyLimit = 2;
 
-        if(count($bookings) >= $vacancy){
+        if(count($bookings) >= $offer->vacancy){
     	return \Response::json([
                 'error' => [
                     'message' => 'There is no more vacancy for that offer_id.'
@@ -72,7 +74,7 @@ class BookingController extends Controller
             ], 422);
     	}
     	
-    	//checking to see if user books twice
+    	//checking to see if same user books twice
     	foreach($bookings as $booking){
     		if($booking->user_id == $request->user_id){
     		return \Response::json([
