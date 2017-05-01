@@ -178,7 +178,6 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
-
     ],
 
     /*
