@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Booking;
+use App\Offer;
 
 class BookingController extends Controller
 {
@@ -24,7 +25,7 @@ class BookingController extends Controller
         if(!$booking){
             return \Response::json([
                 'error' => [
-                    'message' => 'Booking does not exist'
+                    'message' => 'Booking does not exist.'
                 ]
             ], 404);
         }
@@ -36,42 +37,115 @@ class BookingController extends Controller
 
 	public function store(Request $request)
     {
- 
+ 		
+    	if(!$request->user_id){
+            return \Response::json([
+                'error' => [
+                    'message' => 'Please provide user_id.'
+                ]
+            ], 422);
+        }elseif(!$request->offer_id){
+            return \Response::json([
+                'error' => [
+                    'message' => 'Please provide offer_id.'
+                ]
+            ], 422);
+        }
+
+
         $this->validate($request, [
         'user_id' => 'required',
     	]); //TO BE IMPLEMENTED
 
-        $offer = Offer::where('id', $request->offer_id)->get();
-        $vacancy = $offer->vacancy;
-        $booking = Booking::where('offer_id', $request->offer_id)->get();
+        $offer = Offer::where('id', $request->offer_id)->first();
+        $vacancy = $offer->vacancy; //get the vacancy of that offer
 
-        //if number of bookings for that OFFER_ID < vacancy of that OFFER_ID, then create new booking
+        $bookings = Booking::where('offer_id', $request->offer_id)->get();
+        $allBookings = Booking::all();
+        $dailyLimit = 2;
 
-        if(count($booking) < $vacancy){
-        $booking = Booking::create($request->all());
- 
-        return Response::json([
-                'message' => 'Booking added succesfully',
-                'data' => $booking
-        ], 200);
-    	}
-    	else{
-    	return Response::json([
+        if(count($bookings) >= $vacancy){
+    	return \Response::json([
                 'error' => [
-                    'message' => 'There is no more vacancy for that offer_id'
+                    'message' => 'There is no more vacancy for that offer_id.'
                 ]
             ], 422);
     	}
+    	
+    	//checking to see if user books twice
+    	foreach($bookings as $booking){
+    		if($booking->user_id == $request->user_id){
+    		return \Response::json([
+                'error' => [
+                    'message' => 'The same user cannot book an offer more than once.'
+                ]
+            ], 422);
+    		}
+    	}
+
+    	foreach ($allBookings as $booking){
+    		if(count($booking->user_id) >= $dailyLimit){
+    			return \Response::json([
+                'error' => [
+                    'message' => 'User has reached daily booking limit.'
+                ]
+            ], 422);
+    		}
+    	}
+
+    	$booking = Booking::create($request->all());
+ 
+        return \Response::json([
+                'message' => 'Booking added succesfully.',
+                'data' => $booking
+        ], 200);
+    	
     }
 
     public function destroy($id)
     {
         $booking = Booking::find($id);
+        if(!$booking){
+            return \Response::json([
+                'error' => [
+                    'message' => 'Booking does not exist.'
+                ]
+            ], 404);
+        }
         $booking->delete(); //booking is soft deleted.
+
+        return \Response::json([
+                'message' => 'Booking deleted succesfully.',
+                'data' => $booking
+        ]);
     }
 
-    public function getUsersBookings(){
+    public function getUsersBookings($id){
+    	$bookings = Booking::where('user_id',$id)->get();
+		if($bookings->isEmpty()){
+            return \Response::json([
+                'error' => [
+                    'message' => 'User_id does not own any bookings.'
+                ]
+            ], 404);
+        }
+
+        return \Response::json([
+                'data' => $bookings
+        ], 200);
 
     }
-
+    public function getOffersBookings($id){
+        $booking = Booking::where('offer_id', $id)->get();
+        if($booking->isEmpty()){
+            return \Response::json([
+                'error' => [
+                    'message' => 'Offer_id does not have any bookings.'
+                ]
+            ], 404);
+        }
+        return \Response::json([
+                'data' => $booking
+        ], 200);
+    }
 }

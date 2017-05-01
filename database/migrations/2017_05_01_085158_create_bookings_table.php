@@ -18,7 +18,7 @@ class CreateBookingsTable extends Migration
         $table->increments('id');
         $table->integer('user_id'); //who accepted the offer
         $table->integer('offer_id'); //which driver's offer
-        $table->integer('status'); //still ongoing?
+        $table->integer('status')->default(1); //still ongoing?
         $table->softDeletes();
         $table->timestamps();
     });
