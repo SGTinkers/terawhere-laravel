@@ -40,7 +40,7 @@ class OfferController extends Controller
  
 		$rules = [
             'user_id' => 'required|integer',
-            'meetup_time' => 'required|date_format:Y-m-d H:i:s',
+            'meetup_time' => 'required|date_format:Y-m-d H:i',
             'start_name' => 'required|alpha_num',
             'start_addr' => 'required|alpha_num',
             'start_lat' => 'required|numeric|between:-90,90',

@@ -17,15 +17,17 @@ class CreateOffersTable extends Migration
             $table->increments('id');
             $table->integer('user_id'); //driver's id
             $table->datetime('meetup_time');
-            $table->text('start_name');
-            $table->text('start_addr');
+            $table->string('start_name');
+            $table->string('start_addr');
             $table->double('start_lat'); 
             $table->double('start_lng');
-            $table->text('end_name');
-            $table->text('end_addr');
+            $table->string('end_name');
+            $table->string('end_addr');
             $table->double('end_lat');
             $table->double('end_lng');
             $table->integer('vacancy'); //number of available spots
+            $table->string('remarks');
+            $table->integer('pref_gender');
             $table->softDeletes();
             $table->timestamps();
         });
