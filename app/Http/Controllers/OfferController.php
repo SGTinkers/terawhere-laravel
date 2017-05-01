@@ -69,7 +69,6 @@ class OfferController extends Controller
         'meetup_time' => 'required'
     	]); //TO BE IMPLEMENTED
 
-
         $offer = Offer::create($request->all());
  
         return Response::json([
@@ -80,7 +79,17 @@ class OfferController extends Controller
 
    	public function destroy($id)
     {
-        Joke::destroy($id);
+        $offer = Offer::find($id);
+        $offer->delete(); //offer is soft deleted.
+    }
+
+    public function getNearbyActiveOffers(){
+
+
+    }
+
+    public function getUserActiveOffers(){
+        
     }
 
 	/*private function transform($offer){ //to omit certain fields

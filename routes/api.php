@@ -23,6 +23,7 @@ Route::get('/test',function(){
 
 Route::group(['prefix' => '/v1'], function(){
 	Route::resource('offers', 'OfferController');
+	Route::resource('bookings', 'BookingController');
 });
 
 Route::group(['prefix' => '/v1'], function()
