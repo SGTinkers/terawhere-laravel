@@ -41,15 +41,16 @@ class OfferController extends Controller
 		$rules = [
             'user_id' => 'required|integer',
             'meetup_time' => 'required|date_format:Y-m-d H:i',
-            'start_name' => 'required|alpha_num',
-            'start_addr' => 'required|alpha_num',
+            'start_name' => 'required',
+            'start_addr' => 'required',
             'start_lat' => 'required|numeric|between:-90,90',
             'start_lng' => 'required|numeric|between:-180,180',
-            'end_name' => 'required|alpha_num',
-            'end_addr' => 'required|alpha_num',
+            'end_name' => 'required',
+            'end_addr' => 'required',
             'end_lat' => 'required|numeric|between:-90,90',
             'end_lng' => 'required|numeric|between:-180,180',
-            'vacancy' => 'required|integer'
+            'vacancy' => 'required|integer',
+            'pref_gender' => 'integer|between:0,1'
     	]; 
 
         $validator = Validator::make($request->all(), $rules);
