@@ -127,7 +127,7 @@ class BookingController extends Controller
 		if($bookings->isEmpty()){
             return \Response::json([
                 'error' => [
-                    'message' => 'User_id does not own any bookings.'
+                    'message' => 'User does not have any bookings.'
                 ]
             ], 404);
         }
@@ -142,7 +142,7 @@ class BookingController extends Controller
         if($booking->isEmpty()){
             return \Response::json([
                 'error' => [
-                    'message' => 'Offer_id does not have any bookings.'
+                    'message' => 'Selected offer does not have any bookings.'
                 ]
             ], 404);
         }

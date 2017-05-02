@@ -21,7 +21,7 @@ Route::get('/test',function(){
      return "ok"; 
 });
 
-Route::group(['prefix' => '/v1'], function(){
+Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function(){
 	Route::resource('offers', 'OfferController');
 	Route::resource('bookings', 'BookingController');
 

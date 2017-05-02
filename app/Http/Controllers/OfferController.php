@@ -56,14 +56,16 @@ class OfferController extends Controller
         $validator = Validator::make($request->all(), $rules);
         
         if ($validator->fails()) {
-        return \Response::json(['errors'=>$validator->errors()]);
+        return \Response::json([
+            'errors'    =>  $validator->errors()
+            ], 422);
         }
 
         $offer = Offer::create($request->all()); 
         return \Response::json([
                 'message' => 'Offer added succesfully.',
                 'data' => $offer
-        ]);
+        ], 200);
     }
 
     public function update(Request $request, $id){
@@ -110,7 +112,7 @@ class OfferController extends Controller
         if($offers->isEmpty()){
             return \Response::json([
                 'error' => [
-                    'message' => 'User_id does not own any offers.'
+                    'message' => 'User does not have any offers.'
                 ]
             ], 404);
         }
@@ -123,6 +125,10 @@ class OfferController extends Controller
     public function getNearbyActiveOffers(){
 
 
+    }
+
+    public function getNearby(){
+        
     }
 
     public function getUserActiveOffers(){
