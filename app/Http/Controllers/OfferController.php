@@ -93,7 +93,18 @@ class OfferController extends Controller
             'errors'    =>  $validator->errors()
             ], 422);
         }
-        $offer = Offer::findOrFail($id)->fill($request->all());
+        
+        $offer = Offer::find($id);
+
+        if(!$offer){
+            return \Response::json([
+                'error' => [
+                    'message' => 'Offer does not exist.'
+                ]
+            ], 404);
+        }
+
+        $offer->fill($request->all());
         $offer->save();
  
         return \Response::json([
