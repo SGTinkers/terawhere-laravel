@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use Validator;
 use App\Offer;
 
@@ -70,14 +71,28 @@ class OfferController extends Controller
 
     public function update(Request $request, $id){
 
-        $offer = Offer::find($id);
+        $rules = [
+            'user_id' => 'required|integer',
+            'meetup_time' => 'required|date_format:Y-m-d H:i',
+            'start_name' => 'required',
+            'start_addr' => 'required',
+            'start_lat' => 'required|numeric|between:-90,90',
+            'start_lng' => 'required|numeric|between:-180,180',
+            'end_name' => 'required',
+            'end_addr' => 'required',
+            'end_lat' => 'required|numeric|between:-90,90',
+            'end_lng' => 'required|numeric|between:-180,180',
+            'vacancy' => 'required|integer',
+            'pref_gender' => 'integer|between:0,1'
+        ]; 
 
-        //VALIDATION NOT YET IMPLEMENTED
-        $this->validate($request, [
-        'user_id' => 'required',
-        'meetup_time' => 'required'
-        ]); //TO BE IMPLEMENTED
-
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+        return \Response::json([
+            'errors'    =>  $validator->errors()
+            ], 422);
+        }
         $offer = Offer::findOrFail($id)->fill($request->all());
         $offer->save();
  
@@ -85,8 +100,6 @@ class OfferController extends Controller
                 'message' => 'Offer updated succesfully.',
                 'data' => $offer
         ]);
-
-
     }
 
    	public function destroy($id)
@@ -127,8 +140,9 @@ class OfferController extends Controller
 
     }
 
-    public function getNearby(){
-        
+    public function getNearby(Request $request){
+
+
     }
 
     public function getUserActiveOffers(){

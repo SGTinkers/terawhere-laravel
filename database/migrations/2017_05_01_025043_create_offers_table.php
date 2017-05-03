@@ -19,12 +19,12 @@ class CreateOffersTable extends Migration
             $table->datetime('meetup_time');
             $table->string('start_name');
             $table->string('start_addr');
-            $table->double('start_lat'); 
-            $table->double('start_lng');
+            $table->double('start_lat', 10, 6); 
+            $table->double('start_lng', 10, 6);
             $table->string('end_name');
             $table->string('end_addr');
-            $table->double('end_lat');
-            $table->double('end_lng');
+            $table->double('end_lat', 10, 6);
+            $table->double('end_lng', 10, 6);
             $table->integer('vacancy'); //number of available spots
             $table->string('remarks')->nullable();
             $table->integer('pref_gender')->nullable();
