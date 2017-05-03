@@ -1,0 +1,21 @@
+phpfpm:
+  external_links:
+    - terawhere-mysql:mysql
+
+phpcron:
+  external_links:
+    - terawhere-mysql:mysql
+
+nginx:
+  build: docker/
+  dockerfile: nginx.Dockerfile
+  links:
+    - phpfpm
+  volumes_from:
+    - composerdata
+    - yarndata
+  volumes:
+    - ./docker/nginx:/etc/nginx/sites-available
+    - ./:/var/www
+  ports:
+    - "80:80"

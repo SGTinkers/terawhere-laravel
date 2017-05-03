@@ -1,0 +1,41 @@
+composerdata:
+  image: harshjv/composer-data:0.9.16-1.0
+
+yarndata:
+  build: docker/
+  dockerfile: volumes.Dockerfile
+
+phpfpm:
+  build: docker/
+  dockerfile: php-fpm.Dockerfile
+  volumes_from:
+    - composerdata
+    - yarndata
+  volumes:
+    - ./:/var/www
+
+phpcron:
+  build: docker/
+  dockerfile: php-cron.Dockerfile
+  volumes_from:
+    - composerdata
+    - yarndata
+  volumes:
+    - ./:/var/www
+
+phplaravelqueue:
+  build: docker/
+  dockerfile: php-laravel-queue.Dockerfile
+  volumes_from:
+    - composerdata
+    - yarndata
+  volumes:
+    - ./:/var/www
+
+node:
+  build: docker/
+  dockerfile: node.Dockerfile
+  volumes_from:
+    - yarndata
+  volumes:
+    - ./:/var/www
