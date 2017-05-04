@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOffer;
 use App\Offer;
 use Illuminate\Http\Request;
 use Validator;
@@ -36,32 +37,8 @@ class OfferController extends Controller
 	}
 
 	
-    public function store(Request $request)
+    public function store(StoreOffer $request)
     {
- 
-		$rules = [
-            'user_id' => 'required|integer',
-            'meetup_time' => 'required|date_format:Y-m-d H:i',
-            'start_name' => 'required',
-            'start_addr' => 'required',
-            'start_lat' => 'required|numeric|between:-90,90',
-            'start_lng' => 'required|numeric|between:-180,180',
-            'end_name' => 'required',
-            'end_addr' => 'required',
-            'end_lat' => 'required|numeric|between:-90,90',
-            'end_lng' => 'required|numeric|between:-180,180',
-            'vacancy' => 'required|integer',
-            'pref_gender' => 'integer|between:0,1'
-    	]; 
-
-        $validator = Validator::make($request->all(), $rules);
-        
-        if ($validator->fails()) {
-        return \Response::json([
-            'errors'    =>  $validator->errors()
-            ], 422);
-        }
-
         $offer = Offer::create($request->all()); 
         return \Response::json([
                 'message' => 'Offer added successfully.',
