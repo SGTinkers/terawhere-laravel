@@ -26,8 +26,8 @@
 - i.e. `tinker`: `docker-compose run --rm -w /var/www phpfpm php artisan tinker`
 
 ### Running composer
-- `docker-compose run --rm -w /var/www phpfpm php ../docker/composer.phar`
-- i.e. `require laravel/socialite`: `docker-compose run --rm -w /var/www phpfpm php ../docker/composer.phar require laravel/socialite`
+- `docker-compose run --rm -w /var/www phpfpm php docker/composer.phar`
+- i.e. `require laravel/socialite`: `docker-compose run --rm -w /var/www phpfpm php docker/composer.phar require laravel/socialite`
 
 ### Running gulp
 - `docker-compose run --rm -w /var/www gulp gulp`
