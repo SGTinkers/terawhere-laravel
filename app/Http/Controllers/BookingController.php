@@ -52,14 +52,15 @@ class BookingController extends Controller
       ], 422);
     }
 
-    $bookings    = Booking::where('offer_id', $request->offer_id)->get();
-    $allBookings = Booking::all();
-    $dailyLimit  = 2;
+    $bookings       = Booking::where('offer_id', $request->offer_id)->get();
+    $dateToday      = date(Y-m-d) + '23:59'; //inclusive of 
+    $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
+    $dailyLimit     = 2; //SET DAILY BOOKING LIMIT HERE
 
     if (count($bookings) >= $offer->vacancy) {
       return \Response::json([
         'error' => [
-          'message' => 'There is no more vacancy for that offer_id.',
+          'message' => 'There is no more vacancy for that offer.',
         ],
       ], 422);
     }
@@ -75,7 +76,7 @@ class BookingController extends Controller
       }
     }
 
-    foreach ($allBookings as $booking) {
+    foreach ($todaysBookings as $booking) {
       if (count($booking->user_id) >= $dailyLimit) {
         return \Response::json([
           'error' => [
