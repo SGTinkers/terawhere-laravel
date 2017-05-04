@@ -64,7 +64,7 @@ class OfferController extends Controller
 
         $offer = Offer::create($request->all()); 
         return \Response::json([
-                'message' => 'Offer added succesfully.',
+                'message' => 'Offer added successfully.',
                 'data' => $offer
         ], 200);
     }
@@ -108,7 +108,7 @@ class OfferController extends Controller
         $offer->save();
  
         return \Response::json([
-                'message' => 'Offer updated succesfully.',
+                'message' => 'Offer updated successfully.',
                 'data' => $offer
         ]);
     }
@@ -126,7 +126,7 @@ class OfferController extends Controller
         $offer->delete(); //offer is soft deleted.
 
         return \Response::json([
-                'message' => 'Offer deleted succesfully.',
+                'message' => 'Offer deleted successfully.',
                 'data' => $offer
         ]);
     }
