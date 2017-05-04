@@ -10,6 +10,14 @@ class User extends Authenticatable
   use Notifiable;
 
   /**
+   * The default value of attributes if not specified.
+   *
+   */
+  protected $attributes = [
+    'exp' => 500,
+  ];
+
+  /**
    * The attributes that are mass assignable.
    *
    * @var array

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
       $table->string('password');
       $table->string('provider');
       $table->string('provider_id');
-      $table->integer('gender');
+      $table->integer('gender')->nullable();
       $table->integer('exp');
       $table->rememberToken();
       $table->timestamps();

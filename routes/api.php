@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,14 @@ Route::get('/test', function () {
   return "ok";
 });
 
-Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
+Route::group(['prefix' => '/v1'], function () {
+  // Faruq: For testing social login
+//  Route::get('/auth/callback', function (Request $request) {
+//    $user = Socialite::driver($request->get("service"))->stateless()->user();
+//    dd($user);
+//    return "ok";
+//  });
+
   Route::resource('offers', 'OfferController');
   Route::resource('bookings', 'BookingController');
 
