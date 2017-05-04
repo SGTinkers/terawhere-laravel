@@ -55,7 +55,7 @@ class BookingController extends Controller
     $bookings       = Booking::where('offer_id', $request->offer_id)->get();
     $dateToday      = date(Y-m-d) + '23:59'; //inclusive of 
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
-    $dailyLimit     = 2; //SET DAILY BOOKING LIMIT HERE
+    $dailyLimit     = 3; //SET DAILY BOOKING LIMIT HERE
 
     if (count($bookings) >= $offer->vacancy) {
       return \Response::json([
@@ -125,14 +125,15 @@ class BookingController extends Controller
     }
 
     return \Response::json([
+      'count'=> count($bookings),
       'data' => $bookings,
     ], 200);
 
   }
   public function getOffersBookings($id)
   {
-    $booking = Booking::where('offer_id', $id)->get();
-    if ($booking->isEmpty()) {
+    $bookings = Booking::where('offer_id', $id)->get();
+    if ($bookings->isEmpty()) {
       return \Response::json([
         'error' => [
           'message' => 'Selected offer does not have any bookings.',
@@ -140,7 +141,8 @@ class BookingController extends Controller
       ], 404);
     }
     return \Response::json([
-      'data' => $booking,
+      'count'=> count($bookings),
+      'data' => $bookings,
     ], 200);
   }
 }
