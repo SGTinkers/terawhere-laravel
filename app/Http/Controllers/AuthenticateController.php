@@ -35,19 +35,59 @@ class AuthenticateController extends Controller
     $token = null;
 
     try {
-      // verify the credentials and create a token for the user
+      // verify the credentials
       $socialUser = Socialite::driver($request->get('service'))->stateless()->userFromToken($request->get('token'));
       if (!$socialUser) {
         return response()->json(['error' => 'invalid_credentials'], 401);
       }
+
+      // check if we already have user in db
       $user = User::whereEmail($socialUser->getEmail())->first();
       if (!$user) {
+        // create user if we don't and fill some data from social network
         $user = new User;
         $user->email = $socialUser->getEmail();
         $user->name = $socialUser->getName();
         $user->password = Hash::make($request->get('token'));
+        $user->dp = $socialUser->getAvatar();
+
+        // fill in gender if we have
+        if ($socialUser->offsetGet('gender') && ($socialUser->offsetGet('gender') === "male" || $socialUser->offsetGet('gender') === "female")) {
+          $user->gender = $socialUser->offsetGet('gender');
+        }
+
+        // fill in the relevant ids
+        if ($request->get('service') === "google") {
+          $user->google_id = $socialUser->getId();
+        } else if ($request->get('service') === "facebook") {
+          $user->facebook_id = $socialUser->getId();
+        }
+
+        $user->saveOrFail();
+      } else {
+        // update dp if dp field is empty
+        if (!$user->dp) {
+          $user->dp = $socialUser->getAvatar();
+        }
+
+        // update gender if gender field is empty
+        if (!$user->gender) {
+          if ($socialUser->offsetGet('gender') && ($socialUser->offsetGet('gender') === "male" || $socialUser->offsetGet('gender') === "female")) {
+            $user->gender = $socialUser->offsetGet('gender');
+          }
+        }
+
+        // fill in relevant ids
+        if ($request->get('service') === "google") {
+          $user->google_id = $socialUser->getId();
+        } else if ($request->get('service') === "facebook") {
+          $user->facebook_id = $socialUser->getId();
+        }
+
         $user->saveOrFail();
       }
+
+      // generate JWT token
       $token = JWTAuth::fromUser($user);
     } catch (JWTException $e) {
       // something went wrong
@@ -55,7 +95,7 @@ class AuthenticateController extends Controller
     }
 
     // if no errors are encountered we can return a JWT
-    return response()->json(compact('token', 'user'));
+    return response()->json(compact('token', 'user', 'socialUser'));
   }
 
   public function getAuthenticatedUser()
