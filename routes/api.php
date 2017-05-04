@@ -30,16 +30,22 @@ Route::group(['prefix' => '/v1'], function () {
 //    return "ok";
 //  });
 
-  Route::resource('offers', 'OfferController');
-  Route::resource('bookings', 'BookingController');
+  // Routes which require auth
+  Route::group([
+    "middleware" => ['jwt.auth', 'jwt.refresh']
+  ], function() {
+    Route::resource('offers', 'OfferController');
+    Route::resource('bookings', 'BookingController');
 
-  Route::get('offers/user/{user}', 'OfferController@getUsersOffers');
-  Route::get('bookings/user/{user}', 'BookingController@getUsersBookings');
-  Route::get('bookings/offer/{offer}', 'BookingController@getOffersBookings');
+    Route::get('offers/user/{user}', 'OfferController@getUsersOffers');
+    Route::get('bookings/user/{user}', 'BookingController@getUsersBookings');
+    Route::get('bookings/offer/{offer}', 'BookingController@getOffersBookings');
 
-  Route::post('offers/nearby', 'OfferController@getNearby'); //POST the coords and return nearby offers
+    Route::post('offers/nearby', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
-  Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+  });
+
+  // Routes which does not require auth
   Route::post('authenticate', 'AuthenticateController@authenticate');
-  Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
 });
