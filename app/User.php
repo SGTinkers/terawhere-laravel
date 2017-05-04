@@ -2,12 +2,19 @@
 
 namespace App;
 
+use Alsofronie\Uuid\Uuid32ModelTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-  use Notifiable;
+  use Notifiable, Uuid32ModelTrait;
+
+  /**
+   * Use optimized uuid.
+   *
+   */
+  private static $uuidOptimization = true;
 
   /**
    * The default value of attributes if not specified.
@@ -23,7 +30,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-    'name', 'email', 'password', 'provider', 'provider_id', 'gender', 'exp',
+    'name', 'email', 'password', 'dp', 'gender', 'exp',
   ];
 
   /**
