@@ -9,7 +9,7 @@
 ### Docker Compose Setup
 - Install Docker and Docker Compose on your local system
 - Install MySQL via Docker: `docker run --name terawhere-mysql -e MYSQL_ROOT_PASSWORD=password -d -p 13306:3306 mysql:5.6`
-- Create Database `terawhere`: `docker run -it --link terawhere-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -e "create database terawhere"'`
+- Create Database `terawhere`: `docker run -it --link terawhere-mysql:mysql --rm mysql:5.6 sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -e "create database terawhere"'`
 - Copy `.env.dev` to `.env`
 - Configure `.env` accordingly to point to correct mysql
 - Run `docker-compose run --rm -w /var/www phpfpm php docker/composer.phar install`
@@ -43,5 +43,4 @@
 - `terawherelaravel_phpfpm_1` is the name of the container and might be different.
 
 ### Committing
-
-- Run `docker-compose run --rm -w /var/www phpfpm tools/fmt` script before committing to ensure consistency in code formatting
+- Run `docker-compose run --rm -w /var/www phpfpm bash -c "chmod 777 tools/fmt && tools/fmt"` script before committing to ensure consistency in code formatting
