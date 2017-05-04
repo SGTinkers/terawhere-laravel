@@ -1,0 +1,37 @@
+#!/bin/sh
+
+fn_readlink() {
+  cd `dirname $1`
+  local TARGET_FILE=`basename $1`
+
+  # Iterate down a (possible) chain of symlinks
+  while [ -L "$TARGET_FILE" ]
+  do
+      local TARGET_FILE=`readlink $TARGET_FILE`
+      cd `dirname $TARGET_FILE`
+      local TARGET_FILE=`basename $TARGET_FILE`
+  done
+
+  # Compute the canonicalized name by finding the physical path
+  # for the directory we're in and appending the target file.
+  local PHYS_DIR=`pwd -P`
+  local RESULT=$PHYS_DIR/$TARGET_FILE
+  echo $RESULT
+}
+
+DIR=$(dirname $(fn_readlink $0))
+
+echo $(fn_readlink $0)
+echo $DIR
+
+PHP=`which php`
+FMT_PHAR=$DIR/fmt.phar
+FMT_ARGS="--psr2 --indent_with_space=2 --lint-before --enable_auto_align"
+
+shopt -s globstar
+
+$PHP $FMT_PHAR $FMT_ARGS $DIR/../app/**/*.php
+$PHP $FMT_PHAR $FMT_ARGS $DIR/../config/**/*.php
+$PHP $FMT_PHAR $FMT_ARGS $DIR/../database/**/*.php
+$PHP $FMT_PHAR $FMT_ARGS $DIR/../routes/**/*.php
+$PHP $FMT_PHAR $FMT_ARGS $DIR/../tests/**/*.php

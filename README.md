@@ -43,5 +43,4 @@
 - `terawherelaravel_phpfpm_1` is the name of the container and might be different.
 
 ### Committing
-
-- Run `docker-compose run --rm -w /var/www phpfpm tools/fmt` script before committing to ensure consistency in code formatting
+- Run `docker-compose run --rm -w /var/www phpfpm bash -c "chmod 777 tools/fmt && tools/fmt"` script before committing to ensure consistency in code formatting
