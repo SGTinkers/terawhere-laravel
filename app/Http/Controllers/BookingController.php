@@ -38,20 +38,9 @@ class BookingController extends Controller
     ], 200);
   }
 
-  public function store(Request $request)
+  public function store(StoreBooking $request)
   {
-
-    $rules = [
-      'user_id'  => 'required|integer',
-      'offer_id' => 'required|integer',
-      'status'   => 'required|integer',
-    ];
-
-    $validator = Validator::make($request->all(), $rules);
-
-    if ($validator->fails()) {
-      return \Response::json(['errors' => $validator->errors()]);
-    }
+    //BUSINESS LOGIC FOR BOOKING-OFFER RELATION
 
     $offer = Offer::where('id', $request->offer_id)->first();
 
