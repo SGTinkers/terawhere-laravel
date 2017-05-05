@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.6.4",
         "alsofronie/eloquent-uuid": "dev-master",
-        "barryvdh/laravel-cors": "^0.9.2",
+        "barryvdh/laravel-cors": "dev-master",
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
