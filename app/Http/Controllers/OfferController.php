@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOffer;
 use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 /**
  * @resource Offer
@@ -143,19 +144,46 @@ class OfferController extends Controller
       ], 200);
     }
   }
-  public function getNearbyActiveOffers()
-  {
 
+  public function getNearby(GetNearbyOffers $request)
+  {
+    $range = 3959;
+    $max_distance = 20;
+    $lat = $request->lat;
+    $lng = $request->lng;
+    $range = $request->range;
+    $offers = Offer::all();
+
+    $result = collect([]);
+
+    foreach($offers as offer){
+      $dist = $this->haversineGreatCircleDistance($lat, $lng, $offer->start_lat, $offer->start_lng);
+      
+      if ($dist <= $range){ 
+      //if distance between given coords and coord of offers is < range, add to collection
+      $result->push($offer);
+      }
+    }
+
+    return $result->all();
   }
 
-  public function getNearby(Request $request)
+  public function haversineGreatCircleDistance( 
+  $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
   {
+  $earthRadius = 6371000;
+  // convert from degrees to radians
+  $latFrom = deg2rad($latitudeFrom);
+  $lonFrom = deg2rad($longitudeFrom);
+  $latTo = deg2rad($latitudeTo);
+  $lonTo = deg2rad($longitudeTo);
 
-  }
+  $latDelta = $latTo - $latFrom;
+  $lonDelta = $lonTo - $lonFrom;
 
-  public function getUserActiveOffers()
-  {
-
+  $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+    cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+  return $angle * $earthRadius;
   }
 
   /*private function transform($offer){ //to omit certain fields
