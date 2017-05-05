@@ -15,7 +15,7 @@ class CreateOffersTable extends Migration
   {
     Schema::create('offers', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('user_id'); //driver's id
+      $table->char('user_id', 32); //driver's id
       $table->datetime('meetup_time');
       $table->string('start_name');
       $table->string('start_addr');

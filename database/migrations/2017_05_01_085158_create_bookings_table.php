@@ -16,7 +16,7 @@ class CreateBookingsTable extends Migration
     Schema::create('bookings', function (Blueprint $table) {
 
       $table->increments('id');
-      $table->integer('user_id'); //who is booking the offer
+      $table->char('user_id', 32); //who is booking the offer
       $table->integer('offer_id'); //which driver's offer
       $table->integer('status')->default(1); //still ongoing?
       $table->text('driver_remarks'); //remarks by driver to passenger
