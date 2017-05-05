@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Authenticate;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
@@ -14,8 +12,17 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthenticateController extends Controller
 {
+  /**
+   * Instantiate a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('jwt.refresh')->only('refresh');
+  }
 
-  public function authenticate(Authenticate $request)
+  public function auth(Authenticate $request)
   {
     $user = null;
     $token = null;
@@ -82,6 +89,11 @@ class AuthenticateController extends Controller
 
     // if no errors are encountered we can return a JWT
     return response()->json(compact('token', 'user', 'socialUser'));
+  }
+
+  public function refresh()
+  {
+    return response()->json(["status" => "ok"]);
   }
 
   public function getAuthenticatedUser()

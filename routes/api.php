@@ -43,9 +43,10 @@ Route::group(['prefix' => '/v1'], function () {
 
     Route::post('offers/nearby', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
-    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
+    Route::get('me', 'AuthenticateController@getAuthenticatedUser');
   });
 
   // Routes which does not require auth
-  Route::post('authenticate', 'AuthenticateController@authenticate');
+  Route::post('auth', 'AuthenticateController@auth');
+  Route::get('auth/refresh', 'AuthenticateController@refresh');
 });
