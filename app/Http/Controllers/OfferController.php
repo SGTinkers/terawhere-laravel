@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOffer;
 use App\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class OfferController extends Controller
@@ -38,7 +39,9 @@ class OfferController extends Controller
 
     public function store(StoreOffer $request)
     {
-        $offer = Offer::create($request->all()); 
+        $data = $request->all();
+        $data["user_id"] = Auth::user()->id;
+        $offer = Offer::create($data);
         return \Response::json([
                 'message' => 'Offer added successfully.',
                 'data' => $offer
@@ -46,7 +49,6 @@ class OfferController extends Controller
     }
 
     public function update(UpdateOffer $request, $id){
-                
         $offer = Offer::find($id);
 
         if(!$offer){

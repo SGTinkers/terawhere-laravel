@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreBooking extends FormRequest
+class StoreBooking extends JsonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,8 @@ class StoreBooking extends FormRequest
      */
     public function authorize()
     {
-        return false;
+      // TODO: Check for Auth::user and that offer does not belong to authenticated user
+        return true;
     }
 
     /**
@@ -24,7 +23,6 @@ class StoreBooking extends FormRequest
     public function rules()
     {
         return [
-            'user_id'  => 'required|integer',
             'offer_id' => 'required|integer',
             'status'   => 'required|integer',
             'driver_remarks' => 'required',

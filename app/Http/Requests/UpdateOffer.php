@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateOffer extends FormRequest
+class UpdateOffer extends JsonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,8 @@ class UpdateOffer extends FormRequest
      */
     public function authorize()
     {
-        return false;
+      // TODO: Check for Auth::user and that the authenticated user owns the offer
+        return true;
     }
 
     /**
@@ -24,8 +23,6 @@ class UpdateOffer extends FormRequest
     public function rules()
     {
         return [
-           
-            'user_id' => 'required|integer',
             'meetup_time' => 'required|date_format:Y-m-d H:i',
             'start_name' => 'required',
             'start_addr' => 'required',

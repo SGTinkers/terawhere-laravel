@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreOffer extends FormRequest
+class StoreOffer extends JsonRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +11,7 @@ class StoreOffer extends FormRequest
      */
     public function authorize()
     {
-        // TODO: Check with JWT token
+      // JWT middleware handles authentication
         return true;
     }
 
@@ -25,7 +23,6 @@ class StoreOffer extends FormRequest
     public function rules()
     {
         return [
-          'user_id' => 'required|integer',
           'meetup_time' => 'required|date_format:Y-m-d H:i',
           'start_name' => 'required',
           'start_addr' => 'required',

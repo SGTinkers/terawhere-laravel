@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class BookingController extends Controller
@@ -42,7 +43,9 @@ class BookingController extends Controller
   {
     //BUSINESS LOGIC FOR BOOKING-OFFER RELATION
 
-    $offer = Offer::where('id', $request->offer_id)->first();
+    $data = $request->all();
+    $data["user_id"] = Auth::user()->id;
+    $offer = Offer::where('id', $data->offer_id)->first();
 
     if (!$offer) {
       return \Response::json([
@@ -52,7 +55,7 @@ class BookingController extends Controller
       ], 422);
     }
 
-    $bookings    = Booking::where('offer_id', $request->offer_id)->get();
+    $bookings    = Booking::where('offer_id', $data->offer_id)->get();
     $allBookings = Booking::all();
     $dailyLimit  = 2;
 
@@ -66,7 +69,7 @@ class BookingController extends Controller
 
     //checking to see if same user books twice
     foreach ($bookings as $booking) {
-      if ($booking->user_id == $request->user_id) {
+      if ($booking->user_id == $data->user_id) {
         return \Response::json([
           'error' => [
             'message' => 'The same user cannot book an offer more than once.',
@@ -85,7 +88,7 @@ class BookingController extends Controller
       }
     }
 
-    $booking = Booking::create($request->all());
+    $booking = Booking::create($data);
 
     return \Response::json([
       'message' => 'Booking added succesfully.',
