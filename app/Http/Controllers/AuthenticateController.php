@@ -24,7 +24,7 @@ class AuthenticateController extends Controller
 
   public function auth(Authenticate $request)
   {
-    $user = null;
+    $user  = null;
     $token = null;
 
     try {
@@ -38,11 +38,11 @@ class AuthenticateController extends Controller
       $user = User::whereEmail($socialUser->getEmail())->first();
       if (!$user) {
         // create user if we don't and fill some data from social network
-        $user = new User;
-        $user->email = $socialUser->getEmail();
-        $user->name = $socialUser->getName();
+        $user           = new User;
+        $user->email    = $socialUser->getEmail();
+        $user->name     = $socialUser->getName();
         $user->password = Hash::make($request->get('token'));
-        $user->dp = $socialUser->getAvatar();
+        $user->dp       = $socialUser->getAvatar();
 
         // fill in gender if we have
         if ($socialUser->offsetGet('gender') && ($socialUser->offsetGet('gender') === "male" || $socialUser->offsetGet('gender') === "female")) {

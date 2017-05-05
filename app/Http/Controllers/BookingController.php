@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Offer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 
 class BookingController extends Controller
 {
@@ -43,9 +41,9 @@ class BookingController extends Controller
   {
     //BUSINESS LOGIC FOR BOOKING-OFFER RELATION
 
-    $data = $request->all();
+    $data            = $request->all();
     $data["user_id"] = Auth::user()->id;
-    $offer = Offer::where('id', $data->offer_id)->first();
+    $offer           = Offer::where('id', $data->offer_id)->first();
 
     if (!$offer) {
       return \Response::json([
@@ -56,7 +54,7 @@ class BookingController extends Controller
     }
 
     $bookings       = Booking::where('offer_id', $data->offer_id)->get();
-    $dateToday      = date(Y-m-d) + '23:59'; //inclusive of 
+    $dateToday      = date(Y - m - d)+'23:59'; //inclusive of
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
     $dailyLimit     = 3; //SET DAILY BOOKING LIMIT HERE
 
@@ -128,8 +126,8 @@ class BookingController extends Controller
     }
 
     return \Response::json([
-      'count'=> count($bookings),
-      'data' => $bookings,
+      'count' => count($bookings),
+      'data'  => $bookings,
     ], 200);
 
   }
@@ -144,8 +142,8 @@ class BookingController extends Controller
       ], 404);
     }
     return \Response::json([
-      'count'=> count($bookings),
-      'data' => $bookings,
+      'count' => count($bookings),
+      'data'  => $bookings,
     ], 200);
   }
 }

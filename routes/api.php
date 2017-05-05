@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +23,16 @@ Route::get('/test', function () {
 
 Route::group(['prefix' => '/v1'], function () {
   // Faruq: For testing social login
-//  Route::get('/auth/callback', function (Request $request) {
-//    $user = Socialite::driver($request->get("service"))->stateless()->user();
-//    dd($user);
-//    return "ok";
-//  });
+  //  Route::get('/auth/callback', function (Request $request) {
+  //    $user = Socialite::driver($request->get("service"))->stateless()->user();
+  //    dd($user);
+  //    return "ok";
+  //  });
 
   // Routes which require auth
   Route::group([
-    "middleware" => ['jwt.auth']
-  ], function() {
+    "middleware" => ['jwt.auth'],
+  ], function () {
     Route::resource('offers', 'OfferController');
     Route::resource('bookings', 'BookingController');
 

@@ -6,7 +6,6 @@ use App\Http\Requests\StoreOffer;
 use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 
 class OfferController extends Controller
 {
@@ -20,73 +19,74 @@ class OfferController extends Controller
     return \Response::json([
       'data' => $offers,
     ], 200);
-	}
+  }
 
-	public function show($id){
-        $offer = Offer::find($id);
-        if(!$offer){
-            return \Response::json([
-                'error' => [
-                    'message' => 'Offer does not exist'
-                ]
-            ], 404);
-        }
-   		  
-        return \Response::json([
-                'data' => $offer
-        ], 200);
-	}
-
-    public function store(StoreOffer $request)
-    {
-        $data = $request->all();
-        $data["user_id"] = Auth::user()->id;
-        $offer = Offer::create($data);
-        return \Response::json([
-                'message' => 'Offer added successfully.',
-                'data' => $offer
-        ], 200);
+  public function show($id)
+  {
+    $offer = Offer::find($id);
+    if (!$offer) {
+      return \Response::json([
+        'error' => [
+          'message' => 'Offer does not exist',
+        ],
+      ], 404);
     }
 
-    public function update(UpdateOffer $request, $id){
-        $offer = Offer::find($id);
+    return \Response::json([
+      'data' => $offer,
+    ], 200);
+  }
 
-        if(!$offer){
-            return \Response::json([
-                'error' => [
-                    'message' => 'Offer does not exist.'
-                ]
-            ], 404);
-        }
+  public function store(StoreOffer $request)
+  {
+    $data            = $request->all();
+    $data["user_id"] = Auth::user()->id;
+    $offer           = Offer::create($data);
+    return \Response::json([
+      'message' => 'Offer added successfully.',
+      'data'    => $offer,
+    ], 200);
+  }
 
-        $offer->fill($request->all());
-        $offer->save();
- 
-        return \Response::json([
-                'message' => 'Offer updated successfully.',
-                'data' => $offer
-        ]);
+  public function update(UpdateOffer $request, $id)
+  {
+    $offer = Offer::find($id);
+
+    if (!$offer) {
+      return \Response::json([
+        'error' => [
+          'message' => 'Offer does not exist.',
+        ],
+      ], 404);
     }
 
-   	public function destroy($id)
-    {
-        $offer = Offer::find($id);
-        if(!$offer){
-            return \Response::json([
-                'error' => [
-                    'message' => 'Offer does not exist.'
-                ]
-            ], 404);
-        }
-        $offer->delete(); //offer is soft deleted.
+    $offer->fill($request->all());
+    $offer->save();
 
-        return \Response::json([
-                'message' => 'Offer deleted successfully.',
-                'data' => $offer
-        ]);
+    return \Response::json([
+      'message' => 'Offer updated successfully.',
+      'data'    => $offer,
+    ]);
+  }
 
+  public function destroy($id)
+  {
+    $offer = Offer::find($id);
+    if (!$offer) {
+      return \Response::json([
+        'error' => [
+          'message' => 'Offer does not exist.',
+        ],
+      ], 404);
     }
+    $offer->delete(); //offer is soft deleted.
 
+    return \Response::json([
+      'message' => 'Offer deleted successfully.',
+      'data'    => $offer,
+    ]);
+
+  }
 
   public function getUsersOffers($id)
   {
