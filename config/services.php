@@ -39,14 +39,14 @@ return [
     'model'         => App\User::class,
     'client_id'     => env('FACEBOOK_CLIENT_ID'),
     'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-    'redirect'      => env('GOOGLE_REDIRECT_URL', 'http://localhost/api/v1/auth/callback?service=facebook'),
+    'redirect'      => url('auth/callback?service=facebook'),
   ],
 
   'google'    => [
     'model'         => App\User::class,
     'client_id'     => env('GOOGLE_CLIENT_ID'),
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-    'redirect'      => env('GOOGLE_REDIRECT_URL', 'http://localhost/api/v1/auth/callback?service=google'),
+    'redirect'      => url('auth/callback?service=google'),
   ],
 
 ];
