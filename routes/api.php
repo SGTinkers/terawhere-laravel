@@ -32,7 +32,7 @@ Route::group(['prefix' => '/v1'], function () {
 
   // Routes which require auth
   Route::group([
-    "middleware" => ['jwt.auth', 'jwt.refresh']
+    "middleware" => ['jwt.auth']
   ], function() {
     Route::resource('offers', 'OfferController');
     Route::resource('bookings', 'BookingController');
