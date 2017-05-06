@@ -16,7 +16,8 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://terawhere.local/docs/collection.json)
+[Get Postman Collection](http://localhost/doc/collection.json)
+
 <!-- END_INFO -->
 
 #Authentication

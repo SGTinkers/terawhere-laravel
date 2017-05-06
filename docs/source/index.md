@@ -49,7 +49,7 @@ Retrieves the user associated with the JWT token.
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/me" \
+curl -X GET "http://localhost/api/v1/me" \
 -H "Accept: application/json"
 ```
 
@@ -57,7 +57,7 @@ curl -X GET "http://terawhere.local/api/v1/me" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/me",
+    "url": "http://localhost/api/v1/me",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -91,10 +91,10 @@ Exchanges social network token to JWT bearer token.
 > Example request:
 
 ```bash
-curl -X POST "http://terawhere.local/api/v1/auth" \
+curl -X POST "http://localhost/api/v1/auth" \
 -H "Accept: application/json" \
-    -d "service"="tenetur" \
-    -d "token"="tenetur" \
+    -d "service"="in" \
+    -d "token"="in" \
 
 ```
 
@@ -102,11 +102,11 @@ curl -X POST "http://terawhere.local/api/v1/auth" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/auth",
+    "url": "http://localhost/api/v1/auth",
     "method": "POST",
     "data": {
-        "service": "tenetur",
-        "token": "tenetur"
+        "service": "in",
+        "token": "in"
 },
     "headers": {
         "accept": "application/json"
@@ -141,7 +141,7 @@ Call this API to exchange expired (not invalid!) JWT token with a fresh one.
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/auth/refresh" \
+curl -X GET "http://localhost/api/v1/auth/refresh" \
 -H "Accept: application/json"
 ```
 
@@ -149,7 +149,7 @@ curl -X GET "http://terawhere.local/api/v1/auth/refresh" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/auth/refresh",
+    "url": "http://localhost/api/v1/auth/refresh",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -183,10 +183,12 @@ All bookings by passengers are handled here.
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns all bookings in database
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/bookings" \
+curl -X GET "http://localhost/api/v1/bookings" \
 -H "Accept: application/json"
 ```
 
@@ -194,7 +196,7 @@ curl -X GET "http://terawhere.local/api/v1/bookings" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings",
+    "url": "http://localhost/api/v1/bookings",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -225,15 +227,17 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns Success or error message.
+
 > Example request:
 
 ```bash
-curl -X POST "http://terawhere.local/api/v1/bookings" \
+curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
-    -d "offer_id"="89061" \
-    -d "status"="89061" \
-    -d "driver_remarks"="recusandae" \
-    -d "rating"="89061" \
+    -d "offer_id"="3331" \
+    -d "status"="3331" \
+    -d "driver_remarks"="ea" \
+    -d "rating"="3331" \
 
 ```
 
@@ -241,13 +245,13 @@ curl -X POST "http://terawhere.local/api/v1/bookings" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings",
+    "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 89061,
-        "status": 89061,
-        "driver_remarks": "recusandae",
-        "rating": 89061
+        "offer_id": 3331,
+        "status": 3331,
+        "driver_remarks": "ea",
+        "rating": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -279,10 +283,12 @@ Parameter | Type | Status | Description
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns a single booking
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/bookings/{booking}" \
+curl -X GET "http://localhost/api/v1/bookings/{booking}" \
 -H "Accept: application/json"
 ```
 
@@ -290,7 +296,7 @@ curl -X GET "http://terawhere.local/api/v1/bookings/{booking}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/{booking}",
+    "url": "http://localhost/api/v1/bookings/{booking}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -321,10 +327,12 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns all offers in database
+
 > Example request:
 
 ```bash
-curl -X DELETE "http://terawhere.local/api/v1/bookings/{booking}" \
+curl -X DELETE "http://localhost/api/v1/bookings/{booking}" \
 -H "Accept: application/json"
 ```
 
@@ -332,7 +340,7 @@ curl -X DELETE "http://terawhere.local/api/v1/bookings/{booking}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/{booking}",
+    "url": "http://localhost/api/v1/bookings/{booking}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -356,10 +364,12 @@ $.ajax(settings).done(function (response) {
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns all bookings made by a user or 404
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/bookings/user/{user}" \
+curl -X GET "http://localhost/api/v1/bookings/user/{user}" \
 -H "Accept: application/json"
 ```
 
@@ -367,7 +377,7 @@ curl -X GET "http://terawhere.local/api/v1/bookings/user/{user}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/user/{user}",
+    "url": "http://localhost/api/v1/bookings/user/{user}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -398,10 +408,12 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns all bookings made to an offer or 404
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/bookings/offer/{offer}" \
+curl -X GET "http://localhost/api/v1/bookings/offer/{offer}" \
 -H "Accept: application/json"
 ```
 
@@ -409,7 +421,7 @@ curl -X GET "http://terawhere.local/api/v1/bookings/offer/{offer}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/offer/{offer}",
+    "url": "http://localhost/api/v1/bookings/offer/{offer}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -442,11 +454,13 @@ All offers by drivers are handled here.
 ## Get all offers
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Not recommended for use
+Returns ALL offers in database
 
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/offers" \
+curl -X GET "http://localhost/api/v1/offers" \
 -H "Accept: application/json"
 ```
 
@@ -454,7 +468,7 @@ curl -X GET "http://terawhere.local/api/v1/offers" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers",
+    "url": "http://localhost/api/v1/offers",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -485,22 +499,24 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns Validation errors OR success message w/ data posted
+
 > Example request:
 
 ```bash
-curl -X POST "http://terawhere.local/api/v1/offers" \
+curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:16" \
-    -d "start_name"="autem" \
-    -d "start_addr"="autem" \
-    -d "start_lat"="72" \
-    -d "start_lng"="-51" \
-    -d "end_name"="autem" \
-    -d "end_addr"="autem" \
-    -d "end_lat"="72" \
-    -d "end_lng"="-51" \
-    -d "vacancy"="4756018" \
-    -d "pref_gender"="0" \
+    -d "meetup_time"="2017-05-06 08:26" \
+    -d "start_name"="est" \
+    -d "start_addr"="est" \
+    -d "start_lat"="40" \
+    -d "start_lng"="81" \
+    -d "end_name"="est" \
+    -d "end_addr"="est" \
+    -d "end_lat"="40" \
+    -d "end_lng"="81" \
+    -d "vacancy"="8099169" \
+    -d "pref_gender"="1" \
 
 ```
 
@@ -508,20 +524,20 @@ curl -X POST "http://terawhere.local/api/v1/offers" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers",
+    "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 05:16",
-        "start_name": "autem",
-        "start_addr": "autem",
-        "start_lat": 72,
-        "start_lng": -51,
-        "end_name": "autem",
-        "end_addr": "autem",
-        "end_lat": 72,
-        "end_lng": -51,
-        "vacancy": 4756018,
-        "pref_gender": 0
+        "meetup_time": "2017-05-06 08:26",
+        "start_name": "est",
+        "start_addr": "est",
+        "start_lat": 40,
+        "start_lng": 81,
+        "end_name": "est",
+        "end_addr": "est",
+        "end_lat": 40,
+        "end_lng": 81,
+        "vacancy": 8099169,
+        "pref_gender": 1
 },
     "headers": {
         "accept": "application/json"
@@ -560,10 +576,12 @@ Parameter | Type | Status | Description
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns a single offer from offer_id
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/offers/{offer}" \
+curl -X GET "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json"
 ```
 
@@ -571,7 +589,7 @@ curl -X GET "http://terawhere.local/api/v1/offers/{offer}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -602,21 +620,23 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns success message or 404.
+
 > Example request:
 
 ```bash
-curl -X PUT "http://terawhere.local/api/v1/offers/{offer}" \
+curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:16" \
+    -d "meetup_time"="2017-05-06 08:26" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
-    -d "start_lat"="34" \
-    -d "start_lng"="-56" \
+    -d "start_lat"="-64" \
+    -d "start_lng"="-127" \
     -d "end_name"="ratione" \
     -d "end_addr"="ratione" \
-    -d "end_lat"="34" \
-    -d "end_lng"="-56" \
-    -d "vacancy"="4379" \
+    -d "end_lat"="-64" \
+    -d "end_lng"="-127" \
+    -d "vacancy"="97" \
     -d "pref_gender"="0" \
 
 ```
@@ -625,19 +645,19 @@ curl -X PUT "http://terawhere.local/api/v1/offers/{offer}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 05:16",
+        "meetup_time": "2017-05-06 08:26",
         "start_name": "ratione",
         "start_addr": "ratione",
-        "start_lat": 34,
-        "start_lng": -56,
+        "start_lat": -64,
+        "start_lng": -127,
         "end_name": "ratione",
         "end_addr": "ratione",
-        "end_lat": 34,
-        "end_lng": -56,
-        "vacancy": 4379,
+        "end_lat": -64,
+        "end_lng": -127,
+        "vacancy": 97,
         "pref_gender": 0
 },
     "headers": {
@@ -679,10 +699,12 @@ Parameter | Type | Status | Description
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns Success or 404.
+
 > Example request:
 
 ```bash
-curl -X DELETE "http://terawhere.local/api/v1/offers/{offer}" \
+curl -X DELETE "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json"
 ```
 
@@ -690,7 +712,7 @@ curl -X DELETE "http://terawhere.local/api/v1/offers/{offer}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -714,10 +736,12 @@ $.ajax(settings).done(function (response) {
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Returns all offers belonging to user($id)
+
 > Example request:
 
 ```bash
-curl -X GET "http://terawhere.local/api/v1/offers/user/{user}" \
+curl -X GET "http://localhost/api/v1/offers/user/{user}" \
 -H "Accept: application/json"
 ```
 
@@ -725,7 +749,7 @@ curl -X GET "http://terawhere.local/api/v1/offers/user/{user}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/user/{user}",
+    "url": "http://localhost/api/v1/offers/user/{user}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -751,17 +775,63 @@ null
 
 <!-- END_e007a13211fde8930df11d40d3f826e3 -->
 
-<!-- START_45e68fff50bc4fe9f7ac0f0e1133b782 -->
-## api/v1/offers/nearby
+<!-- START_51903359edc880348765a2ac1cc68f0d -->
+## Get offers for today
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all offers posted today
 
 > Example request:
 
 ```bash
-curl -X POST "http://terawhere.local/api/v1/offers/nearby" \
+curl -X GET "http://localhost/api/v1/offers/today" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/offers/today",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/offers/today`
+
+`HEAD api/v1/offers/today`
+
+
+<!-- END_51903359edc880348765a2ac1cc68f0d -->
+
+<!-- START_beaa6297889e073102a2a5fd6637c11a -->
+## Get Offers from Date
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all offers on a certain date
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/offers/date/{date}" \
 -H "Accept: application/json" \
-    -d "lat"="-37" \
-    -d "lng"="-146" \
-    -d "range"="7" \
+    -d "date"="2017-05-06 08:26" \
 
 ```
 
@@ -769,12 +839,68 @@ curl -X POST "http://terawhere.local/api/v1/offers/nearby" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/nearby",
+    "url": "http://localhost/api/v1/offers/date/{date}",
+    "method": "GET",
+    "data": {
+        "date": "2017-05-06 08:26"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/offers/date/{date}`
+
+`HEAD api/v1/offers/date/{date}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    date | date |  required  | Date format: `Y-m-d H:i`
+
+<!-- END_beaa6297889e073102a2a5fd6637c11a -->
+
+<!-- START_45e68fff50bc4fe9f7ac0f0e1133b782 -->
+## Get nearby offers
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all nearby offers (To be optimised)
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/offers/nearby" \
+-H "Accept: application/json" \
+    -d "lat"="57" \
+    -d "lng"="114" \
+    -d "range"="97902018" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/offers/nearby",
     "method": "POST",
     "data": {
-        "lat": -37,
-        "lng": -146,
-        "range": 7
+        "lat": 57,
+        "lng": 114,
+        "range": 97902018
 },
     "headers": {
         "accept": "application/json"
