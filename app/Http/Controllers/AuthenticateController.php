@@ -58,7 +58,7 @@ class AuthenticateController extends Controller
       }
 
       // check if we already have user in db
-      $user = User::whereEmail($socialUser->getEmail())->first();
+      $user = User::where($request->get('service') . '_id', $socialUser->getId())->first();
       if (!$user) {
         // create user if we don't and fill some data from social network
         $user           = new User;
@@ -81,6 +81,11 @@ class AuthenticateController extends Controller
 
         $user->saveOrFail();
       } else {
+        // update email if email field is empty
+        if (!$user->email) {
+          $user->email    = $socialUser->getEmail();
+        }
+
         // update dp if dp field is empty
         if (!$user->dp) {
           $user->dp = $socialUser->getAvatar();

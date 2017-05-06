@@ -93,8 +93,8 @@ Exchanges social network token to JWT bearer token.
 ```bash
 curl -X POST "http://localhost/api/v1/auth" \
 -H "Accept: application/json" \
-    -d "service"="in" \
-    -d "token"="in" \
+    -d "service"="facebook" \
+    -d "token"="tenetur" \
 
 ```
 
@@ -105,8 +105,8 @@ var settings = {
     "url": "http://localhost/api/v1/auth",
     "method": "POST",
     "data": {
-        "service": "in",
-        "token": "in"
+        "service": "facebook",
+        "token": "tenetur"
 },
     "headers": {
         "accept": "application/json"
@@ -126,7 +126,7 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    service | string |  required  | 
+    service | string |  required  | `facebook` or `google`
     token | string |  required  | 
 
 <!-- END_af82433e555a57f31d78233071a5a020 -->
@@ -234,10 +234,10 @@ Returns Success or error message.
 ```bash
 curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
-    -d "offer_id"="3331" \
-    -d "status"="3331" \
-    -d "driver_remarks"="ea" \
-    -d "rating"="3331" \
+    -d "offer_id"="89061" \
+    -d "status"="89061" \
+    -d "driver_remarks"="recusandae" \
+    -d "rating"="89061" \
 
 ```
 
@@ -248,10 +248,10 @@ var settings = {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 3331,
-        "status": 3331,
-        "driver_remarks": "ea",
-        "rating": 3331
+        "offer_id": 89061,
+        "status": 89061,
+        "driver_remarks": "recusandae",
+        "rating": 89061
 },
     "headers": {
         "accept": "application/json"
@@ -506,17 +506,17 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 08:26" \
-    -d "start_name"="est" \
-    -d "start_addr"="est" \
-    -d "start_lat"="40" \
-    -d "start_lng"="81" \
-    -d "end_name"="est" \
-    -d "end_addr"="est" \
-    -d "end_lat"="40" \
-    -d "end_lng"="81" \
-    -d "vacancy"="8099169" \
-    -d "pref_gender"="1" \
+    -d "meetup_time"="2017-05-06 09:33" \
+    -d "start_name"="autem" \
+    -d "start_addr"="autem" \
+    -d "start_lat"="72" \
+    -d "start_lng"="-51" \
+    -d "end_name"="autem" \
+    -d "end_addr"="autem" \
+    -d "end_lat"="72" \
+    -d "end_lng"="-51" \
+    -d "vacancy"="4756018" \
+    -d "pref_gender"="0" \
 
 ```
 
@@ -527,17 +527,17 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 08:26",
-        "start_name": "est",
-        "start_addr": "est",
-        "start_lat": 40,
-        "start_lng": 81,
-        "end_name": "est",
-        "end_addr": "est",
-        "end_lat": 40,
-        "end_lng": 81,
-        "vacancy": 8099169,
-        "pref_gender": 1
+        "meetup_time": "2017-05-06 09:33",
+        "start_name": "autem",
+        "start_addr": "autem",
+        "start_lat": 72,
+        "start_lng": -51,
+        "end_name": "autem",
+        "end_addr": "autem",
+        "end_lat": 72,
+        "end_lng": -51,
+        "vacancy": 4756018,
+        "pref_gender": 0
 },
     "headers": {
         "accept": "application/json"
@@ -627,16 +627,16 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 08:26" \
+    -d "meetup_time"="2017-05-06 09:33" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
-    -d "start_lat"="-64" \
-    -d "start_lng"="-127" \
+    -d "start_lat"="34" \
+    -d "start_lng"="-56" \
     -d "end_name"="ratione" \
     -d "end_addr"="ratione" \
-    -d "end_lat"="-64" \
-    -d "end_lng"="-127" \
-    -d "vacancy"="97" \
+    -d "end_lat"="34" \
+    -d "end_lng"="-56" \
+    -d "vacancy"="4379" \
     -d "pref_gender"="0" \
 
 ```
@@ -648,16 +648,16 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 08:26",
+        "meetup_time": "2017-05-06 09:33",
         "start_name": "ratione",
         "start_addr": "ratione",
-        "start_lat": -64,
-        "start_lng": -127,
+        "start_lat": 34,
+        "start_lng": -56,
         "end_name": "ratione",
         "end_addr": "ratione",
-        "end_lat": -64,
-        "end_lng": -127,
-        "vacancy": 97,
+        "end_lat": 34,
+        "end_lng": -56,
+        "vacancy": 4379,
         "pref_gender": 0
 },
     "headers": {
@@ -831,7 +831,7 @@ Returns all offers on a certain date
 ```bash
 curl -X GET "http://localhost/api/v1/offers/date/{date}" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-06 08:26" \
+    -d "date"="2017-05-06" \
 
 ```
 
@@ -842,7 +842,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/date/{date}",
     "method": "GET",
     "data": {
-        "date": "2017-05-06 08:26"
+        "date": "2017-05-06"
 },
     "headers": {
         "accept": "application/json"
@@ -869,7 +869,7 @@ null
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    date | date |  required  | Date format: `Y-m-d H:i`
+    date | date |  required  | Date format: `Y-m-d`
 
 <!-- END_beaa6297889e073102a2a5fd6637c11a -->
 
@@ -885,9 +885,9 @@ Returns all nearby offers (To be optimised)
 ```bash
 curl -X POST "http://localhost/api/v1/offers/nearby" \
 -H "Accept: application/json" \
-    -d "lat"="57" \
-    -d "lng"="114" \
-    -d "range"="97902018" \
+    -d "lat"="-37" \
+    -d "lng"="-146" \
+    -d "range"="7" \
 
 ```
 
@@ -898,9 +898,9 @@ var settings = {
     "url": "http://localhost/api/v1/offers/nearby",
     "method": "POST",
     "data": {
-        "lat": 57,
-        "lng": 114,
-        "range": 97902018
+        "lat": -37,
+        "lng": -146,
+        "range": 7
 },
     "headers": {
         "accept": "application/json"

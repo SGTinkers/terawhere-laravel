@@ -22,7 +22,7 @@ class Authenticate extends JsonRequest
   public function rules()
   {
     return [
-      'service' => 'required',
+      'service' => 'required|in:facebook,google',
       'token'   => 'required',
     ];
   }
