@@ -360,7 +360,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_039cecacf2fd8264a352659da305ac9a -->
 
-<!-- START_d71e190d054a723e720314334abe6741 -->
+<!-- START_882031a3a2aa28d5fdc858eb297f0ff7 -->
 ## Get bookings belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -370,16 +370,21 @@ Returns all bookings made by a user or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings/user/{user}" \
--H "Accept: application/json"
+curl -X GET "http://localhost/api/v1/bookings/user" \
+-H "Accept: application/json" \
+    -d "user_id"="aut" \
+
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings/user/{user}",
+    "url": "http://localhost/api/v1/bookings/user",
     "method": "GET",
+    "data": {
+        "user_id": "aut"
+},
     "headers": {
         "accept": "application/json"
     }
@@ -397,14 +402,19 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/bookings/user/{user}`
+`GET api/v1/bookings/user`
 
-`HEAD api/v1/bookings/user/{user}`
+`HEAD api/v1/bookings/user`
 
+#### Parameters
 
-<!-- END_d71e190d054a723e720314334abe6741 -->
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
 
-<!-- START_eb1dbec4a50cee1cdee3fa011f3eddc1 -->
+<!-- END_882031a3a2aa28d5fdc858eb297f0ff7 -->
+
+<!-- START_6ca353cc1632f3716d65871b6a5afaf2 -->
 ## Get all bookings belonging to an offer
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -414,16 +424,21 @@ Returns all bookings made to an offer or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings/offer/{offer}" \
--H "Accept: application/json"
+curl -X GET "http://localhost/api/v1/bookings/offer" \
+-H "Accept: application/json" \
+    -d "offer_id"="sed" \
+
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings/offer/{offer}",
+    "url": "http://localhost/api/v1/bookings/offer",
     "method": "GET",
+    "data": {
+        "offer_id": "sed"
+},
     "headers": {
         "accept": "application/json"
     }
@@ -441,12 +456,125 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/bookings/offer/{offer}`
+`GET api/v1/bookings/offer`
 
-`HEAD api/v1/bookings/offer/{offer}`
+`HEAD api/v1/bookings/offer`
 
+#### Parameters
 
-<!-- END_eb1dbec4a50cee1cdee3fa011f3eddc1 -->
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    offer_id | string |  required  | 
+
+<!-- END_6ca353cc1632f3716d65871b6a5afaf2 -->
+
+<!-- START_eb57c1edfb09bd13659a8f2ae42738ef -->
+## Get all bookings by date
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all bookings made on requested date or 404
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/bookings/date" \
+-H "Accept: application/json" \
+    -d "date"="2017-05-06" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings/date",
+    "method": "GET",
+    "data": {
+        "date": "2017-05-06"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/bookings/date`
+
+`HEAD api/v1/bookings/date`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    date | date |  optional  | Date format: `Y-m-d`
+
+<!-- END_eb57c1edfb09bd13659a8f2ae42738ef -->
+
+<!-- START_fb4e1d1bc5aaff8e8302f4528c4b4868 -->
+## Get all bookings by date
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all bookings made on requested date or 404
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/bookings/today" \
+-H "Accept: application/json" \
+    -d "date"="2017-05-06" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings/today",
+    "method": "GET",
+    "data": {
+        "date": "2017-05-06"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/bookings/today`
+
+`HEAD api/v1/bookings/today`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    date | date |  optional  | Date format: `Y-m-d`
+
+<!-- END_fb4e1d1bc5aaff8e8302f4528c4b4868 -->
 
 #Offer
 
@@ -507,7 +635,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:49" \
+    -d "meetup_time"="2017-05-06 10:44" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -527,7 +655,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 09:49",
+        "meetup_time": "2017-05-06 10:44",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -625,7 +753,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:49" \
+    -d "meetup_time"="2017-05-06 10:44" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -646,7 +774,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 09:49",
+        "meetup_time": "2017-05-06 10:44",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -729,7 +857,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
 
-<!-- START_e007a13211fde8930df11d40d3f826e3 -->
+<!-- START_28944a9d299f4f4c36cf424b3581a4c3 -->
 ## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -739,16 +867,21 @@ Returns all offers belonging to user($id)
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/offers/user/{user}" \
--H "Accept: application/json"
+curl -X GET "http://localhost/api/v1/offers/user" \
+-H "Accept: application/json" \
+    -d "user_id"="qui" \
+
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/offers/user/{user}",
+    "url": "http://localhost/api/v1/offers/user",
     "method": "GET",
+    "data": {
+        "user_id": "qui"
+},
     "headers": {
         "accept": "application/json"
     }
@@ -766,68 +899,32 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/offers/user/{user}`
+`GET api/v1/offers/user`
 
-`HEAD api/v1/offers/user/{user}`
+`HEAD api/v1/offers/user`
 
+#### Parameters
 
-<!-- END_e007a13211fde8930df11d40d3f826e3 -->
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
+
+<!-- END_28944a9d299f4f4c36cf424b3581a4c3 -->
 
 <!-- START_51903359edc880348765a2ac1cc68f0d -->
-## Get offers for today
+## Get offers from Date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 Send a simple = true, to get a summarised version of offer.
-Returns all offers posted today
+
+If no date given, today's date is used.
+
+Returns all offers on a requested date
 
 > Example request:
 
 ```bash
 curl -X GET "http://localhost/api/v1/offers/today" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/offers/today",
-    "method": "GET",
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-null
-```
-
-### HTTP Request
-`GET api/v1/offers/today`
-
-`HEAD api/v1/offers/today`
-
-
-<!-- END_51903359edc880348765a2ac1cc68f0d -->
-
-<!-- START_beaa6297889e073102a2a5fd6637c11a -->
-## Get Offers from Date
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Send a simple = true, to get a summarised version of offer.
-Returns all offers on a certain date
-
-> Example request:
-
-```bash
-curl -X GET "http://localhost/api/v1/offers/date/{date}" \
 -H "Accept: application/json" \
     -d "date"="2017-05-06" \
 
@@ -837,7 +934,7 @@ curl -X GET "http://localhost/api/v1/offers/date/{date}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/offers/date/{date}",
+    "url": "http://localhost/api/v1/offers/today",
     "method": "GET",
     "data": {
         "date": "2017-05-06"
@@ -859,17 +956,74 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/offers/date/{date}`
+`GET api/v1/offers/today`
 
-`HEAD api/v1/offers/date/{date}`
+`HEAD api/v1/offers/today`
 
 #### Parameters
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    date | date |  required  | Date format: `Y-m-d`
+    date | date |  optional  | Date format: `Y-m-d`
 
-<!-- END_beaa6297889e073102a2a5fd6637c11a -->
+<!-- END_51903359edc880348765a2ac1cc68f0d -->
+
+<!-- START_049e68772e382e6ea94e4cf56814b854 -->
+## Get offers from Date
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Send a simple = true, to get a summarised version of offer.
+
+If no date given, today's date is used.
+
+Returns all offers on a requested date
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/offers/date" \
+-H "Accept: application/json" \
+    -d "date"="2017-05-06" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/offers/date",
+    "method": "GET",
+    "data": {
+        "date": "2017-05-06"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/offers/date`
+
+`HEAD api/v1/offers/date`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    date | date |  optional  | Date format: `Y-m-d`
+
+<!-- END_049e68772e382e6ea94e4cf56814b854 -->
 
 <!-- START_45e68fff50bc4fe9f7ac0f0e1133b782 -->
 ## Get nearby offers

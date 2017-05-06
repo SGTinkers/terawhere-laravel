@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetDatesOffers;
-use App\Http\Requests\GetNearbyOffers;
+use App\Http\Requests\GetUserId;
+use App\Http\Requests\GetOfferId;
+use App\Http\Requests\GetDate;
+use App\Http\Requests\GetNearby;
 use App\Http\Requests\StoreOffer;
 use App\Http\Requests\UpdateOffer;
+
 use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -196,18 +199,27 @@ class OfferController extends Controller
     }
   }
   /**
-   * Get Offers from Date
+   * Get offers from Date
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    * Send a simple = true, to get a summarised version of offer.
-   * Returns all offers on a certain date
+   *
+   * If no date given, today's date is used.
+   *
+   * Returns all offers on a requested date
    *
    */
-  public function getDatesOffers(GetDatesOffers $request)
-  {
-    $current = $request->date +' 00:00';
-    $next = date('Y-m-d', strtotime('+1 day', $date));
+  public function getDatesOffers(GetDate $request)
+  { 
 
+    //if no date requested, set to today's date
+    if(!isset($request->date) || empty($request->date)){
+      $current = date('Y-m-d') +' 00:00';
+    }else{
+      $current = $request->date +' 00:00'; //set to requested date
+    }
+
+    $next = date('Y-m-d', strtotime('+1 day', $current));
     //get all offers before DATE + 1day at 00:00
     $offers = Offer::where('created_at', '<', $next)
               ->where('created_at','>', $current)
@@ -234,45 +246,7 @@ class OfferController extends Controller
         'data' => $offers,
       ], 200);
   }
-  /**
-   * Get offers for today
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   * Send a simple = true, to get a summarised version of offer.
-   * Returns all offers posted today
-   *
-   */
-  public function getTodaysOffers()
-  {
-    $current = date('Y-m-d') +' 00:00';
-    $next = date('Y-m-d', strtotime('+1 day', $date));
 
-    //get all offers before DATE + 1day at 00:00
-    $offers = Offer::where('created_at', '<', $next)
-              ->where('created_at','>', $current)
-              ->get();
-    
-    if ($offers->isEmpty()) {
-      return response()->json([
-        'error' => [
-          'message' => 'There are no offers on this date.',
-        ],
-      ], 404);
-    }
-    
-    if ($request->simple == true) {
-      $filtered = $offers->only($simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-      
-      return response()->json([
-        'data' => $offers,
-      ], 200);
-    
-  }
   /**
    * Get nearby offers
    *
@@ -281,7 +255,7 @@ class OfferController extends Controller
    * Returns all nearby offers (To be optimised)
    *
    */
-  public function getNearby(GetNearbyOffers $request)
+  public function getNearby(GetNearby $request)
   {
     $range = 3959;
     $max_distance = 20;

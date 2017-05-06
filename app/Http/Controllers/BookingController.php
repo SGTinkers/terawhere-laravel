@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetDate;
+use App\Http\Requests\GetUserId;
+use App\Http\Requests\GetOfferId;
 use App\Http\Requests\StoreBooking;
 use App\Booking;
 use App\Offer;
@@ -203,5 +206,40 @@ class BookingController extends Controller
       'count' => count($bookings),
       'data'  => $bookings,
     ], 200);
+  }
+
+   /**
+   * Get all bookings by date
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Returns all bookings made on requested date or 404
+   *
+   */ 
+  public function getDatesBookings(GetDate $request)
+  { 
+    //if no date requested, set to today's date
+    if(!isset($request->date) || empty($request->date)){
+      $current = date('Y-m-d') +' 00:00';
+    }else{
+      $current = $request->date +' 00:00'; //set to requested date
+    }
+
+    $next = date('Y-m-d', strtotime('+1 day', $current));
+    //get all offers before DATE + 1day at 00:00
+    $bookings = Booking::where('created_at', '<', $next)
+              ->where('created_at','>', $current)
+              ->get();
+    
+    if ($bookings->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'There are no bookings on this date.',
+        ],
+      ], 404);
+    }
+      return response()->json([
+        'data' => $bookings,
+      ], 200);
   }
 }
