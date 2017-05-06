@@ -37,7 +37,7 @@ class OfferController extends Controller
 
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
@@ -69,7 +69,7 @@ class OfferController extends Controller
     }
   //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
@@ -97,7 +97,7 @@ class OfferController extends Controller
     
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
@@ -195,7 +195,7 @@ class OfferController extends Controller
     
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
@@ -245,7 +245,7 @@ class OfferController extends Controller
 
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
@@ -286,7 +286,7 @@ class OfferController extends Controller
     }
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
-      $filtered = $offers->only($simple);
+      $filtered = $offers->only($this->simple);
       
       return response()->json([
         'data' => $filtered->all(),
