@@ -17,7 +17,6 @@ toc_footers:
 
 Welcome to the generated API reference.
 [Get Postman Collection](http://terawhere.local/docs/collection.json)
-
 <!-- END_INFO -->
 
 #Authentication
@@ -28,7 +27,9 @@ The process flow is as such:
 2. Mobile App get the token (from Fb/G)
 3. Send token to server via `/api/v1/auth` endpoint
 4. Then server checks if we already have the user in local db:
+
  a. If already in, return an auth token
+
  b. Else, create user, then return an auth token
 
 The auth token is actually JWT token. Basically, to call an authorised endpoint, include the JWT token in the request header: `Authorization: Bearer [JWTTokenHere]`. The request will pass through if the token is valid. The user can also be identified with the token.
@@ -132,6 +133,8 @@ Parameter | Type | Status | Description
 
 <!-- START_29ad049b182baa84aefd2c96650b36c5 -->
 ## Refresh Token
+
+* **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
 Call this API to exchange expired (not invalid!) JWT token with a fresh one.
 
@@ -487,7 +490,7 @@ null
 ```bash
 curl -X POST "http://terawhere.local/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:04" \
+    -d "meetup_time"="2017-05-06 05:16" \
     -d "start_name"="autem" \
     -d "start_addr"="autem" \
     -d "start_lat"="72" \
@@ -508,7 +511,7 @@ var settings = {
     "url": "http://terawhere.local/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 05:04",
+        "meetup_time": "2017-05-06 05:16",
         "start_name": "autem",
         "start_addr": "autem",
         "start_lat": 72,
@@ -604,7 +607,7 @@ null
 ```bash
 curl -X PUT "http://terawhere.local/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:04" \
+    -d "meetup_time"="2017-05-06 05:16" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="34" \
@@ -625,7 +628,7 @@ var settings = {
     "url": "http://terawhere.local/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 05:04",
+        "meetup_time": "2017-05-06 05:16",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": 34,

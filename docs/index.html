@@ -54,9 +54,11 @@
 <li>Mobile App login with Facebook or Google**</li>
 <li>Mobile App get the token (from Fb/G)</li>
 <li>Send token to server via <code>/api/v1/auth</code> endpoint</li>
-<li>Then server checks if we already have the user in local db:
-a. If already in, return an auth token
-b. Else, create user, then return an auth token</li>
+<li>
+<p>Then server checks if we already have the user in local db:</p>
+<p>a. If already in, return an auth token</p>
+<p>b. Else, create user, then return an auth token</p>
+</li>
 </ol>
 <p>The auth token is actually JWT token. Basically, to call an authorised endpoint, include the JWT token in the request header: <code>Authorization: Bearer [JWTTokenHere]</code>. The request will pass through if the token is valid. The user can also be identified with the token.</p>
 <p>The token does expire. If server returns <code>token_expired</code>, call <code>/api/v1/auth/refresh</code> to get a new token. The token is returned in <code>Authorization</code> header.</p>
@@ -148,6 +150,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_af82433e555a57f31d78233071a5a020 -->
 <!-- START_29ad049b182baa84aefd2c96650b36c5 -->
 <h2>Refresh Token</h2>
+<ul>
+<li><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></li>
+</ul>
 <p>Call this API to exchange expired (not invalid!) JWT token with a fresh one.</p>
 <blockquote>
 <p>Example request:</p>
@@ -424,7 +429,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://terawhere.local/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:04" \
+    -d "meetup_time"="2017-05-06 05:16" \
     -d "start_name"="autem" \
     -d "start_addr"="autem" \
     -d "start_lat"="72" \
@@ -442,7 +447,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://terawhere.local/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 05:04",
+        "meetup_time": "2017-05-06 05:16",
         "start_name": "autem",
         "start_addr": "autem",
         "start_lat": 72,
@@ -576,7 +581,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://terawhere.local/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 05:04" \
+    -d "meetup_time"="2017-05-06 05:16" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="34" \
@@ -594,7 +599,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://terawhere.local/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 05:04",
+        "meetup_time": "2017-05-06 05:16",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": 34,

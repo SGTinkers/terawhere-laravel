@@ -19,7 +19,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
  * 2. Mobile App get the token (from Fb/G)
  * 3. Send token to server via `/api/v1/auth` endpoint
  * 4. Then server checks if we already have the user in local db:
+ *
  *  a. If already in, return an auth token
+ *
  *  b. Else, create user, then return an auth token
  *
  * The auth token is actually JWT token. Basically, to call an authorised endpoint, include the JWT token in the request header: `Authorization: Bearer [JWTTokenHere]`. The request will pass through if the token is valid. The user can also be identified with the token.
@@ -114,6 +116,8 @@ class AuthenticateController extends Controller
 
   /**
    * Refresh Token
+   *
+   * * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * Call this API to exchange expired (not invalid!) JWT token with a fresh one.
    *

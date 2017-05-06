@@ -2,6 +2,8 @@
 
 # Terawhere API Server
 
+Documentation can be found here: https://sgtinkers.github.io/terawhere-laravel/#authenticate-user
+
 - Laravel 5.4
 - MySQL 5.6
 
