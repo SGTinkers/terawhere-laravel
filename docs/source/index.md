@@ -360,7 +360,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_039cecacf2fd8264a352659da305ac9a -->
 
-<!-- START_882031a3a2aa28d5fdc858eb297f0ff7 -->
+<!-- START_54180b9bc599813769aec761727e8a5a -->
 ## Get bookings belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -370,9 +370,9 @@ Returns all bookings made by a user or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings/user" \
+curl -X POST "http://localhost/api/v1/bookings/user" \
 -H "Accept: application/json" \
-    -d "user_id"="aut" \
+    -d "user_id"="magnam" \
 
 ```
 
@@ -381,9 +381,9 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/bookings/user",
-    "method": "GET",
+    "method": "POST",
     "data": {
-        "user_id": "aut"
+        "user_id": "magnam"
 },
     "headers": {
         "accept": "application/json"
@@ -395,16 +395,9 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-> Example response:
-
-```json
-null
-```
 
 ### HTTP Request
-`GET api/v1/bookings/user`
-
-`HEAD api/v1/bookings/user`
+`POST api/v1/bookings/user`
 
 #### Parameters
 
@@ -412,9 +405,9 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     user_id | string |  optional  | Only alpha-numeric characters allowed
 
-<!-- END_882031a3a2aa28d5fdc858eb297f0ff7 -->
+<!-- END_54180b9bc599813769aec761727e8a5a -->
 
-<!-- START_6ca353cc1632f3716d65871b6a5afaf2 -->
+<!-- START_ccae2bc43c728afb3fad076edf07581d -->
 ## Get all bookings belonging to an offer
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -424,9 +417,9 @@ Returns all bookings made to an offer or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings/offer" \
+curl -X POST "http://localhost/api/v1/bookings/offer" \
 -H "Accept: application/json" \
-    -d "offer_id"="sed" \
+    -d "offer_id"="autem" \
 
 ```
 
@@ -435,9 +428,9 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/bookings/offer",
-    "method": "GET",
+    "method": "POST",
     "data": {
-        "offer_id": "sed"
+        "offer_id": "autem"
 },
     "headers": {
         "accept": "application/json"
@@ -449,16 +442,9 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-> Example response:
-
-```json
-null
-```
 
 ### HTTP Request
-`GET api/v1/bookings/offer`
-
-`HEAD api/v1/bookings/offer`
+`POST api/v1/bookings/offer`
 
 #### Parameters
 
@@ -466,9 +452,9 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     offer_id | string |  required  | 
 
-<!-- END_6ca353cc1632f3716d65871b6a5afaf2 -->
+<!-- END_ccae2bc43c728afb3fad076edf07581d -->
 
-<!-- START_eb57c1edfb09bd13659a8f2ae42738ef -->
+<!-- START_f971aa7accf24ee1818700cfe7261ca8 -->
 ## Get all bookings by date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -478,7 +464,7 @@ Returns all bookings made on requested date or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings/date" \
+curl -X POST "http://localhost/api/v1/bookings/date" \
 -H "Accept: application/json" \
     -d "date"="2017-05-06" \
 
@@ -489,7 +475,7 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/bookings/date",
-    "method": "GET",
+    "method": "POST",
     "data": {
         "date": "2017-05-06"
 },
@@ -503,16 +489,9 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-> Example response:
-
-```json
-null
-```
 
 ### HTTP Request
-`GET api/v1/bookings/date`
-
-`HEAD api/v1/bookings/date`
+`POST api/v1/bookings/date`
 
 #### Parameters
 
@@ -520,7 +499,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     date | date |  optional  | Date format: `Y-m-d`
 
-<!-- END_eb57c1edfb09bd13659a8f2ae42738ef -->
+<!-- END_f971aa7accf24ee1818700cfe7261ca8 -->
 
 <!-- START_fb4e1d1bc5aaff8e8302f4528c4b4868 -->
 ## Get all bookings by date
@@ -635,7 +614,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 10:44" \
+    -d "meetup_time"="2017-05-06 12:00" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -655,7 +634,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 10:44",
+        "meetup_time": "2017-05-06 12:00",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -753,7 +732,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 10:44" \
+    -d "meetup_time"="2017-05-06 12:00" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -774,7 +753,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 10:44",
+        "meetup_time": "2017-05-06 12:00",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -857,7 +836,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
 
-<!-- START_28944a9d299f4f4c36cf424b3581a4c3 -->
+<!-- START_30569e3b2242efef78eb4cf6d6b7624c -->
 ## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -867,9 +846,9 @@ Returns all offers belonging to user($id)
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/offers/user" \
+curl -X POST "http://localhost/api/v1/offers/user" \
 -H "Accept: application/json" \
-    -d "user_id"="qui" \
+    -d "user_id"="beatae" \
 
 ```
 
@@ -878,9 +857,9 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/offers/user",
-    "method": "GET",
+    "method": "POST",
     "data": {
-        "user_id": "qui"
+        "user_id": "beatae"
 },
     "headers": {
         "accept": "application/json"
@@ -892,16 +871,9 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-> Example response:
-
-```json
-null
-```
 
 ### HTTP Request
-`GET api/v1/offers/user`
-
-`HEAD api/v1/offers/user`
+`POST api/v1/offers/user`
 
 #### Parameters
 
@@ -909,7 +881,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     user_id | string |  optional  | Only alpha-numeric characters allowed
 
-<!-- END_28944a9d299f4f4c36cf424b3581a4c3 -->
+<!-- END_30569e3b2242efef78eb4cf6d6b7624c -->
 
 <!-- START_51903359edc880348765a2ac1cc68f0d -->
 ## Get offers from Date
@@ -968,7 +940,7 @@ Parameter | Type | Status | Description
 
 <!-- END_51903359edc880348765a2ac1cc68f0d -->
 
-<!-- START_049e68772e382e6ea94e4cf56814b854 -->
+<!-- START_46d6878c9d41ef8eeb99a6dd5085725c -->
 ## Get offers from Date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -981,7 +953,7 @@ Returns all offers on a requested date
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/offers/date" \
+curl -X POST "http://localhost/api/v1/offers/date" \
 -H "Accept: application/json" \
     -d "date"="2017-05-06" \
 
@@ -992,7 +964,7 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/offers/date",
-    "method": "GET",
+    "method": "POST",
     "data": {
         "date": "2017-05-06"
 },
@@ -1006,16 +978,9 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
-> Example response:
-
-```json
-null
-```
 
 ### HTTP Request
-`GET api/v1/offers/date`
-
-`HEAD api/v1/offers/date`
+`POST api/v1/offers/date`
 
 #### Parameters
 
@@ -1023,7 +988,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     date | date |  optional  | Date format: `Y-m-d`
 
-<!-- END_049e68772e382e6ea94e4cf56814b854 -->
+<!-- END_46d6878c9d41ef8eeb99a6dd5085725c -->
 
 <!-- START_45e68fff50bc4fe9f7ac0f0e1133b782 -->
 ## Get nearby offers
