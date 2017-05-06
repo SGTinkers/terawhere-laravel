@@ -33,7 +33,6 @@ class StoreOffer extends JsonRequest
       'end_lat'     => 'required|numeric|between:-90,90',
       'end_lng'     => 'required|numeric|between:-180,180',
       'vacancy'     => 'required|integer',
-      'pref_gender' => 'integer|between:0,1',
     ];
   }
 }

@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
 
 class OfferController extends Controller
 {
-  
+  private $simple = ['meetup_time', 'start_name','end_name','vacancy','status','pref_gender'];
   /**
    * Get all offers
    *
@@ -31,6 +31,16 @@ class OfferController extends Controller
   public function index()
   {
     $offers = Offer::all();
+
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+    
     return response()->json([
       'data' => $offers,
     ], 200);
@@ -53,6 +63,14 @@ class OfferController extends Controller
           'message' => 'Offer does not exist',
         ],
       ], 404);
+    }
+
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
     }
 
     return response()->json([
@@ -139,7 +157,7 @@ class OfferController extends Controller
    * Get offers belonging to a user
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Send a simple = true, to get a summarised version of offer.
    * Returns all offers belonging to user($id)
    *
    */
@@ -152,7 +170,18 @@ class OfferController extends Controller
           'message' => 'User does not have any offers.',
         ],
       ], 404);
-    } else {
+    } 
+    
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+
+    else {
       return response()->json([
         'data' => $offers,
       ], 200);
@@ -162,7 +191,7 @@ class OfferController extends Controller
    * Get Offers from Date
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Send a simple = true, to get a summarised version of offer.
    * Returns all offers on a certain date
    *
    */
@@ -182,17 +211,26 @@ class OfferController extends Controller
           'message' => 'There are no offers on this date.',
         ],
       ], 404);
-    } else {
+    }
+
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+
       return response()->json([
         'data' => $offers,
       ], 200);
-    }
   }
   /**
    * Get offers for today
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Send a simple = true, to get a summarised version of offer.
    * Returns all offers posted today
    *
    */
@@ -212,17 +250,26 @@ class OfferController extends Controller
           'message' => 'There are no offers on this date.',
         ],
       ], 404);
-    } else {
+    }
+    
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+      
       return response()->json([
         'data' => $offers,
       ], 200);
-    }
+    
   }
   /**
    * Get nearby offers
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Send a simple = true, to get a summarised version of offer.
    * Returns all nearby offers (To be optimised)
    *
    */
@@ -245,7 +292,14 @@ class OfferController extends Controller
       $result->push($offer);
       }
     }
-
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
     return $result->all();
   }
 
