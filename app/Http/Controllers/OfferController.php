@@ -22,6 +22,8 @@ class OfferController extends Controller
   /**
    * Get all offers
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return all offers in database
    *
    */
@@ -35,6 +37,8 @@ class OfferController extends Controller
   
   /**
    * Show a single offer
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * @return a single offer from id 
    *
@@ -58,6 +62,8 @@ class OfferController extends Controller
   /**
    * Store an offer
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return Validation errors OR success message w/ data posted
    *
    */
@@ -73,7 +79,9 @@ class OfferController extends Controller
   }
   /**
    * Update an offer
-   * 
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return Success message or 404.
    *
    */
@@ -101,6 +109,8 @@ class OfferController extends Controller
   /**
    * Cancel an offer
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return Success or 404.
    *
    */
@@ -126,6 +136,8 @@ class OfferController extends Controller
   }
   /**
    * Get offers belonging to a user
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * @return all offers belonging to user($id)
    *

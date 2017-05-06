@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,12 @@ Route::group(['prefix' => '/v1'], function () {
   Route::group([
     "middleware" => ['jwt.auth'],
   ], function () {
-    Route::resource('offers', 'OfferController');
-    Route::resource('bookings', 'BookingController');
+    Route::resource('offers', 'OfferController', ['except' => [
+      'create', 'edit',
+    ]]);
+    Route::resource('bookings', 'BookingController', ['except' => [
+      'create', 'edit', 'update',
+    ]]);
 
     Route::get('offers/user/{user}', 'OfferController@getUsersOffers');
     Route::get('bookings/user/{user}', 'BookingController@getUsersBookings');

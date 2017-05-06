@@ -19,6 +19,8 @@ class BookingController extends Controller
   /**
    * Get all bookings
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return all bookings in database
    *
    */
@@ -31,6 +33,8 @@ class BookingController extends Controller
   }
   /**
    * Show a particular booking
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * @return a single booking
    *
@@ -54,6 +58,8 @@ class BookingController extends Controller
 
   /**
    * Store a booking
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * @return Success or error message.
    *
@@ -119,6 +125,8 @@ class BookingController extends Controller
   /**
    * Cancel a booking
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return all offers in database
    *
    */
@@ -144,6 +152,8 @@ class BookingController extends Controller
   /**
    * Get bookings belonging to a user
    *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * @return all bookings made by a user or 404
    *
    */
@@ -167,6 +177,8 @@ class BookingController extends Controller
 
   /**
    * Get all bookings belonging to an offer
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * @return all bookings made to an offer or 404
    *

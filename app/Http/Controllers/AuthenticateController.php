@@ -10,18 +10,39 @@ use JWTAuth;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
+/**
+ * @resource Authentication
+ *
+ * The process flow is as such:
+ *
+ * 1. Mobile App login with Facebook or Google**
+ * 2. Mobile App get the token (from Fb/G)
+ * 3. Send token to server via `/api/v1/auth` endpoint
+ * 4. Then server checks if we already have the user in local db:
+ *  a. If already in, return an auth token
+ *  b. Else, create user, then return an auth token
+ *
+ * The auth token is actually JWT token. Basically, to call an authorised endpoint, include the JWT token in the request header: `Authorization: Bearer [JWTTokenHere]`. The request will pass through if the token is valid. The user can also be identified with the token.
+ *
+ * The token does expire. If server returns `token_expired`, call `/api/v1/auth/refresh` to get a new token. The token is returned in `Authorization` header.
+ *
+ * To get the current logged in user based on the token, call `/api/v1/me`.
+ *
+ * ** Fb uses same client_id/secret, Google might be different. For example, for Android: https://developers.google.com/identity/sign-in/android/start-integrating
+ */
 class AuthenticateController extends Controller
 {
-  /**
-   * Instantiate a new controller instance.
-   *
-   * @return void
-   */
   public function __construct()
   {
     $this->middleware('jwt.refresh')->only('refresh');
   }
 
+  /**
+  * Authenticate User
+  *
+  * Exchanges social network token to JWT bearer token.
+  *
+  */
   public function auth(Authenticate $request)
   {
     $user  = null;
@@ -91,11 +112,25 @@ class AuthenticateController extends Controller
     return response()->json(compact('token', 'user', 'socialUser'));
   }
 
+  /**
+   * Refresh Token
+   *
+   * Call this API to exchange expired (not invalid!) JWT token with a fresh one.
+   *
+   */
   public function refresh()
   {
     return response()->json(["status" => "ok"]);
   }
 
+  /**
+   * Get Authenticated User
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Retrieves the user associated with the JWT token.
+   *
+   */
   public function getAuthenticatedUser()
   {
     $user = Auth::user();
