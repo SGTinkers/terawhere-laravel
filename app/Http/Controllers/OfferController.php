@@ -156,7 +156,7 @@ class OfferController extends Controller
 
     $result = collect([]);
 
-    foreach($offers as offer){
+    foreach($offers as $offer) {
       $dist = $this->haversineGreatCircleDistance($lat, $lng, $offer->start_lat, $offer->start_lng);
       
       if ($dist <= $range){ 
