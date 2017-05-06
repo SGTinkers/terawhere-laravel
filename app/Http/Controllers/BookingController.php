@@ -21,7 +21,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return all bookings in database
+   * Returns all bookings in database
    *
    */
   public function index()
@@ -36,7 +36,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return a single booking
+   * Returns a single booking
    *
    */
   public function show($id)
@@ -61,7 +61,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return Success or error message.
+   * Returns Success or error message.
    *
    */
   public function store(StoreBooking $request)
@@ -127,7 +127,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return all offers in database
+   * Returns all offers in database
    *
    */
   public function destroy($id)
@@ -154,7 +154,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return all bookings made by a user or 404
+   * Returns all bookings made by a user or 404
    *
    */
   public function getUsersBookings($id)
@@ -180,7 +180,7 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return all bookings made to an offer or 404
+   * Returns all bookings made to an offer or 404
    *
    */
   public function getOffersBookings($id)

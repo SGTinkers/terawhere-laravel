@@ -27,7 +27,8 @@ class CreateOffersTable extends Migration
       $table->double('end_lng', 10, 6);
       $table->integer('vacancy'); //number of available spots
       $table->string('remarks')->nullable();
-      $table->integer('pref_gender')->nullable();
+      $table->integer('status')->default(1); //still ongoing?
+      $table->string('pref_gender')->nullable();
       $table->softDeletes();
       $table->timestamps();
     });

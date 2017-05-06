@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetDatesOffers;
 use App\Http\Requests\GetNearbyOffers;
 use App\Http\Requests\StoreOffer;
 use App\Http\Requests\UpdateOffer;
@@ -23,8 +24,8 @@ class OfferController extends Controller
    * Get all offers
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * @return all offers in database
+   * Not recommended for use
+   * Returns ALL offers in database
    *
    */
   public function index()
@@ -39,8 +40,8 @@ class OfferController extends Controller
    * Show a single offer
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * @return a single offer from id 
+   * 
+   * Returns a single offer from offer_id 
    *
    */
   public function show($id)
@@ -64,7 +65,7 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return Validation errors OR success message w/ data posted
+   * Returns Validation errors OR success message w/ data posted
    *
    */
   public function store(StoreOffer $request)
@@ -82,7 +83,7 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return Success message or 404.
+   * Returns success message or 404.
    *
    */
   public function update(UpdateOffer $request, $id)
@@ -111,7 +112,7 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return Success or 404.
+   * Returns Success or 404.
    *
    */
   public function destroy($id)
@@ -139,7 +140,7 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * @return all offers belonging to user($id)
+   * Returns all offers belonging to user($id)
    *
    */
   public function getUsersOffers($id)
@@ -157,7 +158,74 @@ class OfferController extends Controller
       ], 200);
     }
   }
+  /**
+   * Get Offers from Date
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Returns all offers on a certain date
+   *
+   */
+  public function getDatesOffers(GetDatesOffers $request)
+  {
+    $current = $request->date +' 00:00';
+    $next = date('Y-m-d', strtotime('+1 day', $date));
 
+    //get all offers before DATE + 1day at 00:00
+    $offers = Offer::where('created_at', '<', $next)
+              ->where('created_at','>', $current)
+              ->get();
+    
+    if ($offers->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'There are no offers on this date.',
+        ],
+      ], 404);
+    } else {
+      return response()->json([
+        'data' => $offers,
+      ], 200);
+    }
+  }
+  /**
+   * Get offers for today
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Returns all offers posted today
+   *
+   */
+  public function getTodaysOffers()
+  {
+    $current = date('Y-m-d') +' 00:00';
+    $next = date('Y-m-d', strtotime('+1 day', $date));
+
+    //get all offers before DATE + 1day at 00:00
+    $offers = Offer::where('created_at', '<', $next)
+              ->where('created_at','>', $current)
+              ->get();
+    
+    if ($offers->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'There are no offers on this date.',
+        ],
+      ], 404);
+    } else {
+      return response()->json([
+        'data' => $offers,
+      ], 200);
+    }
+  }
+  /**
+   * Get nearby offers
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Returns all nearby offers (To be optimised)
+   *
+   */
   public function getNearby(GetNearbyOffers $request)
   {
     $range = 3959;

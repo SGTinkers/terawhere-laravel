@@ -35,6 +35,9 @@ Route::group(['prefix' => '/v1'], function () {
     ]]);
 
     Route::get('offers/user/{user}', 'OfferController@getUsersOffers');
+    Route::get('offers/today', 'OfferController@getTodaysOffers');
+    Route::get('offers/date/{date}', 'OfferController@getDatesOffers');
+
     Route::get('bookings/user/{user}', 'BookingController@getUsersBookings');
     Route::get('bookings/offer/{offer}', 'BookingController@getOffersBookings');
 
