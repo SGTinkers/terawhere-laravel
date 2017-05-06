@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetNearbyOffers;
 use App\Http\Requests\StoreOffer;
 use App\Http\Requests\UpdateOffer;
 use App\Offer;
