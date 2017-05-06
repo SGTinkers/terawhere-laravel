@@ -67,7 +67,15 @@ class OfferController extends Controller
         ],
       ], 404);
     }
-    
+  //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+
     return response()->json([
       'data' => $offer,
     ], 200);
@@ -86,6 +94,16 @@ class OfferController extends Controller
     $data            = $request->all();
     $data["user_id"] = Auth::user()->id;
     $offer           = Offer::create($data);
+    
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+
     return response()->json([
       'message' => 'Offer added successfully.',
       'data'    => $offer,
