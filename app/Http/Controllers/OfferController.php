@@ -31,7 +31,7 @@ class OfferController extends Controller
    * Returns ALL offers in database
    *
    */
-  public function index()
+  public function index(Request $request)
   {
     $offers = Offer::all();
 
@@ -57,7 +57,7 @@ class OfferController extends Controller
    * Returns a single offer from offer_id 
    *
    */
-  public function show($id)
+  public function show(Request $request, $id)
   {
     $offer = Offer::find($id);
     if (!$offer) {
