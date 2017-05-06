@@ -46,4 +46,4 @@
 - Run `docker-compose run --rm -w /var/www phpfpm bash -c "chmod 777 tools/fmt && tools/fmt"` script before committing to ensure consistency in code formatting
 
 ### Generate Doccumentation
-- Run `docker-compose run --rm -w /var/www phpfpm php artisan api:generate --routePrefix="api/*" --noResponseCalls --header "Authorization: JWTToken" --force`
+- Run `docker-compose run --rm -w /var/www phpfpm php artisan api:generate --routePrefix="api/*" --noResponseCalls --header "Authorization: JWTToken" --force --output docs`
