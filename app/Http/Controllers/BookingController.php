@@ -157,8 +157,14 @@ class BookingController extends Controller
    * Returns all bookings made by a user or 404
    *
    */
-  public function getUsersBookings($id)
+  public function getUsersBookings(GetUserId $request)
   {
+    if(!isset($request->user_id) || empty($request->user_id)){
+        $user_id = Auth::user()->id; //set user id to current user
+    } else {
+        $user_id = $request->user_id;
+    }
+
     $bookings = Booking::where('user_id', $id)->get();
     if ($bookings->isEmpty()) {
       return response()->json([
@@ -183,9 +189,9 @@ class BookingController extends Controller
    * Returns all bookings made to an offer or 404
    *
    */
-  public function getOffersBookings($id)
+  public function getOffersBookings(GetOfferId $request)
   {
-    $bookings = Booking::where('offer_id', $id)->get();
+    $bookings = Booking::where('offer_id', $request->offer_id)->get();
     if ($bookings->isEmpty()) {
       return response()->json([
         'error' => [

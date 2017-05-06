@@ -40,7 +40,7 @@ class OfferController extends Controller
         'data' => $filtered->all(),
       ], 200);
     }
-    
+
     return response()->json([
       'data' => $offers,
     ], 200);
@@ -161,9 +161,17 @@ class OfferController extends Controller
    * Returns all offers belonging to user($id)
    *
    */
-  public function getUsersOffers($id)
+  public function getUsersOffers(GetUserId $request)
   {
-    $offers = Offer::where('user_id', $id)->get();
+    //if user_id not passed (which it shouldn't be anyways)
+    if(!isset($request->user_id) || empty($request->user_id)){
+        $user_id = Auth::user()->id; //set user id to current user
+    } else {
+        $user_id = $request->user_id;
+    }
+
+    $offers = Offer::where('user_id', $user_id)->get();
+    
     if ($offers->isEmpty()) {
       return response()->json([
         'error' => [
