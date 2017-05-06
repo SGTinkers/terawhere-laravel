@@ -67,15 +67,7 @@ class OfferController extends Controller
         ],
       ], 404);
     }
-
-    if ($request->simple == true) {
-      $filtered = $offers->only($simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-
+    
     return response()->json([
       'data' => $offer,
     ], 200);
