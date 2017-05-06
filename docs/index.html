@@ -103,7 +103,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/auth" \
 -H "Accept: application/json" \
     -d "service"="facebook" \
-    -d "token"="tenetur" \
+    -d "token"="in" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -112,7 +112,7 @@ $.ajax(settings).done(function (response) {
     "method": "POST",
     "data": {
         "service": "facebook",
-        "token": "tenetur"
+        "token": "in"
 },
     "headers": {
         "accept": "application/json"
@@ -222,10 +222,10 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
-    -d "offer_id"="89061" \
-    -d "status"="89061" \
-    -d "driver_remarks"="recusandae" \
-    -d "rating"="89061" \
+    -d "offer_id"="3331" \
+    -d "status"="3331" \
+    -d "driver_remarks"="ea" \
+    -d "rating"="3331" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -233,10 +233,10 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 89061,
-        "status": 89061,
-        "driver_remarks": "recusandae",
-        "rating": 89061
+        "offer_id": 3331,
+        "status": 3331,
+        "driver_remarks": "ea",
+        "rating": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -439,17 +439,16 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:33" \
-    -d "start_name"="autem" \
-    -d "start_addr"="autem" \
-    -d "start_lat"="72" \
-    -d "start_lng"="-51" \
-    -d "end_name"="autem" \
-    -d "end_addr"="autem" \
-    -d "end_lat"="72" \
-    -d "end_lng"="-51" \
-    -d "vacancy"="4756018" \
-    -d "pref_gender"="0" \
+    -d "meetup_time"="2017-05-06 09:49" \
+    -d "start_name"="est" \
+    -d "start_addr"="est" \
+    -d "start_lat"="40" \
+    -d "start_lng"="81" \
+    -d "end_name"="est" \
+    -d "end_addr"="est" \
+    -d "end_lat"="40" \
+    -d "end_lng"="81" \
+    -d "vacancy"="8099169" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -457,17 +456,16 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 09:33",
-        "start_name": "autem",
-        "start_addr": "autem",
-        "start_lat": 72,
-        "start_lng": -51,
-        "end_name": "autem",
-        "end_addr": "autem",
-        "end_lat": 72,
-        "end_lng": -51,
-        "vacancy": 4756018,
-        "pref_gender": 0
+        "meetup_time": "2017-05-06 09:49",
+        "start_name": "est",
+        "start_addr": "est",
+        "start_lat": 40,
+        "start_lng": 81,
+        "end_name": "est",
+        "end_addr": "est",
+        "end_lat": 40,
+        "end_lng": 81,
+        "vacancy": 8099169
 },
     "headers": {
         "accept": "application/json"
@@ -545,12 +543,6 @@ $.ajax(settings).done(function (response) {
 <td>integer</td>
 <td>required</td>
 </tr>
-<tr>
-<td>pref_gender</td>
-<td>integer</td>
-<td>optional</td>
-<td>Between: <code>0</code> and <code>1</code></td>
-</tr>
 </tbody>
 </table>
 <!-- END_71db7b33ed071496bd705bd76a713caa -->
@@ -593,16 +585,16 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:33" \
+    -d "meetup_time"="2017-05-06 09:49" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
-    -d "start_lat"="34" \
-    -d "start_lng"="-56" \
+    -d "start_lat"="-64" \
+    -d "start_lng"="-127" \
     -d "end_name"="ratione" \
     -d "end_addr"="ratione" \
-    -d "end_lat"="34" \
-    -d "end_lng"="-56" \
-    -d "vacancy"="4379" \
+    -d "end_lat"="-64" \
+    -d "end_lng"="-127" \
+    -d "vacancy"="97" \
     -d "pref_gender"="0" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
@@ -611,16 +603,16 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 09:33",
+        "meetup_time": "2017-05-06 09:49",
         "start_name": "ratione",
         "start_addr": "ratione",
-        "start_lat": 34,
-        "start_lng": -56,
+        "start_lat": -64,
+        "start_lng": -127,
         "end_name": "ratione",
         "end_addr": "ratione",
-        "end_lat": 34,
-        "end_lng": -56,
-        "vacancy": 4379,
+        "end_lat": -64,
+        "end_lng": -127,
+        "vacancy": 97,
         "pref_gender": 0
 },
     "headers": {
@@ -736,8 +728,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
 <!-- START_e007a13211fde8930df11d40d3f826e3 -->
 <h2>Get offers belonging to a user</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns all offers belonging to user($id)</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
+Send a simple = true, to get a summarised version of offer.
+Returns all offers belonging to user($id)</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -766,8 +759,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_e007a13211fde8930df11d40d3f826e3 -->
 <!-- START_51903359edc880348765a2ac1cc68f0d -->
 <h2>Get offers for today</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns all offers posted today</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
+Send a simple = true, to get a summarised version of offer.
+Returns all offers posted today</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -796,8 +790,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_51903359edc880348765a2ac1cc68f0d -->
 <!-- START_beaa6297889e073102a2a5fd6637c11a -->
 <h2>Get Offers from Date</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns all offers on a certain date</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
+Send a simple = true, to get a summarised version of offer.
+Returns all offers on a certain date</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -850,16 +845,17 @@ $.ajax(settings).done(function (response) {
 <!-- END_beaa6297889e073102a2a5fd6637c11a -->
 <!-- START_45e68fff50bc4fe9f7ac0f0e1133b782 -->
 <h2>Get nearby offers</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns all nearby offers (To be optimised)</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
+Send a simple = true, to get a summarised version of offer.
+Returns all nearby offers (To be optimised)</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers/nearby" \
 -H "Accept: application/json" \
-    -d "lat"="-37" \
-    -d "lng"="-146" \
-    -d "range"="7" \
+    -d "lat"="57" \
+    -d "lng"="114" \
+    -d "range"="97902018" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -867,9 +863,9 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/nearby",
     "method": "POST",
     "data": {
-        "lat": -37,
-        "lng": -146,
-        "range": 7
+        "lat": 57,
+        "lng": 114,
+        "range": 97902018
 },
     "headers": {
         "accept": "application/json"

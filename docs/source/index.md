@@ -13,6 +13,7 @@ toc_footers:
 - <a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a>
 ---
 <!-- START_INFO -->
+
 # Info
 
 Welcome to the generated API reference.
@@ -94,7 +95,7 @@ Exchanges social network token to JWT bearer token.
 curl -X POST "http://localhost/api/v1/auth" \
 -H "Accept: application/json" \
     -d "service"="facebook" \
-    -d "token"="tenetur" \
+    -d "token"="in" \
 
 ```
 
@@ -106,7 +107,7 @@ var settings = {
     "method": "POST",
     "data": {
         "service": "facebook",
-        "token": "tenetur"
+        "token": "in"
 },
     "headers": {
         "accept": "application/json"
@@ -234,10 +235,10 @@ Returns Success or error message.
 ```bash
 curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
-    -d "offer_id"="89061" \
-    -d "status"="89061" \
-    -d "driver_remarks"="recusandae" \
-    -d "rating"="89061" \
+    -d "offer_id"="3331" \
+    -d "status"="3331" \
+    -d "driver_remarks"="ea" \
+    -d "rating"="3331" \
 
 ```
 
@@ -248,10 +249,10 @@ var settings = {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 89061,
-        "status": 89061,
-        "driver_remarks": "recusandae",
-        "rating": 89061
+        "offer_id": 3331,
+        "status": 3331,
+        "driver_remarks": "ea",
+        "rating": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -506,17 +507,16 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:33" \
-    -d "start_name"="autem" \
-    -d "start_addr"="autem" \
-    -d "start_lat"="72" \
-    -d "start_lng"="-51" \
-    -d "end_name"="autem" \
-    -d "end_addr"="autem" \
-    -d "end_lat"="72" \
-    -d "end_lng"="-51" \
-    -d "vacancy"="4756018" \
-    -d "pref_gender"="0" \
+    -d "meetup_time"="2017-05-06 09:49" \
+    -d "start_name"="est" \
+    -d "start_addr"="est" \
+    -d "start_lat"="40" \
+    -d "start_lng"="81" \
+    -d "end_name"="est" \
+    -d "end_addr"="est" \
+    -d "end_lat"="40" \
+    -d "end_lng"="81" \
+    -d "vacancy"="8099169" \
 
 ```
 
@@ -527,17 +527,16 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-06 09:33",
-        "start_name": "autem",
-        "start_addr": "autem",
-        "start_lat": 72,
-        "start_lng": -51,
-        "end_name": "autem",
-        "end_addr": "autem",
-        "end_lat": 72,
-        "end_lng": -51,
-        "vacancy": 4756018,
-        "pref_gender": 0
+        "meetup_time": "2017-05-06 09:49",
+        "start_name": "est",
+        "start_addr": "est",
+        "start_lat": 40,
+        "start_lng": 81,
+        "end_name": "est",
+        "end_addr": "est",
+        "end_lat": 40,
+        "end_lng": 81,
+        "vacancy": 8099169
 },
     "headers": {
         "accept": "application/json"
@@ -567,7 +566,6 @@ Parameter | Type | Status | Description
     end_lat | numeric |  required  | Between: `-90` and `90`
     end_lng | numeric |  required  | Between: `-180` and `180`
     vacancy | integer |  required  | 
-    pref_gender | integer |  optional  | Between: `0` and `1`
 
 <!-- END_71db7b33ed071496bd705bd76a713caa -->
 
@@ -627,16 +625,16 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-06 09:33" \
+    -d "meetup_time"="2017-05-06 09:49" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
-    -d "start_lat"="34" \
-    -d "start_lng"="-56" \
+    -d "start_lat"="-64" \
+    -d "start_lng"="-127" \
     -d "end_name"="ratione" \
     -d "end_addr"="ratione" \
-    -d "end_lat"="34" \
-    -d "end_lng"="-56" \
-    -d "vacancy"="4379" \
+    -d "end_lat"="-64" \
+    -d "end_lng"="-127" \
+    -d "vacancy"="97" \
     -d "pref_gender"="0" \
 
 ```
@@ -648,16 +646,16 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-06 09:33",
+        "meetup_time": "2017-05-06 09:49",
         "start_name": "ratione",
         "start_addr": "ratione",
-        "start_lat": 34,
-        "start_lng": -56,
+        "start_lat": -64,
+        "start_lng": -127,
         "end_name": "ratione",
         "end_addr": "ratione",
-        "end_lat": 34,
-        "end_lng": -56,
-        "vacancy": 4379,
+        "end_lat": -64,
+        "end_lng": -127,
+        "vacancy": 97,
         "pref_gender": 0
 },
     "headers": {
@@ -735,7 +733,7 @@ $.ajax(settings).done(function (response) {
 ## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Send a simple = true, to get a summarised version of offer.
 Returns all offers belonging to user($id)
 
 > Example request:
@@ -779,7 +777,7 @@ null
 ## Get offers for today
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Send a simple = true, to get a summarised version of offer.
 Returns all offers posted today
 
 > Example request:
@@ -823,7 +821,7 @@ null
 ## Get Offers from Date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Send a simple = true, to get a summarised version of offer.
 Returns all offers on a certain date
 
 > Example request:
@@ -877,7 +875,7 @@ Parameter | Type | Status | Description
 ## Get nearby offers
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Send a simple = true, to get a summarised version of offer.
 Returns all nearby offers (To be optimised)
 
 > Example request:
@@ -885,9 +883,9 @@ Returns all nearby offers (To be optimised)
 ```bash
 curl -X POST "http://localhost/api/v1/offers/nearby" \
 -H "Accept: application/json" \
-    -d "lat"="-37" \
-    -d "lng"="-146" \
-    -d "range"="7" \
+    -d "lat"="57" \
+    -d "lng"="114" \
+    -d "range"="97902018" \
 
 ```
 
@@ -898,9 +896,9 @@ var settings = {
     "url": "http://localhost/api/v1/offers/nearby",
     "method": "POST",
     "data": {
-        "lat": -37,
-        "lng": -146,
-        "range": 7
+        "lat": 57,
+        "lng": 114,
+        "range": 97902018
 },
     "headers": {
         "accept": "application/json"
