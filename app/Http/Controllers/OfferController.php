@@ -166,48 +166,7 @@ class OfferController extends Controller
     ]);
 
   }
-  /**
-   * Get offers belonging to a user
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   * Send a simple = true, to get a summarised version of offer.
-   * Returns all offers belonging to user($id)
-   *
-   */
-  public function getUsersOffers(GetUserId $request)
-  {
-    //if user_id not passed (which it shouldn't be anyways)
-    if(!isset($request->user_id) || empty($request->user_id)){
-        $user_id = Auth::user()->id; //set user id to current user
-    } else {
-        $user_id = $request->user_id;
-    }
 
-    $offers = Offer::where('user_id', $user_id)->get();
-    
-    if ($offers->isEmpty()) {
-      return response()->json([
-        'error' => [
-          'message' => 'User does not have any offers.',
-        ],
-      ], 404);
-    } 
-    
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-
-    else {
-      return response()->json([
-        'data' => $offers,
-      ], 200);
-    }
-  }
   /**
    * Get offers from Date
    *
@@ -256,7 +215,48 @@ class OfferController extends Controller
         'data' => $offers,
       ], 200);
   }
+  /**
+   * Get offers belonging to a user
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   * Send a simple = true, to get a summarised version of offer.
+   * Returns all offers belonging to user($id)
+   *
+   */
+  public function getUsersOffers(GetUserId $request, $id)
+  {
+    //if user_id not passed (which it shouldn't be anyways)
+    if(!isset($request->user_id) || empty($request->user_id)){
+        $user_id = Auth::user()->id; //set user id to current user
+    } else {
+        $user_id = $request->user_id;
+    }
 
+    $offers = Offer::where('user_id', $user_id)->get();
+    
+    if ($offers->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'User does not have any offers.',
+        ],
+      ], 404);
+    } 
+    
+    //if simple tag is set, only return certain fields
+    if ($request->simple == true) {
+      $filtered = $offers->only($this->simple);
+      
+      return response()->json([
+        'data' => $filtered->all(),
+      ], 200);
+    }
+
+    else {
+      return response()->json([
+        'data' => $offers,
+      ], 200);
+    }
+  }
   /**
    * Get nearby offers
    *

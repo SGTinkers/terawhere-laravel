@@ -34,17 +34,14 @@ Route::group(['prefix' => '/v1'], function () {
       'create', 'edit', 'update',
     ]]);
 
-    Route::post('offers/user', 'OfferController@getUsersOffers'); 
-    Route::get('offers/today', 'OfferController@getDatesOffers');
-    Route::post('offers/date', 'OfferController@getDatesOffers');
+    Route::get('offers-for-users', 'OfferController@getUsersOffers'); 
+    Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
+    Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
-    Route::post('bookings/user', 'BookingController@getUsersBookings');
-    Route::post('bookings/offer', 'BookingController@getOffersBookings');
-    Route::post('bookings/date', 'BookingController@getDatesBookings'); //get date's bookings
-    Route::get('bookings/today', 'BookingController@getDatesBookings'); //get date's bookings
-
-    Route::post('offers/nearby', 'OfferController@getNearby'); //POST the coords and return nearby offers
-
+    Route::get('bookings-for-users', 'BookingController@getUsersBookings');
+    Route::get('bookings-for-offer', 'BookingController@getOffersBookings'); 
+    Route::post('bookings-for-date', 'BookingController@getDatesBookings'); //get date's bookings
+     
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
   });
 

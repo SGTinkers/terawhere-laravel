@@ -152,7 +152,31 @@ class BookingController extends Controller
       'data'    => $booking,
     ]);
   }
+
   /**
+   * Get all bookings belonging to an offer
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   * Returns all bookings made to an offer or 404
+   *
+   */
+  public function getOffersBookings(GetOfferId $request)
+  {
+    $bookings = Booking::where('offer_id', $request->offer_id)->get();
+    if ($bookings->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'Selected offer does not have any bookings.',
+        ],
+      ], 404);
+    }
+    return response()->json([
+      'count' => count($bookings),
+      'data'  => $bookings,
+    ], 200);
+  }
+   /**
    * Get bookings belonging to a user
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -183,31 +207,6 @@ class BookingController extends Controller
     ], 200);
 
   }
-
-  /**
-   * Get all bookings belonging to an offer
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * Returns all bookings made to an offer or 404
-   *
-   */
-  public function getOffersBookings(GetOfferId $request)
-  {
-    $bookings = Booking::where('offer_id', $request->offer_id)->get();
-    if ($bookings->isEmpty()) {
-      return response()->json([
-        'error' => [
-          'message' => 'Selected offer does not have any bookings.',
-        ],
-      ], 404);
-    }
-    return response()->json([
-      'count' => count($bookings),
-      'data'  => $bookings,
-    ], 200);
-  }
-
    /**
    * Get all bookings by date
    *
