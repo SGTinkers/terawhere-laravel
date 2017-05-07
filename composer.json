@@ -12,6 +12,7 @@
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "latrell/geohash": "dev-master",
         "mpociot/laravel-apidoc-generator": "^2.0",
         "tymon/jwt-auth": "0.5.*"
     },

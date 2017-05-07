@@ -28,7 +28,7 @@ Route::group(['prefix' => '/v1'], function () {
     "middleware" => ['jwt.auth'],
   ], function () {
     Route::get('offers-for-user', 'OfferController@getUsersOffers'); //get offers by user
-    Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
+    Route::post('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
     Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
     Route::get('bookings-for-user', 'BookingController@getUsersBookings'); //get bookings by user
@@ -41,7 +41,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::resource('bookings', 'BookingController', ['except' => [
       'create', 'edit', 'update',
     ]]);
-    
+
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
   });
 
