@@ -204,7 +204,8 @@ class BookingController extends Controller
       $current = $request->date .' 00:00'; //set to requested date
     }
 
-    $next = date('Y-m-d', strtotime('+1 day', $current));
+    $current1 = str_replace('-', '/', $current);
+    $next = date('Y-m-d', strtotime($current1 .'+1 day'));
     //get all offers before DATE + 1day at 00:00
     $bookings = Booking::where('created_at', '<', $next)
               ->where('created_at','>', $current)
