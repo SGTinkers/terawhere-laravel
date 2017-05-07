@@ -29,6 +29,9 @@ class CreateOffersTable extends Migration
       $table->string('remarks')->nullable();
       $table->integer('status')->default(1); //still ongoing?
       $table->string('pref_gender')->nullable();
+      $table->string('vehicle_number');
+      $table->string('vehicle_desc')->nullable();
+      $table->string('vehicle_model');
       $table->softDeletes();
       $table->timestamps();
     });

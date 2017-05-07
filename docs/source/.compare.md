@@ -575,7 +575,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 04:09" \
+    -d "meetup_time"="2017-05-07 05:18" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -585,6 +585,12 @@ curl -X POST "http://localhost/api/v1/offers" \
     -d "end_lat"="40" \
     -d "end_lng"="81" \
     -d "vacancy"="8099169" \
+    -d "remarks"="est" \
+    -d "status"="8099169" \
+    -d "pref_gender"="female" \
+    -d "vehicle_number"="est" \
+    -d "vehicle_desc"="est" \
+    -d "vehicle_model"="est" \
 
 ```
 
@@ -595,7 +601,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 04:09",
+        "meetup_time": "2017-05-07 05:18",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -604,7 +610,13 @@ var settings = {
         "end_addr": "est",
         "end_lat": 40,
         "end_lng": 81,
-        "vacancy": 8099169
+        "vacancy": 8099169,
+        "remarks": "est",
+        "status": 8099169,
+        "pref_gender": "female",
+        "vehicle_number": "est",
+        "vehicle_desc": "est",
+        "vehicle_model": "est"
 },
     "headers": {
         "accept": "application/json"
@@ -634,6 +646,12 @@ Parameter | Type | Status | Description
     end_lat | numeric |  required  | Between: `-90` and `90`
     end_lng | numeric |  required  | Between: `-180` and `180`
     vacancy | integer |  required  | 
+    remarks | string |  optional  | 
+    status | integer |  optional  | 
+    pref_gender | string |  optional  | `male` or `female`
+    vehicle_number | string |  required  | 
+    vehicle_desc | string |  optional  | 
+    vehicle_model | string |  required  | 
 
 <!-- END_71db7b33ed071496bd705bd76a713caa -->
 
@@ -693,7 +711,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 04:09" \
+    -d "meetup_time"="2017-05-07 05:18" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -714,7 +732,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 04:09",
+        "meetup_time": "2017-05-07 05:18",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,

@@ -33,6 +33,12 @@ class StoreOffer extends JsonRequest
       'end_lat'     => 'required|numeric|between:-90,90',
       'end_lng'     => 'required|numeric|between:-180,180',
       'vacancy'     => 'required|integer',
+      'remarks'     => 'nullable',
+      'status'      => 'nullable|integer',
+      'pref_gender' => 'nullable|in:male,female',
+      'vehicle_number'=> 'required|alphanum',
+      'vehicle_desc'=> 'nullable',
+      'vehicle_model'=>'required',
     ];
   }
 }
