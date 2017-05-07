@@ -60,7 +60,7 @@ class BookingController extends Controller
   }
 
   /**
-   * Store a booking
+   * Create a booking
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
@@ -88,6 +88,8 @@ class BookingController extends Controller
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
     $dailyLimit     = 3; //SET DAILY BOOKING LIMIT HERE
 
+    $usersBookings   = Booking::where('user_id', Auth::user()->id)->get();
+
     if (count($bookings) >= $offer->vacancy) {
       return response()->json([
         'error' => [
@@ -105,6 +107,14 @@ class BookingController extends Controller
           ],
         ], 422);
       }
+    }
+
+    if(count($usersBookings) > 1){
+      return response()->json([
+          'error' => [
+            'message' => 'You already have an active booking.',
+          ],
+        ], 422);
     }
 
     foreach ($todaysBookings as $booking) {
