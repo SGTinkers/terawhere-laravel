@@ -156,6 +156,7 @@ class OfferController extends Controller
         ],
       ], 404);
     }
+    $offer->status = 0;
     $offer->delete(); //offer is soft deleted.
 
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
@@ -183,15 +184,15 @@ class OfferController extends Controller
 
     //if no date requested, set to today's date
     if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d') .' 00:00';
+      $current = date('Y-m-d');
     }else{
-      $current = $request->date .' 00:00'; //set to requested date
+      $current = $request->date; //set to requested date
     }
-    $current1 = str_replace('-', '/', $current);
-    $next = date('Y-m-d', strtotime($current1 .'+1 day'));
+
+    $next = date('Y-m-d', strtotime($current .' +1 day'));
     //get all offers before DATE + 1day at 00:00
     $offers = Offer::where('created_at', '<', $next)
-              ->where('created_at','>', $current)
+              ->where('created_at','>=', $current)
               ->get();
     
     if ($offers->isEmpty()) {

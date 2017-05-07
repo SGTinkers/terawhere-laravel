@@ -86,9 +86,8 @@ class BookingController extends Controller
     $bookings       = Booking::where('offer_id', $data->offer_id)->get();
     $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
-    $dailyLimit     = 3; //SET DAILY BOOKING LIMIT HERE
 
-    $usersBookings   = Booking::where('user_id', Auth::user()->id)->get();
+    $usersBookings  = Booking::where('user_id', Auth::user()->id)->get();
 
     if (count($bookings) >= $offer->vacancy) {
       return response()->json([
@@ -112,19 +111,9 @@ class BookingController extends Controller
     if(count($usersBookings) > 1){
       return response()->json([
           'error' => [
-            'message' => 'You already have an active booking.',
+            'message' => 'User already have an active booking.',
           ],
         ], 422);
-    }
-
-    foreach ($todaysBookings as $booking) {
-      if (count($booking->user_id) >= $dailyLimit) {
-        return response()->json([
-          'error' => [
-            'message' => 'User has reached daily booking limit.',
-          ],
-        ], 422);
-      }
     }
 
     $booking = Booking::create($data);
@@ -139,8 +128,7 @@ class BookingController extends Controller
    * Cancel a booking
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * Returns all offers in database
+   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
    *
    */
   public function destroy($id)
@@ -153,6 +141,7 @@ class BookingController extends Controller
         ],
       ], 404);
     }
+    $booking->status = 0;
     $booking->delete(); //booking is soft deleted.
 
     //Aziz: To add push notif here to tell driver that booking is cancelled.
@@ -199,16 +188,15 @@ class BookingController extends Controller
   { 
     //if no date requested, set to today's date
     if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d') .' 00:00';
+      $current = date('Y-m-d');
     }else{
-      $current = $request->date .' 00:00'; //set to requested date
+      $current = $request->date; //set to requested date
     }
 
-    $current1 = str_replace('-', '/', $current);
-    $next = date('Y-m-d', strtotime($current1 .'+1 day'));
+    $next = date('Y-m-d', strtotime($current .' +1 day'));
     //get all offers before DATE + 1day at 00:00
     $bookings = Booking::where('created_at', '<', $next)
-              ->where('created_at','>', $current)
+              ->where('created_at','>=', $current)
               ->get();
     
     if ($bookings->isEmpty()) {
@@ -222,4 +210,38 @@ class BookingController extends Controller
         'data' => $bookings,
       ], 200);
   }
+/**
+   * Get offers belonging to a user
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   * Send a simple = true, to get a summarised version of offer.
+   * Returns all offers belonging to user($id)
+   *
+   */
+  public function getUsersBookings(GetUserId $request)
+  {
+    //if user_id not passed (which it shouldn't be anyways)
+    if(!isset($request->user_id) || empty($request->user_id)){
+        $user_id = Auth::user()->id; //set user id to current user
+    } else {
+        $user_id = $request->user_id;
+    }
+
+    $bookings = Bookings::withTrashed()->where('user_id', $user_id)->get();
+    
+    if ($offers->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'User does not have any offers.',
+        ],
+      ], 404);
+    }
+
+    else {
+      return response()->json([
+        'data' => $offers,
+      ], 200);
+    }
+  }
+
 }

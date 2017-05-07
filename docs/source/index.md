@@ -15,6 +15,7 @@ toc_footers:
 <!-- START_INFO -->
 
 
+
 # Info
 
 Welcome to the generated API reference.
@@ -137,7 +138,7 @@ Parameter | Type | Status | Description
 ## Refresh Token
 
 * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Check Authorization header for new token.
 Call this API to exchange expired (not invalid!) JWT token with a fresh one.
 
 > Example request:
@@ -180,193 +181,12 @@ null
 #Booking
 
 All bookings by passengers are handled here.
-<!-- START_7af9cd11c6f570507128bd47a1d55065 -->
-## Get all bookings
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns all bookings in database
-
-> Example request:
-
-```bash
-curl -X GET "http://localhost/api/v1/bookings" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings",
-    "method": "GET",
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-null
-```
-
-### HTTP Request
-`GET api/v1/bookings`
-
-`HEAD api/v1/bookings`
-
-
-<!-- END_7af9cd11c6f570507128bd47a1d55065 -->
-
-<!-- START_41753c028e1df09b77faeaf7ff5e25a8 -->
-## Store a booking
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns Success or error message.
-
-> Example request:
-
-```bash
-curl -X POST "http://localhost/api/v1/bookings" \
--H "Accept: application/json" \
-    -d "offer_id"="3331" \
-    -d "status"="3331" \
-    -d "driver_remarks"="ea" \
-    -d "rating"="3331" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings",
-    "method": "POST",
-    "data": {
-        "offer_id": 3331,
-        "status": 3331,
-        "driver_remarks": "ea",
-        "rating": 3331
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/v1/bookings`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    offer_id | integer |  required  | 
-    status | integer |  required  | 
-    driver_remarks | string |  required  | 
-    rating | integer |  required  | 
-
-<!-- END_41753c028e1df09b77faeaf7ff5e25a8 -->
-
-<!-- START_4ca735a4e89ef20a2ee31f04d7ee721d -->
-## Show a particular booking
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns a single booking
-
-> Example request:
-
-```bash
-curl -X GET "http://localhost/api/v1/bookings/{booking}" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings/{booking}",
-    "method": "GET",
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-null
-```
-
-### HTTP Request
-`GET api/v1/bookings/{booking}`
-
-`HEAD api/v1/bookings/{booking}`
-
-
-<!-- END_4ca735a4e89ef20a2ee31f04d7ee721d -->
-
-<!-- START_039cecacf2fd8264a352659da305ac9a -->
-## Cancel a booking
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns all offers in database
-
-> Example request:
-
-```bash
-curl -X DELETE "http://localhost/api/v1/bookings/{booking}" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings/{booking}",
-    "method": "DELETE",
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`DELETE api/v1/bookings/{booking}`
-
-
-<!-- END_039cecacf2fd8264a352659da305ac9a -->
-
 <!-- START_1b3f4e11da19ca4099a0cff58be9537d -->
-## Get bookings belonging to a user
+## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns all bookings made by a user or 404
+Send a simple = true, to get a summarised version of offer.
+Returns all offers belonging to user($id)
 
 > Example request:
 
@@ -516,9 +336,346 @@ Parameter | Type | Status | Description
 
 <!-- END_abeb5d226fea74a2bc9457e61c349a21 -->
 
+<!-- START_7af9cd11c6f570507128bd47a1d55065 -->
+## Get all bookings
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns all bookings in database
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/bookings" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/bookings`
+
+`HEAD api/v1/bookings`
+
+
+<!-- END_7af9cd11c6f570507128bd47a1d55065 -->
+
+<!-- START_41753c028e1df09b77faeaf7ff5e25a8 -->
+## Create a booking
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns Success or error message.
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/bookings" \
+-H "Accept: application/json" \
+    -d "offer_id"="3331" \
+    -d "status"="3331" \
+    -d "driver_remarks"="ea" \
+    -d "rating"="3331" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings",
+    "method": "POST",
+    "data": {
+        "offer_id": 3331,
+        "status": 3331,
+        "driver_remarks": "ea",
+        "rating": 3331
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/bookings`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    offer_id | integer |  required  | 
+    status | integer |  required  | 
+    driver_remarks | string |  required  | 
+    rating | integer |  required  | 
+
+<!-- END_41753c028e1df09b77faeaf7ff5e25a8 -->
+
+<!-- START_4ca735a4e89ef20a2ee31f04d7ee721d -->
+## Show a particular booking
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+Returns a single booking
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/bookings/{booking}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings/{booking}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/bookings/{booking}`
+
+`HEAD api/v1/bookings/{booking}`
+
+
+<!-- END_4ca735a4e89ef20a2ee31f04d7ee721d -->
+
+<!-- START_039cecacf2fd8264a352659da305ac9a -->
+## Cancel a booking
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+
+> Example request:
+
+```bash
+curl -X DELETE "http://localhost/api/v1/bookings/{booking}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/bookings/{booking}",
+    "method": "DELETE",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/v1/bookings/{booking}`
+
+
+<!-- END_039cecacf2fd8264a352659da305ac9a -->
+
 #Offer
 
 All offers by drivers are handled here.
+<!-- START_4c83e6d62d6e132846ce0b74ca077846 -->
+## Get offers belonging to a user
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Send a simple = true, to get a summarised version of offer.
+Returns all offers belonging to user($id)
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/offers-for-user" \
+-H "Accept: application/json" \
+    -d "user_id"="velit" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/offers-for-user",
+    "method": "GET",
+    "data": {
+        "user_id": "velit"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/offers-for-user`
+
+`HEAD api/v1/offers-for-user`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
+
+<!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
+
+<!-- START_2dff4a59c554a92b977a2b056d1e87c6 -->
+## Get offers from Date
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Send a simple = true, to get a summarised version of offer.
+
+If no date given, today's date is used.
+
+Returns all offers on a requested date
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/offers-for-date" \
+-H "Accept: application/json" \
+    -d "date"="2017-05-07" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/offers-for-date",
+    "method": "POST",
+    "data": {
+        "date": "2017-05-07"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/offers-for-date`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    date | date |  optional  | Date format: `Y-m-d`
+
+<!-- END_2dff4a59c554a92b977a2b056d1e87c6 -->
+
+<!-- START_19a81fab66403a93c1f7cdf329c755f7 -->
+## Get nearby offers
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+Send a simple = true, to get a summarised version of offer.
+Returns all nearby offers (To be optimised)
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/nearby-offers" \
+-H "Accept: application/json" \
+    -d "lat"="15" \
+    -d "lng"="31" \
+    -d "range"="398446" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/nearby-offers",
+    "method": "POST",
+    "data": {
+        "lat": 15,
+        "lng": 31,
+        "range": 398446
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/nearby-offers`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lat | numeric |  required  | Between: `-90` and `90`
+    lng | numeric |  required  | Between: `-180` and `180`
+    range | numeric |  required  | 
+
+<!-- END_19a81fab66403a93c1f7cdf329c755f7 -->
+
 <!-- START_c233fc34839427dff7ef9ad7c3821ae3 -->
 ## Get all offers
 
@@ -575,7 +732,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 05:18" \
+    -d "meetup_time"="2017-05-07 14:13" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -601,7 +758,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 05:18",
+        "meetup_time": "2017-05-07 14:13",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -711,7 +868,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 05:18" \
+    -d "meetup_time"="2017-05-07 14:13" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -732,7 +889,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 05:18",
+        "meetup_time": "2017-05-07 14:13",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -814,168 +971,4 @@ $.ajax(settings).done(function (response) {
 
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
-
-<!-- START_4c83e6d62d6e132846ce0b74ca077846 -->
-## Get offers belonging to a user
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Send a simple = true, to get a summarised version of offer.
-Returns all offers belonging to user($id)
-
-> Example request:
-
-```bash
-curl -X GET "http://localhost/api/v1/offers-for-user" \
--H "Accept: application/json" \
-    -d "user_id"="velit" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/offers-for-user",
-    "method": "GET",
-    "data": {
-        "user_id": "velit"
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-null
-```
-
-### HTTP Request
-`GET api/v1/offers-for-user`
-
-`HEAD api/v1/offers-for-user`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    user_id | string |  optional  | Only alpha-numeric characters allowed
-
-<!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
-
-<!-- START_1233e19349dd4db04ed6eb6513e9dd9d -->
-## Get offers from Date
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Send a simple = true, to get a summarised version of offer.
-
-If no date given, today's date is used.
-
-Returns all offers on a requested date
-
-> Example request:
-
-```bash
-curl -X GET "http://localhost/api/v1/offers-for-date" \
--H "Accept: application/json" \
-    -d "date"="2017-05-07" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/offers-for-date",
-    "method": "GET",
-    "data": {
-        "date": "2017-05-07"
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-> Example response:
-
-```json
-null
-```
-
-### HTTP Request
-`GET api/v1/offers-for-date`
-
-`HEAD api/v1/offers-for-date`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    date | date |  optional  | Date format: `Y-m-d`
-
-<!-- END_1233e19349dd4db04ed6eb6513e9dd9d -->
-
-<!-- START_19a81fab66403a93c1f7cdf329c755f7 -->
-## Get nearby offers
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Send a simple = true, to get a summarised version of offer.
-Returns all nearby offers (To be optimised)
-
-> Example request:
-
-```bash
-curl -X POST "http://localhost/api/v1/nearby-offers" \
--H "Accept: application/json" \
-    -d "lat"="15" \
-    -d "lng"="31" \
-    -d "range"="398446" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/nearby-offers",
-    "method": "POST",
-    "data": {
-        "lat": 15,
-        "lng": 31,
-        "range": 398446
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/v1/nearby-offers`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    lat | numeric |  required  | Between: `-90` and `90`
-    lng | numeric |  required  | Between: `-180` and `180`
-    range | numeric |  required  | 
-
-<!-- END_19a81fab66403a93c1f7cdf329c755f7 -->
 

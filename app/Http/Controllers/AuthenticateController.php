@@ -123,7 +123,7 @@ class AuthenticateController extends Controller
    * Refresh Token
    *
    * * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Check Authorization header for new token.
    * Call this API to exchange expired (not invalid!) JWT token with a fresh one.
    *
    */
