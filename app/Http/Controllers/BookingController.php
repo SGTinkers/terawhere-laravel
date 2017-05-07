@@ -163,6 +163,16 @@ class BookingController extends Controller
   public function getOffersBookings(GetOfferId $request)
   {
     $bookings = Booking::where('offer_id', $request->offer_id)->get();
+    $offers   = Offer::where('id', $request->offer_id)->get();
+
+    if ($offers->isEmpty()) {
+      return response()->json([
+        'error' => [
+          'message' => 'Selected offer does not exist.',
+        ],
+      ], 404);
+    }
+
     if ($bookings->isEmpty()) {
       return response()->json([
         'error' => [
@@ -170,6 +180,7 @@ class BookingController extends Controller
         ],
       ], 404);
     }
+    
     return response()->json([
       'count' => count($bookings),
       'data'  => $bookings,
@@ -229,7 +240,7 @@ class BookingController extends Controller
 
     $bookings = Bookings::withTrashed()->where('user_id', $user_id)->get();
     
-    if ($offers->isEmpty()) {
+    if ($bookings->isEmpty()) {
       return response()->json([
         'error' => [
           'message' => 'User does not have any offers.',
