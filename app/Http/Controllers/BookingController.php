@@ -72,8 +72,8 @@ class BookingController extends Controller
     //BUSINESS LOGIC FOR BOOKING-OFFER RELATION
 
     $data            = $request->all();
-    $data["user_id"] = Auth::user()->id;
-    $offer           = Offer::where('id', $data->offer_id)->first();
+    $data['user_id'] = Auth::user()->id;
+    $offer           = Offer::where('id', $data->offer_id)->first(); //get offer
 
     if (!$offer) {
       return response()->json([
@@ -84,7 +84,7 @@ class BookingController extends Controller
     }
 
     $bookings       = Booking::where('offer_id', $data->offer_id)->get();
-    $dateToday      = date(Y - m - d)+'23:59'; //inclusive of
+    $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
     $dailyLimit     = 3; //SET DAILY BOOKING LIMIT HERE
 
@@ -176,37 +176,7 @@ class BookingController extends Controller
       'data'  => $bookings,
     ], 200);
   }
-   /**
-   * Get bookings belonging to a user
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * Returns all bookings made by a user or 404
-   *
-   */
-  public function getUsersBookings(GetUserId $request)
-  {
-    if(!isset($request->user_id) || empty($request->user_id)){
-        $user_id = Auth::user()->id; //set user id to current user
-    } else {
-        $user_id = $request->user_id;
-    }
 
-    $bookings = Booking::where('user_id', $id)->get();
-    if ($bookings->isEmpty()) {
-      return response()->json([
-        'error' => [
-          'message' => 'User does not have any bookings.',
-        ],
-      ], 404);
-    }
-
-    return response()->json([
-      'count' => count($bookings),
-      'data'  => $bookings,
-    ], 200);
-
-  }
    /**
    * Get all bookings by date
    *
@@ -219,9 +189,9 @@ class BookingController extends Controller
   { 
     //if no date requested, set to today's date
     if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d') +' 00:00';
+      $current = date('Y-m-d') .' 00:00';
     }else{
-      $current = $request->date +' 00:00'; //set to requested date
+      $current = $request->date .' 00:00'; //set to requested date
     }
 
     $next = date('Y-m-d', strtotime('+1 day', $current));

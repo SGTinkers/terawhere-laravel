@@ -183,9 +183,9 @@ class OfferController extends Controller
 
     //if no date requested, set to today's date
     if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d') +' 00:00';
+      $current = date('Y-m-d') .' 00:00';
     }else{
-      $current = $request->date +' 00:00'; //set to requested date
+      $current = $request->date .' 00:00'; //set to requested date
     }
 
     $next = date('Y-m-d', strtotime('+1 day', $current));
@@ -223,7 +223,7 @@ class OfferController extends Controller
    * Returns all offers belonging to user($id)
    *
    */
-  public function getUsersOffers(GetUserId $request, $id)
+  public function getUsersOffers(GetUserId $request)
   {
     //if user_id not passed (which it shouldn't be anyways)
     if(!isset($request->user_id) || empty($request->user_id)){
