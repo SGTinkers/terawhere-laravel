@@ -142,7 +142,7 @@ class OfferController extends Controller
    * Cancel an offer
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
+   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
    * Returns Success or 404.
    *
    */
@@ -191,8 +191,8 @@ class OfferController extends Controller
 
     $next = date('Y-m-d', strtotime($current .' +1 day'));
     //get all offers before DATE + 1day at 00:00
-    $offers = Offer::where('created_at', '<', $next)
-              ->where('created_at','>=', $current)
+    $offers = Offer::where('meetup_time', '<', $next)
+              ->where('meetup_time','>=', $current)
               ->get();
     
     if ($offers->isEmpty()) {

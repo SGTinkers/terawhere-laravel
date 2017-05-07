@@ -33,7 +33,6 @@ Route::group(['prefix' => '/v1'], function () {
 
     Route::get('bookings-for-user', 'BookingController@getUsersBookings'); //get bookings by user
     Route::get('bookings-for-offer', 'BookingController@getOffersBookings'); //get bookings to an offer
-    Route::get('bookings-for-date', 'BookingController@getDatesBookings'); //get date's bookings
     
     Route::resource('offers', 'OfferController', ['except' => [
       'create', 'edit',

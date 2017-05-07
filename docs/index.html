@@ -292,55 +292,6 @@ $.ajax(settings).done(function (response) {
 </tbody>
 </table>
 <!-- END_4b769e514aedae68a4fa56662e15b112 -->
-<!-- START_abeb5d226fea74a2bc9457e61c349a21 -->
-<h2>Get all bookings by date</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns all bookings made on requested date or 404</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/bookings-for-date" \
--H "Accept: application/json" \
-    -d "date"="2017-05-07" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings-for-date",
-    "method": "POST",
-    "data": {
-        "date": "2017-05-07"
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/v1/bookings-for-date</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>date</td>
-<td>date</td>
-<td>optional</td>
-<td>Date format: <code>Y-m-d</code></td>
-</tr>
-</tbody>
-</table>
-<!-- END_abeb5d226fea74a2bc9457e61c349a21 -->
 <!-- START_7af9cd11c6f570507128bd47a1d55065 -->
 <h2>Get all bookings</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
@@ -552,7 +503,7 @@ $.ajax(settings).done(function (response) {
 </tbody>
 </table>
 <!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
-<!-- START_2dff4a59c554a92b977a2b056d1e87c6 -->
+<!-- START_1233e19349dd4db04ed6eb6513e9dd9d -->
 <h2>Get offers from Date</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
 Send a simple = true, to get a summarised version of offer.</p>
@@ -561,7 +512,7 @@ Send a simple = true, to get a summarised version of offer.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers-for-date" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
     -d "date"="2017-05-07" \
 </code></pre>
@@ -569,7 +520,7 @@ Send a simple = true, to get a summarised version of offer.</p>
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/offers-for-date",
-    "method": "POST",
+    "method": "GET",
     "data": {
         "date": "2017-05-07"
 },
@@ -581,8 +532,13 @@ Send a simple = true, to get a summarised version of offer.</p>
 $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/v1/offers-for-date</code></p>
+<p><code>GET api/v1/offers-for-date</code></p>
+<p><code>HEAD api/v1/offers-for-date</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -602,7 +558,7 @@ $.ajax(settings).done(function (response) {
 </tr>
 </tbody>
 </table>
-<!-- END_2dff4a59c554a92b977a2b056d1e87c6 -->
+<!-- END_1233e19349dd4db04ed6eb6513e9dd9d -->
 <!-- START_19a81fab66403a93c1f7cdf329c755f7 -->
 <h2>Get nearby offers</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
@@ -708,7 +664,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:13" \
+    -d "meetup_time"="2017-05-07 14:26" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -731,7 +687,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 14:13",
+        "meetup_time": "2017-05-07 14:26",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -897,7 +853,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:13" \
+    -d "meetup_time"="2017-05-07 14:26" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -915,7 +871,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 14:13",
+        "meetup_time": "2017-05-07 14:26",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -1015,8 +971,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_fd575fa3ec9e0082d61bbb9fd4b19a7d -->
 <!-- START_ed9803f1e1dd211d60541a24ba18c0f9 -->
 <h2>Cancel an offer</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Returns Success or 404.</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
+Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+Returns Success or 404.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>

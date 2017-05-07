@@ -180,47 +180,13 @@ class BookingController extends Controller
         ],
       ], 404);
     }
-    
+
     return response()->json([
       'count' => count($bookings),
       'data'  => $bookings,
     ], 200);
   }
 
-   /**
-   * Get all bookings by date
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * Returns all bookings made on requested date or 404
-   *
-   */ 
-  public function getDatesBookings(GetDate $request)
-  { 
-    //if no date requested, set to today's date
-    if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d');
-    }else{
-      $current = $request->date; //set to requested date
-    }
-
-    $next = date('Y-m-d', strtotime($current .' +1 day'));
-    //get all offers before DATE + 1day at 00:00
-    $bookings = Booking::where('created_at', '<', $next)
-              ->where('created_at','>=', $current)
-              ->get();
-    
-    if ($bookings->isEmpty()) {
-      return response()->json([
-        'error' => [
-          'message' => 'There are no bookings on this date.',
-        ],
-      ], 404);
-    }
-      return response()->json([
-        'data' => $bookings,
-      ], 200);
-  }
 /**
    * Get offers belonging to a user
    *

@@ -289,53 +289,6 @@ Parameter | Type | Status | Description
 
 <!-- END_4b769e514aedae68a4fa56662e15b112 -->
 
-<!-- START_abeb5d226fea74a2bc9457e61c349a21 -->
-## Get all bookings by date
-
-**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Returns all bookings made on requested date or 404
-
-> Example request:
-
-```bash
-curl -X POST "http://localhost/api/v1/bookings-for-date" \
--H "Accept: application/json" \
-    -d "date"="2017-05-07" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings-for-date",
-    "method": "POST",
-    "data": {
-        "date": "2017-05-07"
-},
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/v1/bookings-for-date`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-    date | date |  optional  | Date format: `Y-m-d`
-
-<!-- END_abeb5d226fea74a2bc9457e61c349a21 -->
-
 <!-- START_7af9cd11c6f570507128bd47a1d55065 -->
 ## Get all bookings
 
@@ -573,7 +526,7 @@ Parameter | Type | Status | Description
 
 <!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
 
-<!-- START_2dff4a59c554a92b977a2b056d1e87c6 -->
+<!-- START_1233e19349dd4db04ed6eb6513e9dd9d -->
 ## Get offers from Date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -586,7 +539,7 @@ Returns all offers on a requested date
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/v1/offers-for-date" \
+curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
     -d "date"="2017-05-07" \
 
@@ -597,7 +550,7 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/v1/offers-for-date",
-    "method": "POST",
+    "method": "GET",
     "data": {
         "date": "2017-05-07"
 },
@@ -611,9 +564,16 @@ $.ajax(settings).done(function (response) {
 });
 ```
 
+> Example response:
+
+```json
+null
+```
 
 ### HTTP Request
-`POST api/v1/offers-for-date`
+`GET api/v1/offers-for-date`
+
+`HEAD api/v1/offers-for-date`
 
 #### Parameters
 
@@ -621,7 +581,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     date | date |  optional  | Date format: `Y-m-d`
 
-<!-- END_2dff4a59c554a92b977a2b056d1e87c6 -->
+<!-- END_1233e19349dd4db04ed6eb6513e9dd9d -->
 
 <!-- START_19a81fab66403a93c1f7cdf329c755f7 -->
 ## Get nearby offers
@@ -732,7 +692,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:13" \
+    -d "meetup_time"="2017-05-07 14:26" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -758,7 +718,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 14:13",
+        "meetup_time": "2017-05-07 14:26",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -868,7 +828,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:13" \
+    -d "meetup_time"="2017-05-07 14:26" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -889,7 +849,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 14:13",
+        "meetup_time": "2017-05-07 14:26",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -939,7 +899,7 @@ Parameter | Type | Status | Description
 ## Cancel an offer
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
+Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
 Returns Success or 404.
 
 > Example request:

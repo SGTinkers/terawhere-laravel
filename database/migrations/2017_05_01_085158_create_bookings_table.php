@@ -17,7 +17,7 @@ class CreateBookingsTable extends Migration
 
       $table->increments('id');
       $table->char('user_id', 32); //who is booking the offer
-      $table->integer('offer_id'); //which driver's offer
+      $table->integer('offer_id')->unsigned(); //which driver's offer
       $table->integer('status')->default(1); //still ongoing?
       $table->text('driver_remarks'); //remarks by driver to passenger
       $table->integer('rating'); //rating 1-5 of the passenger
