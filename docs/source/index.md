@@ -361,7 +361,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_039cecacf2fd8264a352659da305ac9a -->
 
-<!-- START_f7610a2fba5dbc38bd95c59380bd1a5c -->
+<!-- START_1b3f4e11da19ca4099a0cff58be9537d -->
 ## Get bookings belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -371,9 +371,9 @@ Returns all bookings made by a user or 404
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/bookings-for-users" \
+curl -X GET "http://localhost/api/v1/bookings-for-user" \
 -H "Accept: application/json" \
-    -d "user_id"="qui" \
+    -d "user_id"="incidunt" \
 
 ```
 
@@ -381,10 +381,10 @@ curl -X GET "http://localhost/api/v1/bookings-for-users" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/bookings-for-users",
+    "url": "http://localhost/api/v1/bookings-for-user",
     "method": "GET",
     "data": {
-        "user_id": "qui"
+        "user_id": "incidunt"
 },
     "headers": {
         "accept": "application/json"
@@ -403,9 +403,9 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/bookings-for-users`
+`GET api/v1/bookings-for-user`
 
-`HEAD api/v1/bookings-for-users`
+`HEAD api/v1/bookings-for-user`
 
 #### Parameters
 
@@ -413,7 +413,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     user_id | string |  optional  | Only alpha-numeric characters allowed
 
-<!-- END_f7610a2fba5dbc38bd95c59380bd1a5c -->
+<!-- END_1b3f4e11da19ca4099a0cff58be9537d -->
 
 <!-- START_4b769e514aedae68a4fa56662e15b112 -->
 ## Get all bookings belonging to an offer
@@ -575,7 +575,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 03:55" \
+    -d "meetup_time"="2017-05-07 04:09" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -595,7 +595,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 03:55",
+        "meetup_time": "2017-05-07 04:09",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -693,7 +693,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 03:55" \
+    -d "meetup_time"="2017-05-07 04:09" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -714,7 +714,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 03:55",
+        "meetup_time": "2017-05-07 04:09",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -797,7 +797,7 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
 
-<!-- START_ac57ecebd33b922ca6d743a7ecb8352e -->
+<!-- START_4c83e6d62d6e132846ce0b74ca077846 -->
 ## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -807,9 +807,9 @@ Returns all offers belonging to user($id)
 > Example request:
 
 ```bash
-curl -X GET "http://localhost/api/v1/offers-for-users" \
+curl -X GET "http://localhost/api/v1/offers-for-user" \
 -H "Accept: application/json" \
-    -d "user_id"="harum" \
+    -d "user_id"="velit" \
 
 ```
 
@@ -817,10 +817,10 @@ curl -X GET "http://localhost/api/v1/offers-for-users" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/offers-for-users",
+    "url": "http://localhost/api/v1/offers-for-user",
     "method": "GET",
     "data": {
-        "user_id": "harum"
+        "user_id": "velit"
 },
     "headers": {
         "accept": "application/json"
@@ -839,9 +839,9 @@ null
 ```
 
 ### HTTP Request
-`GET api/v1/offers-for-users`
+`GET api/v1/offers-for-user`
 
-`HEAD api/v1/offers-for-users`
+`HEAD api/v1/offers-for-user`
 
 #### Parameters
 
@@ -849,7 +849,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     user_id | string |  optional  | Only alpha-numeric characters allowed
 
-<!-- END_ac57ecebd33b922ca6d743a7ecb8352e -->
+<!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
 
 <!-- START_1233e19349dd4db04ed6eb6513e9dd9d -->
 ## Get offers from Date
