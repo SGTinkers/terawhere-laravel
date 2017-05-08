@@ -179,6 +179,7 @@ return [
     Laravel\Socialite\SocialiteServiceProvider::class,
     Barryvdh\Cors\ServiceProvider::class,
     Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+    Latrell\Geohash\GeohashServiceProvider::class,
   ],
 
   /*
@@ -230,6 +231,7 @@ return [
     'View'         => Illuminate\Support\Facades\View::class,
     'JWTAuth'      => Tymon\JWTAuth\Facades\JWTAuth::class,
     'JWTFactory'   => Tymon\JWTAuth\Facades\JWTFactory::class,
+    'Geohash'      => Latrell\Geohash\GeohashServiceProvider::class,
   ],
 
 ];

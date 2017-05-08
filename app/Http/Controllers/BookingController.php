@@ -48,9 +48,8 @@ class BookingController extends Controller
 
     if (!$booking) {
       return response()->json([
-        'error' => [
-          'message' => 'Booking does not exist.',
-        ],
+        'error' => 'Booking_not_found',
+        'message' => 'Booking does not exist.'
       ], 404);
     }
 
@@ -77,10 +76,9 @@ class BookingController extends Controller
 
     if (!$offer) {
       return response()->json([
-        'error' => [
-          'message' => 'That offer does not exist.',
-        ],
-      ], 422);
+        'error'   => 'Offer_not_found',
+        'message' => 'That offer does not exist.'
+        ], 422);
     }
 
     $bookings       = Booking::where('offer_id', $data->offer_id)->get();
@@ -91,9 +89,8 @@ class BookingController extends Controller
 
     if (count($bookings) >= $offer->vacancy) {
       return response()->json([
-        'error' => [
-          'message' => 'There is no more vacancy for that offer.',
-        ],
+        'error'     => 'Invalid_request', 
+        'message'   => 'There is no more vacancy for that offer.'        
       ], 422);
     }
 
@@ -101,18 +98,16 @@ class BookingController extends Controller
     foreach ($bookings as $booking) {
       if ($booking->user_id == $data->user_id) {
         return response()->json([
-          'error' => [
-            'message' => 'The same user cannot book an offer more than once.',
-          ],
+          'error'   => 'Invalid_request',
+          'message' => 'The same user cannot book an offer more than once.'
         ], 422);
       }
     }
 
     if(count($usersBookings) > 1){
       return response()->json([
-          'error' => [
-            'message' => 'User already have an active booking.',
-          ],
+          'error'   => 'Invalid_request',
+          'message' => 'User already have an active booking.'
         ], 422);
     }
 
@@ -136,9 +131,8 @@ class BookingController extends Controller
     $booking = Booking::find($id);
     if (!$booking) {
       return response()->json([
-        'error' => [
-          'message' => 'Booking does not exist.',
-        ],
+        'error' => 'Booking_not_found',
+        'message' => 'Booking does not exist.'
       ], 404);
     }
     $booking->status = 0;
@@ -167,23 +161,22 @@ class BookingController extends Controller
 
     if ($offers->isEmpty()) {
       return response()->json([
-        'error' => [
-          'message' => 'Selected offer does not exist.',
-        ],
-      ], 404);
+        'error' => 'Offer_not_found',
+        'message' => 'Selected offer does not exist.'
+        ], 404);
     }
 
     if ($bookings->isEmpty()) {
       return response()->json([
-        'error' => [
-          'message' => 'Selected offer does not have any bookings.',
-        ],
-      ], 404);
+        'error' => 'Booking_not_found'
+        'message' => 'Selected offer does not have any bookings.'
+        ], 404);
     }
 
     return response()->json([
-      'count' => count($bookings),
-      'data'  => $bookings,
+      'count'   => count($bookings),
+      'message' => 'There are '.count($bookings).' bookings for this offer',
+      'data'    => $bookings,
     ], 200);
   }
 

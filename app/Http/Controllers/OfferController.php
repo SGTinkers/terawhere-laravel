@@ -93,8 +93,19 @@ class OfferController extends Controller
   {
     $data            = $request->all();
     $data["user_id"] = Auth::user()->id;
-    $offer           = Offer::create($data);
     
+    $data['start_geohash'] = Geohash::encode($request->start_lat, $request->start_lng);
+    $data['end_geohash'] = Geohash::encode($request->end_lat, $request->end_lng);
+    
+    if(isset($data['pref_gender']) && $data['pref_gender'] != Auth::user()->gender){
+        return response()->json([
+        'error' =>   'Invalid_request',
+        'message' => 'Unable to select different prefered gender.'
+        ], 422);
+    }
+
+    $offer           = Offer::create($data); //create Offer object, store in db
+
     //if simple tag is set, only return certain fields
     if ($request->simple == true) {
       $filtered = $offers->only($this->simple);
@@ -123,10 +134,9 @@ class OfferController extends Controller
 
     if (!$offer) {
       return response()->json([
-        'error' => [
-          'message' => 'Offer does not exist.',
-        ],
-      ], 404);
+        'error' =>   'Offer_not_found',
+        'message' => 'Offer does not exist.'
+        ], 404);
     }
 
     $offer->fill($request->all());
@@ -151,10 +161,9 @@ class OfferController extends Controller
     $offer = Offer::find($id);
     if (!$offer) {
       return response()->json([
-        'error' => [
-          'message' => 'Offer does not exist.',
-        ],
-      ], 404);
+        'error' => 'Offer_not_found',
+        'message' => 'Offer does not exist.'
+        ], 404);
     }
     $offer->status = 0;
     $offer->delete(); //offer is soft deleted.
@@ -197,9 +206,8 @@ class OfferController extends Controller
     
     if ($offers->isEmpty()) {
       return response()->json([
-        'error' => [
-          'message' => 'There are no offers on this date.',
-        ],
+        'error' => 'Offer_not_found',
+        'message' => 'There are no offers on this date.'
       ], 404);
     }
 
@@ -237,9 +245,8 @@ class OfferController extends Controller
     
     if ($offers->isEmpty()) {
       return response()->json([
-        'error' => [
-          'message' => 'User does not have any offers.',
-        ],
+        'error' => 'Offer_not_found',
+        'message' => 'User does not have any offers.'
       ], 404);
     } 
     

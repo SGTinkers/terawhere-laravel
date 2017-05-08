@@ -54,7 +54,7 @@ class AuthenticateController extends Controller
       // verify the credentials
       $socialUser = Socialite::driver($request->get('service'))->stateless()->userFromToken($request->get('token'));
       if (!$socialUser) {
-        return response()->json(['error' => 'invalid_credentials'], 401);
+        return response()->json(['error' => 'invalid_credentials', 'message' => 'Invalid credentials'], 401);
       }
 
       // check if we already have user in db
@@ -112,11 +112,11 @@ class AuthenticateController extends Controller
       $token = JWTAuth::fromUser($user);
     } catch (JWTException $e) {
       // something went wrong
-      return response()->json(['error' => 'could_not_create_token'], 500);
+      return response()->json(['error' => 'could_not_create_token', 'message' => 'Could not create token.'], 500);
     }
 
     // if no errors are encountered we can return a JWT
-    return response()->json(compact('token', 'user', 'socialUser'));
+    return response()->json(compact('token', 'user'));
   }
 
   /**
@@ -129,7 +129,7 @@ class AuthenticateController extends Controller
    */
   public function refresh()
   {
-    return response()->json(["status" => "ok"]);
+    return response()->json(['status' => 'Ok', 'message' => 'Check Authorization Header for new token']);
   }
 
   /**
