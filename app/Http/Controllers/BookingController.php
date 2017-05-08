@@ -114,7 +114,7 @@ class BookingController extends Controller
     $booking = Booking::create($data);
 
     return response()->json([
-      'message' => 'Booking added succesfully.',
+      'message' => 'Booking added successfully.',
       'data'    => $booking,
     ], 200);
 
@@ -123,8 +123,10 @@ class BookingController extends Controller
    * Cancel a booking
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4
    *
+   * Returns success message or 404.
    */
   public function destroy($id)
   {
@@ -141,7 +143,7 @@ class BookingController extends Controller
     //Aziz: To add push notif here to tell driver that booking is cancelled.
 
     return response()->json([
-      'message' => 'Booking deleted succesfully.',
+      'message' => 'Booking deleted successfully.',
       'data'    => $booking,
     ]);
   }
@@ -168,7 +170,7 @@ class BookingController extends Controller
 
     if ($bookings->isEmpty()) {
       return response()->json([
-        'error' => 'Booking_not_found'
+        'error' => 'Booking_not_found',
         'message' => 'Selected offer does not have any bookings.'
         ], 404);
     }
@@ -181,10 +183,10 @@ class BookingController extends Controller
   }
 
 /**
-   * Get offers belonging to a user
+   * Get bookings belonging to a user
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   * Send a simple = true, to get a summarised version of offer.
+   * 
    * Returns all offers belonging to user($id)
    *
    */
@@ -201,10 +203,9 @@ class BookingController extends Controller
     
     if ($bookings->isEmpty()) {
       return response()->json([
-        'error' => [
-          'message' => 'User does not have any offers.',
-        ],
-      ], 404);
+        'error' => 'Resource_not_found',
+        'message' => 'User does not have any offers.',
+        ], 404);
     }
 
     else {

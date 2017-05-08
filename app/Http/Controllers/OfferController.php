@@ -28,8 +28,10 @@ class OfferController extends Controller
    * Get all offers
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Not recommended for use
    * Returns ALL offers in database
+   *
    *
    */
   public function index(Request $request)
@@ -284,7 +286,9 @@ class OfferController extends Controller
    * Get nearby offers
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Send a simple = true, to get a summarised version of offer.
+   *
    * Returns all nearby offers (To be optimised)
    *
    */
@@ -335,12 +339,4 @@ class OfferController extends Controller
     cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
   return $angle * $earthRadius;
   }
-
-  /*private function transform($offer){ //to omit certain fields
-return [
-'offer_id' => $offer['id'],
-'time' => $offer['meetup_time']
-];
-}
- */
 }
