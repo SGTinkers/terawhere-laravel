@@ -5,6 +5,8 @@ namespace App;
 use Alsofronie\Uuid\Uuid32ModelTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class User extends Authenticatable
 {

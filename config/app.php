@@ -180,6 +180,8 @@ return [
     Barryvdh\Cors\ServiceProvider::class,
     Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
     Latrell\Geohash\GeohashServiceProvider::class,
+    Spatie\Activitylog\ActivitylogServiceProvider::class,
+
   ],
 
   /*
