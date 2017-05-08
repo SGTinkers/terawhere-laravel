@@ -153,7 +153,9 @@ class OfferController extends Controller
    * Cancel an offer
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+   *
    * Returns Success or 404.
    *
    */
@@ -167,10 +169,19 @@ class OfferController extends Controller
         ], 404);
     }
     $offer->status = 0;
-    $offer->delete(); //offer is soft deleted.
 
+    $bookings = Booking::where('offer_id', $id);
+
+    //set all status to 4 (Cancelled Offer)
+    if(!$bookings->isEmpty()){
+      foreach($bookings as $booking){
+        $booking->status = 4;
+      }
+      $bookings->delete();  //delete all bookings
+    }
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
-
+    
+    $offer->delete();     //offer is soft deleted.
     return response()->json([
       'message' => 'Offer deleted successfully.',
       'data'    => $offer,
@@ -182,6 +193,7 @@ class OfferController extends Controller
    * Get offers from Date
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Send a simple = true, to get a summarised version of offer.
    *
    * If no date given, today's date is used.
@@ -229,7 +241,9 @@ class OfferController extends Controller
    * Get offers belonging to a user
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
    * Send a simple = true, to get a summarised version of offer.
+   *
    * Returns all offers belonging to user($id)
    *
    */

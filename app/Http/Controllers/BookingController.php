@@ -123,7 +123,7 @@ class BookingController extends Controller
    * Cancel a booking
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4
    *
    */
   public function destroy($id)
