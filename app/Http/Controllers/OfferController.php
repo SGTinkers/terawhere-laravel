@@ -8,6 +8,7 @@ use App\Http\Requests\GetDate;
 use App\Http\Requests\GetNearby;
 use App\Http\Requests\StoreOffer;
 use App\Http\Requests\UpdateOffer;
+use Latrell\Geohash\Facades\Geohash;
 
 use App\Offer;
 use Illuminate\Http\Request;
