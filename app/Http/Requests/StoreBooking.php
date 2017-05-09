@@ -26,7 +26,7 @@ class StoreBooking extends JsonRequest
       'offer_id'       => 'required|integer',
       'status'         => 'nullable|integer',
       'driver_remarks' => 'nullable',
-      'rating'         => 'required|integer',
+      'rating'         => 'nullable|integer',
     ];
   }
 }

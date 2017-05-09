@@ -199,7 +199,7 @@ class BookingController extends Controller
         $user_id = $request->user_id;
     }
 
-    $bookings = Bookings::withTrashed()->where('user_id', $user_id)->get();
+    $bookings = Booking::withTrashed()->where('user_id', $user_id)->get();
     
     if ($bookings->isEmpty()) {
       return response()->json([
