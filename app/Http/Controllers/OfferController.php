@@ -81,8 +81,8 @@ class OfferController extends Controller
 
     $user = User::find($offer->user_id);
 
-    $offer->put('name', $user->name);
-    $offer->put('gender', $user->gender);
+    $offer['name']    = $user->name;
+    $offer['gender']  = $user->gender;
 
     return response()->json([
       'data' => $offer,
