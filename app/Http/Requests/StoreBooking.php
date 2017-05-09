@@ -24,9 +24,6 @@ class StoreBooking extends JsonRequest
   {
     return [
       'offer_id'       => 'required|integer',
-      'status'         => 'nullable|integer',
-      'driver_remarks' => 'nullable',
-      'rating'         => 'nullable|integer',
     ];
   }
 }

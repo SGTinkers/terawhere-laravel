@@ -84,8 +84,14 @@ class BookingController extends Controller
     $bookings       = Booking::where('offer_id', $data['offer_id'])->get();
     $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
-
     $usersBookings  = Booking::where('user_id', Auth::user()->id)->get();
+
+    if($offer->user_id == Auth::user()->id){
+      return response()->json([
+        'error'     => 'Invalid_request', 
+        'message'   => 'User cannot book their own offer.'        
+      ], 422);
+    }
 
     if (count($bookings) >= $offer->vacancy) {
       return response()->json([
@@ -124,8 +130,6 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4
-   *
    * Returns success message or 404.
    */
   public function destroy($id)
@@ -137,7 +141,6 @@ class BookingController extends Controller
         'message' => 'Booking does not exist.'
       ], 404);
     }
-    $booking->status = 0;
     $booking->delete(); //booking is soft deleted.
 
     //Aziz: To add push notif here to tell driver that booking is cancelled.

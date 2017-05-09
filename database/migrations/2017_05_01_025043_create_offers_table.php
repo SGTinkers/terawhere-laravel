@@ -32,7 +32,6 @@ class CreateOffersTable extends Migration
       $table->string('end_geohash');
 
       $table->integer('vacancy'); //number of available spots
-      $table->string('remarks')->nullable();
       $table->integer('status')->default(1); //still ongoing?
       $table->string('pref_gender')->nullable();
       
