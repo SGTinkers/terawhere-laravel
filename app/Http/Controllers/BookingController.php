@@ -72,7 +72,7 @@ class BookingController extends Controller
 
     $data            = $request->all();
     $data['user_id'] = Auth::user()->id;
-    $offer           = Offer::where('id', $data->offer_id)->first(); //get offer
+    $offer           = Offer::where('id', $data['offer_id'])->first(); //get offer
 
     if (!$offer) {
       return response()->json([
@@ -204,7 +204,7 @@ class BookingController extends Controller
     if ($bookings->isEmpty()) {
       return response()->json([
         'error' => 'Resource_not_found',
-        'message' => 'User does not have any offers.',
+        'message' => 'User does not have any bookings.',
         ], 404);
     }
 
