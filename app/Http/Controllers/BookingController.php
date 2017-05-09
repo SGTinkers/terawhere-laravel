@@ -81,7 +81,7 @@ class BookingController extends Controller
         ], 422);
     }
 
-    $bookings       = Booking::where('offer_id', $data->offer_id)->get();
+    $bookings       = Booking::where('offer_id', $data['offer_id'])->get();
     $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
     $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
 
@@ -96,7 +96,7 @@ class BookingController extends Controller
 
     //checking to see if same user books twice
     foreach ($bookings as $booking) {
-      if ($booking->user_id == $data->user_id) {
+      if ($booking->user_id == $data['user_id']) {
         return response()->json([
           'error'   => 'Invalid_request',
           'message' => 'The same user cannot book an offer more than once.'
