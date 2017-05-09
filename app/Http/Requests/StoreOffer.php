@@ -36,7 +36,7 @@ class StoreOffer extends JsonRequest
       'remarks'         => 'nullable',
       'status'          => 'nullable|integer',
       'pref_gender'     => 'nullable|in:male,female',
-      'vehicle_number'  => 'required|alphanum',
+      'vehicle_number'  => 'required|alpha_num',
       'vehicle_desc'    => 'nullable',
       'vehicle_model'   => 'required',
     ];

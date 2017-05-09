@@ -10,6 +10,7 @@ use App\Http\Requests\StoreOffer;
 use App\Http\Requests\UpdateOffer;
 use Latrell\Geohash\Facades\Geohash;
 
+use App\User;
 use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,8 @@ class OfferController extends Controller
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * Not recommended for use
-   * Returns ALL offers in database
    *
+   * Returns ALL offers in database
    *
    */
   public function index(Request $request)
@@ -78,6 +79,11 @@ class OfferController extends Controller
         'data' => $filtered->all(),
       ], 200);
     }
+
+    $user = User::find($offer->user_id);
+
+    $offer->put('name', $user->name);
+    $offer->put('gender', $user->gender);
 
     return response()->json([
       'data' => $offer,
