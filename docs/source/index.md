@@ -182,10 +182,10 @@ null
 
 All bookings by passengers are handled here.
 <!-- START_1b3f4e11da19ca4099a0cff58be9537d -->
-## Get offers belonging to a user
+## Get bookings belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Send a simple = true, to get a summarised version of offer.
+
 Returns all offers belonging to user($id)
 
 > Example request:
@@ -383,8 +383,8 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     offer_id | integer |  required  | 
-    status | integer |  required  | 
-    driver_remarks | string |  required  | 
+    status | integer |  optional  | 
+    driver_remarks | string |  optional  | 
     rating | integer |  required  | 
 
 <!-- END_41753c028e1df09b77faeaf7ff5e25a8 -->
@@ -437,7 +437,10 @@ null
 ## Cancel a booking
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+
+Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4
+
+Returns success message or 404.
 
 > Example request:
 
@@ -476,7 +479,9 @@ All offers by drivers are handled here.
 ## Get offers belonging to a user
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
 Send a simple = true, to get a summarised version of offer.
+
 Returns all offers belonging to user($id)
 
 > Example request:
@@ -530,6 +535,7 @@ Parameter | Type | Status | Description
 ## Get offers from Date
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
 Send a simple = true, to get a summarised version of offer.
 
 If no date given, today's date is used.
@@ -541,7 +547,7 @@ Returns all offers on a requested date
 ```bash
 curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-07" \
+    -d "date"="2017-05-09" \
 
 ```
 
@@ -552,7 +558,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-07"
+        "date": "2017-05-09"
 },
     "headers": {
         "accept": "application/json"
@@ -587,7 +593,9 @@ Parameter | Type | Status | Description
 ## Get nearby offers
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
 Send a simple = true, to get a summarised version of offer.
+
 Returns all nearby offers (To be optimised)
 
 > Example request:
@@ -640,7 +648,9 @@ Parameter | Type | Status | Description
 ## Get all offers
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
 Not recommended for use
+
 Returns ALL offers in database
 
 > Example request:
@@ -692,7 +702,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:26" \
+    -d "meetup_time"="2017-05-09 05:04" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -718,7 +728,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 14:26",
+        "meetup_time": "2017-05-09 05:04",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -766,7 +776,7 @@ Parameter | Type | Status | Description
     remarks | string |  optional  | 
     status | integer |  optional  | 
     pref_gender | string |  optional  | `male` or `female`
-    vehicle_number | string |  required  | 
+    vehicle_number | string |  required  | Only alpha-numeric characters allowed
     vehicle_desc | string |  optional  | 
     vehicle_model | string |  required  | 
 
@@ -828,7 +838,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:26" \
+    -d "meetup_time"="2017-05-09 05:04" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -849,7 +859,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 14:26",
+        "meetup_time": "2017-05-09 05:04",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -899,7 +909,9 @@ Parameter | Type | Status | Description
 ## Cancel an offer
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
 Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+
 Returns Success or 404.
 
 > Example request:

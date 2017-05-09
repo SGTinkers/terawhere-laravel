@@ -185,10 +185,9 @@ $.ajax(settings).done(function (response) {
 <h1>Booking</h1>
 <p>All bookings by passengers are handled here.</p>
 <!-- START_1b3f4e11da19ca4099a0cff58be9537d -->
-<h2>Get offers belonging to a user</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Send a simple = true, to get a summarised version of offer.
-Returns all offers belonging to user($id)</p>
+<h2>Get bookings belonging to a user</h2>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Returns all offers belonging to user($id)</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -376,12 +375,12 @@ $.ajax(settings).done(function (response) {
 <tr>
 <td>status</td>
 <td>integer</td>
-<td>required</td>
+<td>optional</td>
 </tr>
 <tr>
 <td>driver_remarks</td>
 <td>string</td>
-<td>required</td>
+<td>optional</td>
 </tr>
 <tr>
 <td>rating</td>
@@ -423,8 +422,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_4ca735a4e89ef20a2ee31f04d7ee721d -->
 <!-- START_039cecacf2fd8264a352659da305ac9a -->
 <h2>Cancel a booking</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4</p>
+<p>Returns success message or 404.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -450,9 +450,9 @@ $.ajax(settings).done(function (response) {
 <p>All offers by drivers are handled here.</p>
 <!-- START_4c83e6d62d6e132846ce0b74ca077846 -->
 <h2>Get offers belonging to a user</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Send a simple = true, to get a summarised version of offer.
-Returns all offers belonging to user($id)</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Send a simple = true, to get a summarised version of offer.</p>
+<p>Returns all offers belonging to user($id)</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -505,8 +505,8 @@ $.ajax(settings).done(function (response) {
 <!-- END_4c83e6d62d6e132846ce0b74ca077846 -->
 <!-- START_1233e19349dd4db04ed6eb6513e9dd9d -->
 <h2>Get offers from Date</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Send a simple = true, to get a summarised version of offer.</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Send a simple = true, to get a summarised version of offer.</p>
 <p>If no date given, today's date is used.</p>
 <p>Returns all offers on a requested date</p>
 <blockquote>
@@ -514,7 +514,7 @@ Send a simple = true, to get a summarised version of offer.</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-07" \
+    -d "date"="2017-05-09" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -522,7 +522,7 @@ Send a simple = true, to get a summarised version of offer.</p>
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-07"
+        "date": "2017-05-09"
 },
     "headers": {
         "accept": "application/json"
@@ -561,9 +561,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_1233e19349dd4db04ed6eb6513e9dd9d -->
 <!-- START_19a81fab66403a93c1f7cdf329c755f7 -->
 <h2>Get nearby offers</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Send a simple = true, to get a summarised version of offer.
-Returns all nearby offers (To be optimised)</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Send a simple = true, to get a summarised version of offer.</p>
+<p>Returns all nearby offers (To be optimised)</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -626,9 +626,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_19a81fab66403a93c1f7cdf329c755f7 -->
 <!-- START_c233fc34839427dff7ef9ad7c3821ae3 -->
 <h2>Get all offers</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Not recommended for use
-Returns ALL offers in database</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Not recommended for use</p>
+<p>Returns ALL offers in database</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -664,7 +664,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:26" \
+    -d "meetup_time"="2017-05-09 05:04" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -687,7 +687,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-07 14:26",
+        "meetup_time": "2017-05-09 05:04",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -800,6 +800,7 @@ $.ajax(settings).done(function (response) {
 <td>vehicle_number</td>
 <td>string</td>
 <td>required</td>
+<td>Only alpha-numeric characters allowed</td>
 </tr>
 <tr>
 <td>vehicle_desc</td>
@@ -853,7 +854,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-07 14:26" \
+    -d "meetup_time"="2017-05-09 05:04" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -871,7 +872,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-07 14:26",
+        "meetup_time": "2017-05-09 05:04",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -971,9 +972,9 @@ $.ajax(settings).done(function (response) {
 <!-- END_fd575fa3ec9e0082d61bbb9fd4b19a7d -->
 <!-- START_ed9803f1e1dd211d60541a24ba18c0f9 -->
 <h2>Cancel an offer</h2>
-<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em>
-Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
-Returns Success or 404.</p>
+<p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3</p>
+<p>Returns Success or 404.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
