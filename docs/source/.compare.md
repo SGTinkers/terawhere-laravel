@@ -346,9 +346,6 @@ Returns Success or error message.
 curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
     -d "offer_id"="3331" \
-    -d "status"="3331" \
-    -d "driver_remarks"="ea" \
-    -d "rating"="3331" \
 
 ```
 
@@ -359,10 +356,7 @@ var settings = {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 3331,
-        "status": 3331,
-        "driver_remarks": "ea",
-        "rating": 3331
+        "offer_id": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -383,9 +377,6 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     offer_id | integer |  required  | 
-    status | integer |  optional  | 
-    driver_remarks | string |  optional  | 
-    rating | integer |  required  | 
 
 <!-- END_41753c028e1df09b77faeaf7ff5e25a8 -->
 
@@ -437,8 +428,6 @@ null
 ## Cancel a booking
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-
-Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3, OfferCancelled = 4
 
 Returns success message or 404.
 
@@ -702,7 +691,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 05:04" \
+    -d "meetup_time"="2017-05-09 16:56" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -728,7 +717,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-09 05:04",
+        "meetup_time": "2017-05-09 16:56",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -838,7 +827,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 05:04" \
+    -d "meetup_time"="2017-05-09 16:56" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -859,7 +848,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-09 05:04",
+        "meetup_time": "2017-05-09 16:56",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
