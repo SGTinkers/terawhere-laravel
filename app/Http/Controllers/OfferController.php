@@ -66,9 +66,8 @@ class OfferController extends Controller
     $offer = Offer::find($id);
     if (!$offer) {
       return response()->json([
-        'error' => [
-          'message' => 'Offer does not exist',
-        ],
+        'error' => 'Offer_not_found',
+         'message' => 'Offer does not exist'
       ], 404);
     }
   //if simple tag is set, only return certain fields
