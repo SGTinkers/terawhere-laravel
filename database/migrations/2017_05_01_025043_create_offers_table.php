@@ -34,7 +34,7 @@ class CreateOffersTable extends Migration
       $table->integer('vacancy'); //number of available spots
       $table->integer('status')->default(1); //still ongoing?
       $table->string('pref_gender')->nullable();
-      
+      $table->string('remarks')->nullable();
       $table->string('vehicle_number');
       $table->string('vehicle_desc')->nullable();
       $table->string('vehicle_model');
