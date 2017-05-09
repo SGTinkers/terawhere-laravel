@@ -24,7 +24,7 @@ use Illuminate\Support\Collection;
 
 class OfferController extends Controller
 {
-  private $simple = ['meetup_time', 'start_name','end_name','vacancy','status','pref_gender'];
+  private $simple = array('meetup_time', 'start_name','end_name','vacancy','status','pref_gender');
   /**
    * Get all offers
    *
@@ -67,7 +67,7 @@ class OfferController extends Controller
     if (!$offer) {
       return response()->json([
         'error' => 'Offer_not_found',
-         'message' => 'Offer does not exist'
+        'message' => 'Offer does not exist'
       ], 404);
     }
   //if simple tag is set, only return certain fields
