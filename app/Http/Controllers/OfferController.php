@@ -175,17 +175,16 @@ class OfferController extends Controller
         'message' => 'Offer does not exist.'
         ], 404);
     }
-    $offer->status = 0;
+    
+    if($offer->user_id != Auth::user()->id){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User does not have permission to delete this offer.'
+        ], 403);
 
-    $bookings = Booking::where('offer_id', $id);
-
-    //set all status to 4 (Cancelled Offer)
-    if(!$bookings->isEmpty()){
-      foreach($bookings as $booking){
-        $booking->status = 4;
-      }
-      $bookings->delete();  //delete all bookings
     }
+
+    $offer->status = 0;
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
     
     $offer->delete();     //offer is soft deleted.

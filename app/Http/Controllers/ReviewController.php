@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Review;
+use App\Http\Requests\StoreReview;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
