@@ -136,7 +136,7 @@ class OfferController extends Controller
    * Returns success message or 404.
    *
    */
-  public function update(UpdateOffer $request, $id)
+  public function update(StoreOffer $request, $id)
   {
     $offer = Offer::find($id);
 
