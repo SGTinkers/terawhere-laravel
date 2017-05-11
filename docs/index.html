@@ -324,6 +324,7 @@ $.ajax(settings).done(function (response) {
 <!-- START_41753c028e1df09b77faeaf7ff5e25a8 -->
 <h2>Create a booking</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
+<p>Do not use pax, pax defaults to 1. For future use ONLY.</p>
 <p>Returns Success or error message.</p>
 <blockquote>
 <p>Example request:</p>
@@ -331,6 +332,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
     -d "offer_id"="3331" \
+    -d "pax"="3331" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -338,7 +340,8 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 3331
+        "offer_id": 3331,
+        "pax": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -365,6 +368,11 @@ $.ajax(settings).done(function (response) {
 <td>offer_id</td>
 <td>integer</td>
 <td>required</td>
+</tr>
+<tr>
+<td>pax</td>
+<td>integer</td>
+<td>optional</td>
 </tr>
 </tbody>
 </table>
@@ -492,7 +500,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-09" \
+    -d "date"="2017-05-11" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -500,7 +508,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-09"
+        "date": "2017-05-11"
 },
     "headers": {
         "accept": "application/json"
@@ -642,7 +650,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 16:56" \
+    -d "meetup_time"="2017-05-11 14:17" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -653,7 +661,6 @@ $.ajax(settings).done(function (response) {
     -d "end_lng"="81" \
     -d "vacancy"="8099169" \
     -d "remarks"="est" \
-    -d "status"="8099169" \
     -d "pref_gender"="female" \
     -d "vehicle_number"="est" \
     -d "vehicle_desc"="est" \
@@ -665,7 +672,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-09 16:56",
+        "meetup_time": "2017-05-11 14:17",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -676,7 +683,6 @@ $.ajax(settings).done(function (response) {
         "end_lng": 81,
         "vacancy": 8099169,
         "remarks": "est",
-        "status": 8099169,
         "pref_gender": "female",
         "vehicle_number": "est",
         "vehicle_desc": "est",
@@ -764,11 +770,6 @@ $.ajax(settings).done(function (response) {
 <td>optional</td>
 </tr>
 <tr>
-<td>status</td>
-<td>integer</td>
-<td>optional</td>
-</tr>
-<tr>
 <td>pref_gender</td>
 <td>string</td>
 <td>optional</td>
@@ -832,7 +833,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 16:56" \
+    -d "meetup_time"="2017-05-11 14:17" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -842,7 +843,11 @@ $.ajax(settings).done(function (response) {
     -d "end_lat"="-64" \
     -d "end_lng"="-127" \
     -d "vacancy"="97" \
-    -d "pref_gender"="0" \
+    -d "remarks"="ratione" \
+    -d "pref_gender"="male" \
+    -d "vehicle_number"="ratione" \
+    -d "vehicle_desc"="ratione" \
+    -d "vehicle_model"="ratione" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -850,7 +855,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-09 16:56",
+        "meetup_time": "2017-05-11 14:17",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -860,7 +865,11 @@ $.ajax(settings).done(function (response) {
         "end_lat": -64,
         "end_lng": -127,
         "vacancy": 97,
-        "pref_gender": 0
+        "remarks": "ratione",
+        "pref_gender": "male",
+        "vehicle_number": "ratione",
+        "vehicle_desc": "ratione",
+        "vehicle_model": "ratione"
 },
     "headers": {
         "accept": "application/json"
@@ -940,10 +949,31 @@ $.ajax(settings).done(function (response) {
 <td>required</td>
 </tr>
 <tr>
-<td>pref_gender</td>
-<td>integer</td>
+<td>remarks</td>
+<td>string</td>
 <td>optional</td>
-<td>Between: <code>0</code> and <code>1</code></td>
+</tr>
+<tr>
+<td>pref_gender</td>
+<td>string</td>
+<td>optional</td>
+<td><code>male</code> or <code>female</code></td>
+</tr>
+<tr>
+<td>vehicle_number</td>
+<td>string</td>
+<td>required</td>
+<td>Only alpha-numeric characters allowed</td>
+</tr>
+<tr>
+<td>vehicle_desc</td>
+<td>string</td>
+<td>optional</td>
+</tr>
+<tr>
+<td>vehicle_model</td>
+<td>string</td>
+<td>required</td>
 </tr>
 </tbody>
 </table>

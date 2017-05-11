@@ -18,6 +18,7 @@ class CreateBookingsTable extends Migration
       $table->increments('id');
       $table->char('user_id', 32); //who is booking the offer
       $table->integer('offer_id')->unsigned(); //which driver's offer
+      $table->integer('pax')->default(1);
       $table->softDeletes();
       $table->timestamps();
     });

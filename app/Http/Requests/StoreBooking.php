@@ -24,6 +24,7 @@ class StoreBooking extends JsonRequest
   {
     return [
       'offer_id'       => 'required|integer',
+      'pax'            => 'nullable|integer'
     ];
   }
 }

@@ -338,6 +338,8 @@ null
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
 
+Do not use pax, pax defaults to 1. For future use ONLY.
+
 Returns Success or error message.
 
 > Example request:
@@ -346,6 +348,7 @@ Returns Success or error message.
 curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
     -d "offer_id"="3331" \
+    -d "pax"="3331" \
 
 ```
 
@@ -356,7 +359,8 @@ var settings = {
     "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
-        "offer_id": 3331
+        "offer_id": 3331,
+        "pax": 3331
 },
     "headers": {
         "accept": "application/json"
@@ -377,6 +381,7 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     offer_id | integer |  required  | 
+    pax | integer |  optional  | 
 
 <!-- END_41753c028e1df09b77faeaf7ff5e25a8 -->
 
@@ -536,7 +541,7 @@ Returns all offers on a requested date
 ```bash
 curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-09" \
+    -d "date"="2017-05-11" \
 
 ```
 
@@ -547,7 +552,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-09"
+        "date": "2017-05-11"
 },
     "headers": {
         "accept": "application/json"
@@ -691,7 +696,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 16:56" \
+    -d "meetup_time"="2017-05-11 14:17" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -702,7 +707,6 @@ curl -X POST "http://localhost/api/v1/offers" \
     -d "end_lng"="81" \
     -d "vacancy"="8099169" \
     -d "remarks"="est" \
-    -d "status"="8099169" \
     -d "pref_gender"="female" \
     -d "vehicle_number"="est" \
     -d "vehicle_desc"="est" \
@@ -717,7 +721,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-09 16:56",
+        "meetup_time": "2017-05-11 14:17",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -728,7 +732,6 @@ var settings = {
         "end_lng": 81,
         "vacancy": 8099169,
         "remarks": "est",
-        "status": 8099169,
         "pref_gender": "female",
         "vehicle_number": "est",
         "vehicle_desc": "est",
@@ -763,7 +766,6 @@ Parameter | Type | Status | Description
     end_lng | numeric |  required  | Between: `-180` and `180`
     vacancy | integer |  required  | 
     remarks | string |  optional  | 
-    status | integer |  optional  | 
     pref_gender | string |  optional  | `male` or `female`
     vehicle_number | string |  required  | Only alpha-numeric characters allowed
     vehicle_desc | string |  optional  | 
@@ -827,7 +829,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-09 16:56" \
+    -d "meetup_time"="2017-05-11 14:17" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -837,7 +839,11 @@ curl -X PUT "http://localhost/api/v1/offers/{offer}" \
     -d "end_lat"="-64" \
     -d "end_lng"="-127" \
     -d "vacancy"="97" \
-    -d "pref_gender"="0" \
+    -d "remarks"="ratione" \
+    -d "pref_gender"="male" \
+    -d "vehicle_number"="ratione" \
+    -d "vehicle_desc"="ratione" \
+    -d "vehicle_model"="ratione" \
 
 ```
 
@@ -848,7 +854,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-09 16:56",
+        "meetup_time": "2017-05-11 14:17",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -858,7 +864,11 @@ var settings = {
         "end_lat": -64,
         "end_lng": -127,
         "vacancy": 97,
-        "pref_gender": 0
+        "remarks": "ratione",
+        "pref_gender": "male",
+        "vehicle_number": "ratione",
+        "vehicle_desc": "ratione",
+        "vehicle_model": "ratione"
 },
     "headers": {
         "accept": "application/json"
@@ -890,7 +900,11 @@ Parameter | Type | Status | Description
     end_lat | numeric |  required  | Between: `-90` and `90`
     end_lng | numeric |  required  | Between: `-180` and `180`
     vacancy | integer |  required  | 
-    pref_gender | integer |  optional  | Between: `0` and `1`
+    remarks | string |  optional  | 
+    pref_gender | string |  optional  | `male` or `female`
+    vehicle_number | string |  required  | Only alpha-numeric characters allowed
+    vehicle_desc | string |  optional  | 
+    vehicle_model | string |  required  | 
 
 <!-- END_fd575fa3ec9e0082d61bbb9fd4b19a7d -->
 

@@ -63,6 +63,8 @@ class BookingController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
+   * Do not use pax, pax defaults to 1. For future use ONLY.
+   *
    * Returns Success or error message.
    *
    */
@@ -93,7 +95,13 @@ class BookingController extends Controller
       ], 422);
     }
 
-    if (count($bookings) >= $offer->vacancy) {
+    $totalpax = 0;
+
+    foreach($bookings as $booking){
+      $totalpax = $totalpax + $booking->pax; 
+    }
+
+    if ($totalpax >= $offer->vacancy) {
       return response()->json([
         'error'     => 'Invalid_request', 
         'message'   => 'There is no more vacancy for that offer.'        
@@ -141,6 +149,14 @@ class BookingController extends Controller
         'message' => 'Booking does not exist.'
       ], 404);
     }
+
+    if($booking->user_id != Auth::user()->id){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User does not have permission to delete this booking.'
+        ], 403);
+    }
+
     $booking->delete(); //booking is soft deleted.
 
     //Aziz: To add push notif here to tell driver that booking is cancelled.

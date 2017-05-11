@@ -147,6 +147,13 @@ class OfferController extends Controller
         ], 404);
     }
 
+    if($offer->user_id != Auth::user()->id){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User does not have permission to edit this offer.'
+        ], 403);
+    }
+
     $offer->fill($request->all());
     $offer->save();
 
@@ -181,7 +188,6 @@ class OfferController extends Controller
         'error' => 'Forbidden_request',
         'message' => 'User does not have permission to delete this offer.'
         ], 403);
-
     }
 
     $offer->status = 0;

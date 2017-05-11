@@ -34,7 +34,6 @@ class StoreOffer extends JsonRequest
       'end_lng'         => 'required|numeric|between:-180,180',
       'vacancy'         => 'required|integer',
       'remarks'         => 'nullable',
-      'status'          => 'nullable|integer',
       'pref_gender'     => 'nullable|in:male,female',
       'vehicle_number'  => 'required|alpha_num',
       'vehicle_desc'    => 'nullable',
