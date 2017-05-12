@@ -118,9 +118,9 @@ class OfferController extends Controller
 
     if($diff->format('%R%i') < 10 && $latestoffer->start_addr == $data['start_addr'] && $latestoffer->end_addr == $data['end_addr']){
       return response()->json([
-        'error' => 'Forbidden_request',
+        'error' => 'Invalid_request',
         'message' => 'User cannot add another similar offer too soon.'
-        ], 403);
+        ], 422);
     }
 
     $offer           = Offer::create($data); //create Offer object, store in db
@@ -171,9 +171,9 @@ class OfferController extends Controller
 
     if($diff->format('%R%h') < 6){
       return response()->json([
-        'error' => 'Forbidden_request',
+        'error' => 'Invalid_request',
         'message' => 'User cannot edit the offer 6 hours before meetup time.'
-        ], 403);
+        ], 422);
     }
 
 

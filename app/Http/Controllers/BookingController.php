@@ -89,7 +89,6 @@ class BookingController extends Controller
 
     $bookings       = Booking::where('offer_id', $data['offer_id'])->get();
     $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
-    $todaysBookings = Booking::where('meetup_time', '<=', $dateToday); //get bookings from today
     $usersBookings  = Booking::where('user_id', Auth::user()->id)->get();
 
     if($offer->user_id == Auth::user()->id){
@@ -122,7 +121,7 @@ class BookingController extends Controller
       }
     }
 
-    if(count($usersBookings) > 1){
+    if(count($usersBookings) >= 1){
       return response()->json([
           'error'   => 'Invalid_request',
           'message' => 'User already have an active booking.'
@@ -233,7 +232,7 @@ class BookingController extends Controller
 
     else {
       return response()->json([
-        'data' => $offers,
+        'data' => $bookings,
       ], 200);
     }
   }
