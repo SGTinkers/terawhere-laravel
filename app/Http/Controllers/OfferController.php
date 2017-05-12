@@ -112,6 +112,17 @@ class OfferController extends Controller
         ], 422);
     }
 
+    $latestoffer  = Offer::orderBy('created_at', 'desc')->first();
+    $now          = new DateTime('now');
+    $diff         = $now->diff($latestoffer->created_at);
+
+    if($diff->format('%R%i') < 10 && $latestoffer->start_addr == $data['start_addr'] && $latestoffer->end_addr == $data['end_addr']){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User cannot add another similar offer too soon.'
+        ], 403);
+    }
+
     $offer           = Offer::create($data); //create Offer object, store in db
 
     //if simple tag is set, only return certain fields
@@ -153,6 +164,18 @@ class OfferController extends Controller
         'message' => 'User does not have permission to edit this offer.'
         ], 403);
     }
+
+    $meetup_time  = $offer->meetup_time;
+    $now          = new DateTime('now');
+    $diff         = $now->diff($meetup_time);
+
+    if($diff->format('%R%h') < 6){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User cannot edit the offer 6 hours before meetup time.'
+        ], 403);
+    }
+
 
     $offer->fill($request->all());
     $offer->save();

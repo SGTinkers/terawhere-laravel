@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
       $table->string('google_id')->unique()->nullable();
       $table->string('gender')->nullable();
       $table->integer('exp');
+      $table->string('timezone')->default('Asia/Singapore');
       $table->rememberToken();
       $table->timestamps();
       $table->primary('id');
