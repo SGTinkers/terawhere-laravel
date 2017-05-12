@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Http\Requests\GetUserId;
 use App\Http\Requests\GetOfferId;
 use App\Http\Requests\GetDate;
@@ -113,7 +114,7 @@ class OfferController extends Controller
     }
 
     $latestoffer  = Offer::orderBy('created_at', 'desc')->first();
-    $now          = new DateTime('now');
+    $now          = Carbon::now();
     $diff         = $now->diff($latestoffer->created_at);
 
     if($diff->format('%R%i') < 10 && $latestoffer->start_addr == $data['start_addr'] && $latestoffer->end_addr == $data['end_addr']){
@@ -166,7 +167,7 @@ class OfferController extends Controller
     }
 
     $meetup_time  = $offer->meetup_time;
-    $now          = new DateTime('now');
+    $now          = Carbon::now();
     $diff         = $now->diff($meetup_time);
 
     if($diff->format('%R%h') < 6){

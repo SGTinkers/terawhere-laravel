@@ -14,6 +14,7 @@
         "laravel/tinker": "~1.0",
         "latrell/geohash": "dev-master",
         "mpociot/laravel-apidoc-generator": "^2.0",
+        "nesbot/carbon": "^1.22",
         "spatie/laravel-activitylog": "^1.15",
         "tymon/jwt-auth": "0.5.*"
     },
