@@ -113,7 +113,10 @@ class OfferController extends Controller
         ], 422);
     }
 
-    $latestoffer  = Offer::orderBy('created_at', 'desc')->first();
+    $latestoffer  = Offer::where('user_id', $data['user_id'])->orderBy('created_at', 'desc')->first();
+
+    //IMPLEMENT CARBON HERE
+    if($latestoffer){ //if latest offer exists
     $now          = Carbon::now();
     $diff         = $now->diff($latestoffer['created_at']);
 
@@ -122,8 +125,9 @@ class OfferController extends Controller
         'error' => 'Invalid_request',
         'message' => 'User cannot add another similar offer too soon.'
         ], 422);
+      }
     }
-
+    
     $offer           = Offer::create($data); //create Offer object, store in db
 
     //if simple tag is set, only return certain fields
@@ -166,6 +170,7 @@ class OfferController extends Controller
         ], 403);
     }
 
+    //IMPLEMENT CARBON
     $meetup_time  = $offer->meetup_time;
     $now          = Carbon::now();
     $diff         = $now->diff($meetup_time);
