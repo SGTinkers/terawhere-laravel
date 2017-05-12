@@ -115,9 +115,9 @@ class OfferController extends Controller
 
     $latestoffer  = Offer::orderBy('created_at', 'desc')->first();
     $now          = Carbon::now();
-    $diff         = $now->diff($latestoffer->created_at);
+    $diff         = $now->diff($latestoffer['created_at']);
 
-    if($diff->format('%R%i') < 10 && $latestoffer->start_addr == $data['start_addr'] && $latestoffer->end_addr == $data['end_addr']){
+    if($diff->format('%R%i') < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']){
       return response()->json([
         'error' => 'Invalid_request',
         'message' => 'User cannot add another similar offer too soon.'
