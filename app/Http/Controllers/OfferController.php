@@ -119,9 +119,9 @@ class OfferController extends Controller
     //IMPLEMENT CARBON HERE
     if($latestoffer){ //if latest offer exists
     $now          = Carbon::now();
-    $diff         = $now->diff($latestoffer['created_at']);
+    $diff         = $now->diffInMinutes($latestoffer['created_at']);
 
-    if($diff->format('%R%i') < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']){
+    if($diff < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']){
       return response()->json([
         'error' => 'Invalid_request',
         'message' => 'User cannot add another similar offer too soon.'
@@ -250,12 +250,12 @@ class OfferController extends Controller
 
     //if no date requested, set to today's date
     if(!isset($request->date) || empty($request->date)){
-      $current = date('Y-m-d');
+      $current = Carbon::today();
     }else{
       $current = $request->date; //set to requested date
     }
 
-    $next = date('Y-m-d', strtotime($current .' +1 day'));
+    $next = $current->addDay(1);
     //get all offers before DATE + 1day at 00:00
     $offers = Offer::where('meetup_time', '<', $next)
               ->where('meetup_time','>=', $current)
@@ -330,8 +330,8 @@ class OfferController extends Controller
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    * Range accepts 1-12 (Precision of geohash, 1 = ~5000km, 12 = 3.7 cm. Defaults to 4)
-   *
-   * Returns all nearby offers (To be optimised)
+   * 
+   * Returns all nearby offers in the next 24 hours. 
    *
    */
   public function getNearby(GetNearby $request){

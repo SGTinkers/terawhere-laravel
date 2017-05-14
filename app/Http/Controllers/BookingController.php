@@ -10,6 +10,8 @@ use App\Booking;
 use App\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 /**
  * @resource Booking
@@ -88,7 +90,6 @@ class BookingController extends Controller
     }
 
     $bookings       = Booking::where('offer_id', $data['offer_id'])->get();
-    $dateToday      = date('Y-m-d').' 23:59'; //inclusive of
     $usersBookings  = Booking::where('user_id', Auth::user()->id)->get();
 
     if($offer->user_id == Auth::user()->id){
