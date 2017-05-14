@@ -6,6 +6,10 @@ phpcron:
   external_links:
     - terawhere-mysql:mysql
 
+phplaravelqueue:
+  external_links:
+   - terawhere-mysql:mysql
+
 nginx:
   build: docker/
   dockerfile: nginx.Dockerfile
