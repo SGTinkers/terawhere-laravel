@@ -346,7 +346,7 @@ class OfferController extends Controller
     $shortenby   = $range - strlen($currenthash);
     $searchhash  = substr($currenthash, 0, $shortenby);
 
-    $offers = Offer::where('start_geohash', 'LIKE', $searchhash.'%')->get();
+    $offers = Offer::where('status', 1)->where('start_geohash', 'LIKE', $searchhash.'%')->get();
     if ($offers->isEmpty()) {
        return response()->json([
         'error' => 'Offer_not_found',
