@@ -198,7 +198,7 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3
+   * Status: Cancelled by User= 0, Pending = 1, Ongoing = 2, Completed = 3, Expired by server = 4.
    *
    * Returns Success or 404.
    *
@@ -360,55 +360,4 @@ class OfferController extends Controller
       'data' => $offers,
     ], 200);
   }
-
-
-  /*
-  public function getNearby(GetNearby $request)
-  {
-    $range = 3959;
-    $max_distance = 20;
-    $lat = $request->lat;
-    $lng = $request->lng;
-    $range = $request->range;
-    $offers = Offer::all();
-
-    $result = collect([]);
-
-    foreach($offers as $offer) {
-      $dist = $this->haversineGreatCircleDistance($lat, $lng, $offer->start_lat, $offer->start_lng);
-      
-      if ($dist <= $range){ 
-      //if distance between given coords and coord of offers is < range, add to collection
-      $result->push($offer);
-      }
-    }
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-    return $result->all();
-  }
-
-  public function haversineGreatCircleDistance( 
-  $latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
-  {
-  $earthRadius = 6371000;
-  // convert from degrees to radians
-  $latFrom = deg2rad($latitudeFrom);
-  $lonFrom = deg2rad($longitudeFrom);
-  $latTo = deg2rad($latitudeTo);
-  $lonTo = deg2rad($longitudeTo);
-
-  $latDelta = $latTo - $latFrom;
-  $lonDelta = $lonTo - $lonFrom;
-
-  $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
-    cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-  return $angle * $earthRadius;
-  }
-  */
 }
