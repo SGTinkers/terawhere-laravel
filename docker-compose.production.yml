@@ -1,0 +1,33 @@
+phpfpm:
+  restart: always
+  external_links:
+      - terawhere-mysql:mysql
+
+phpcron:
+  restart: always
+  external_links:
+      - terawhere-mysql:mysql
+
+phplaravelqueue:
+  restart: always
+  external_links:
+      - terawhere-mysql:mysql
+
+nginx:
+  build: docker/
+  dockerfile: nginx.Dockerfile
+  restart: always
+  links:
+    - phpfpm
+  volumes_from:
+    - composerdata
+    - yarndata
+  volumes:
+    - ./docker/nginx:/etc/nginx/sites-available
+    - ./:/var/www
+  environment:
+    - VIRTUAL_HOST=api.terawhere.com
+    - LETSENCRYPT_HOST=api.terawhere.com
+    - LETSENCRYPT_EMAIL=faruq91@gmail.com
+    - HTTPS_METHOD=noredirect
+    - CLIENT_MAX_BODY_SIZE=5m
