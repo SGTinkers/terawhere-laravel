@@ -181,7 +181,7 @@ return [
     Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
     Latrell\Geohash\GeohashServiceProvider::class,
     Spatie\Activitylog\ActivitylogServiceProvider::class,
-
+    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
   ],
 
   /*
@@ -234,6 +234,7 @@ return [
     'JWTAuth'      => Tymon\JWTAuth\Facades\JWTAuth::class,
     'JWTFactory'   => Tymon\JWTAuth\Facades\JWTFactory::class,
     'Geohash'      => Latrell\Geohash\GeohashServiceProvider::class,
+    'Sentry'       => Sentry\SentryLaravel\SentryFacade::class,
   ],
 
 ];
