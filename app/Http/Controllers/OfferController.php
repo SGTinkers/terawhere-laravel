@@ -13,6 +13,7 @@ use Latrell\Geohash\Facades\Geohash;
 
 use App\User;
 use App\Offer;
+use App\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
@@ -220,6 +221,8 @@ class OfferController extends Controller
     }
 
     $offer->status = 0;
+    $bookings = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
+
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
     
     $offer->delete();     //offer is soft deleted.
@@ -326,11 +329,32 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * Send a simple = true, to get a summarised version of offer.
+   * Range accepts 1-12 (Precision of geohash, 1 = ~5000km, 12 = 3.7 cm. Defaults to 4)
    *
    * Returns all nearby offers (To be optimised)
    *
    */
+  public function getNearby(GetNearby $request){
+
+    if(!isset($request->range) || empty($request->range)){
+        $range = 4; //set user id to current user
+    } else {
+        $range = $request->range;
+    }
+
+    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
+    $shortenby   = $range - strlen($currenthash);
+    $searchhash  = substr($currenthash, 0, $shortenby);
+
+    $offers = Offers::where('start_geohash', 'LIKE', $searchhash.'%')->get();
+
+    return response()->json([
+      'data' => $offers,
+    ], 200);
+  }
+
+
+  /*
   public function getNearby(GetNearby $request)
   {
     $range = 3959;
@@ -378,4 +402,5 @@ class OfferController extends Controller
     cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
   return $angle * $earthRadius;
   }
+  */
 }

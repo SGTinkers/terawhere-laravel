@@ -26,7 +26,7 @@ class GetNearby extends FormRequest
         return [
             'lat' => 'required|numeric|between:-90,90',
             'lng' => 'required|numeric|between:-180,180',
-            'range' => 'required|numeric'
+            'range' => 'nullable|numeric|between:1,12'
         ];
     }
 }
