@@ -8,6 +8,7 @@ use App\Http\Requests\GetOfferId;
 use App\Http\Requests\StoreBooking;
 use App\Booking;
 use App\Offer;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
