@@ -12,7 +12,7 @@ return [
   | any other location as required by the application or its packages.
    */
 
-  'name'            => env('APP_NAME', 'Laravel'),
+  'name'            => env('APP_NAME', 'Terawhere'),
 
   /*
   |--------------------------------------------------------------------------
@@ -181,6 +181,7 @@ return [
     Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
     Latrell\Geohash\GeohashServiceProvider::class,
     Spatie\Activitylog\ActivitylogServiceProvider::class,
+    Benwilkins\FCM\FcmNotificationServiceProvider::class,
     Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
   ],
 

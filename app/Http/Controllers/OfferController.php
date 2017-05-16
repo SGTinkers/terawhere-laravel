@@ -349,7 +349,7 @@ class OfferController extends Controller
     $now = Carbon::now();
     $limit = $now->addHours(24);
 
-    $offers = Offer::where('status', 1)->where('meetup_time','<=',$limit)->where('meetup_time','>',$now)where('start_geohash', 'LIKE', $searchhash.'%')->get();
+    $offers = Offer::where('status', 1)->where('meetup_time','<=',$limit)->where('meetup_time','>',$now)->where('start_geohash', 'LIKE', $searchhash.'%')->get();
     if ($offers->isEmpty()) {
        return response()->json([
         'error' => 'Offer_not_found',

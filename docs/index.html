@@ -71,12 +71,12 @@
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/me" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/me" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/me",
+    "url": "http://localhost/api/v1/me",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -100,7 +100,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://terawhere.local/api/v1/auth" \
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/auth" \
 -H "Accept: application/json" \
     -d "service"="facebook" \
     -d "token"="in" \
@@ -108,7 +108,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/auth",
+    "url": "http://localhost/api/v1/auth",
     "method": "POST",
     "data": {
         "service": "facebook",
@@ -159,12 +159,12 @@ Call this API to exchange expired (not invalid!) JWT token with a fresh one.</li
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/auth/refresh" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/auth/refresh" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/auth/refresh",
+    "url": "http://localhost/api/v1/auth/refresh",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -191,14 +191,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/bookings-for-user" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/bookings-for-user" \
 -H "Accept: application/json" \
     -d "user_id"="incidunt" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings-for-user",
+    "url": "http://localhost/api/v1/bookings-for-user",
     "method": "GET",
     "data": {
         "user_id": "incidunt"
@@ -245,14 +245,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/bookings-for-offer" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/bookings-for-offer" \
 -H "Accept: application/json" \
     -d "offer_id"="19383562" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings-for-offer",
+    "url": "http://localhost/api/v1/bookings-for-offer",
     "method": "GET",
     "data": {
         "offer_id": 19383562
@@ -298,12 +298,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/bookings" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/bookings" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings",
+    "url": "http://localhost/api/v1/bookings",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -329,7 +329,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://terawhere.local/api/v1/bookings" \
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/bookings" \
 -H "Accept: application/json" \
     -d "offer_id"="3331" \
     -d "pax"="3331" \
@@ -337,7 +337,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings",
+    "url": "http://localhost/api/v1/bookings",
     "method": "POST",
     "data": {
         "offer_id": 3331,
@@ -384,12 +384,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/bookings/{booking}" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/bookings/{booking}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/{booking}",
+    "url": "http://localhost/api/v1/bookings/{booking}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -414,12 +414,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X DELETE "http://terawhere.local/api/v1/bookings/{booking}" \
+<pre><code class="language-bash">curl -X DELETE "http://localhost/api/v1/bookings/{booking}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/bookings/{booking}",
+    "url": "http://localhost/api/v1/bookings/{booking}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -442,14 +442,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/offers-for-user" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-user" \
 -H "Accept: application/json" \
     -d "user_id"="velit" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers-for-user",
+    "url": "http://localhost/api/v1/offers-for-user",
     "method": "GET",
     "data": {
         "user_id": "velit"
@@ -498,17 +498,17 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/offers-for-date" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-14" \
+    -d "date"="2017-05-16" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers-for-date",
+    "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-14"
+        "date": "2017-05-16"
 },
     "headers": {
         "accept": "application/json"
@@ -549,11 +549,11 @@ $.ajax(settings).done(function (response) {
 <h2>Get nearby offers</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
 <p>Range accepts 1-12 (Precision of geohash, 1 = ~5000km, 12 = 3.7 cm. Defaults to 4)</p>
-<p>Returns all nearby offers (To be optimised)</p>
+<p>Returns all nearby offers in the next 24 hours.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://terawhere.local/api/v1/nearby-offers" \
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/nearby-offers" \
 -H "Accept: application/json" \
     -d "lat"="15" \
     -d "lng"="31" \
@@ -562,7 +562,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/nearby-offers",
+    "url": "http://localhost/api/v1/nearby-offers",
     "method": "POST",
     "data": {
         "lat": 15,
@@ -619,12 +619,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/offers" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers",
+    "url": "http://localhost/api/v1/offers",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -649,9 +649,9 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://terawhere.local/api/v1/offers" \
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-14 17:26" \
+    -d "meetup_time"="2017-05-16 06:13" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -670,10 +670,10 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers",
+    "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-14 17:26",
+        "meetup_time": "2017-05-16 06:13",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -802,12 +802,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X GET "http://terawhere.local/api/v1/offers/{offer}" \
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "GET",
     "headers": {
         "accept": "application/json"
@@ -832,9 +832,9 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X PUT "http://terawhere.local/api/v1/offers/{offer}" \
+<pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-14 17:26" \
+    -d "meetup_time"="2017-05-16 06:13" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -853,10 +853,10 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-14 17:26",
+        "meetup_time": "2017-05-16 06:13",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -982,17 +982,17 @@ $.ajax(settings).done(function (response) {
 <!-- START_ed9803f1e1dd211d60541a24ba18c0f9 -->
 <h2>Cancel an offer</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
-<p>Status: Cancelled = 0, Pending = 1, Ongoing = 2, Completed = 3</p>
+<p>Status: Cancelled by User= 0, Pending = 1, Ongoing = 2, Completed = 3, Expired by server = 4.</p>
 <p>Returns Success or 404.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X DELETE "http://terawhere.local/api/v1/offers/{offer}" \
+<pre><code class="language-bash">curl -X DELETE "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://terawhere.local/api/v1/offers/{offer}",
+    "url": "http://localhost/api/v1/offers/{offer}",
     "method": "DELETE",
     "headers": {
         "accept": "application/json"
@@ -1005,6 +1005,30 @@ $.ajax(settings).done(function (response) {
 <h3>HTTP Request</h3>
 <p><code>DELETE api/v1/offers/{offer}</code></p>
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
+<h1>general</h1>
+<!-- START_88aeb15eed1153d765f336446997e4e2 -->
+<h2>api/v1/store-device-token</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/store-device-token" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/store-device-token",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/store-device-token</code></p>
+<!-- END_88aeb15eed1153d765f336446997e4e2 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

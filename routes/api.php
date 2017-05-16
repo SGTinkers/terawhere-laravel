@@ -42,6 +42,8 @@ Route::group(['prefix' => '/v1'], function () {
     ]]);
 
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
+
+    Route::post('store-device-token', 'NotificationController@storeDeviceToken');
   });
 
   // Routes which does not require auth

@@ -8,7 +8,7 @@
         "php": ">=5.6.4",
         "alsofronie/eloquent-uuid": "dev-master",
         "barryvdh/laravel-cors": "^0.9.2",
-        "brozot/laravel-fcm": "^1.2",
+        "benwilkins/laravel-fcm-notification": "dev-master",
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
