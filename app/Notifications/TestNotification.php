@@ -47,6 +47,15 @@ class TestNotification extends Notification
     
     return $message;
     }
+    /**
+    * Route notifications for the FCM channel.
+    *
+    * @return string
+    */
+    public function routeNotificationForFcm()
+    {
+        return $this->device_token;
+    }
 
     /**
      * Get the mail representation of the notification.

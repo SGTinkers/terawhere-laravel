@@ -468,6 +468,92 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_039cecacf2fd8264a352659da305ac9a -->
 
+#Notification
+
+Push notifications stuff with FCM is handled here.
+<!-- START_88aeb15eed1153d765f336446997e4e2 -->
+## Store device token
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/store-device-token" \
+-H "Accept: application/json" \
+    -d "device_token"="autem" \
+    -d "platform"="android" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/store-device-token",
+    "method": "POST",
+    "data": {
+        "device_token": "autem",
+        "platform": "android"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/store-device-token`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    device_token | string |  required  | 
+    platform | string |  required  | `ios`, `android` or `web`
+
+<!-- END_88aeb15eed1153d765f336446997e4e2 -->
+
+<!-- START_721d5d71e2f53268541f847dfdf27a84 -->
+## Send test notification
+
+**Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/test-notification" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/test-notification",
+    "method": "POST",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/test-notification`
+
+
+<!-- END_721d5d71e2f53268541f847dfdf27a84 -->
+
 #Offer
 
 All offers by drivers are handled here.
@@ -698,7 +784,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 06:13" \
+    -d "meetup_time"="2017-05-16 14:58" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -723,7 +809,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-16 06:13",
+        "meetup_time": "2017-05-16 14:58",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -831,7 +917,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 06:13" \
+    -d "meetup_time"="2017-05-16 14:58" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -856,7 +942,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-16 06:13",
+        "meetup_time": "2017-05-16 14:58",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -948,38 +1034,4 @@ $.ajax(settings).done(function (response) {
 
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
-
-#general
-<!-- START_88aeb15eed1153d765f336446997e4e2 -->
-## api/v1/store-device-token
-
-> Example request:
-
-```bash
-curl -X POST "http://localhost/api/v1/store-device-token" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/v1/store-device-token",
-    "method": "POST",
-    "headers": {
-        "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/v1/store-device-token`
-
-
-<!-- END_88aeb15eed1153d765f336446997e4e2 -->
 

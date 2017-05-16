@@ -27,6 +27,7 @@ Route::group(['prefix' => '/v1'], function () {
   Route::group([
     "middleware" => ['jwt.auth'],
   ], function () {
+    
     Route::get('offers-for-user', 'OfferController@getUsersOffers'); //get offers by user
     Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
     Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
@@ -37,13 +38,17 @@ Route::group(['prefix' => '/v1'], function () {
     Route::resource('offers', 'OfferController', ['except' => [
       'create', 'edit',
     ]]);
+
     Route::resource('bookings', 'BookingController', ['except' => [
       'create', 'edit', 'update',
     ]]);
 
+    //User info
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
 
+    //Push Notifications
     Route::post('store-device-token', 'NotificationController@storeDeviceToken');
+    Route::post('test-notification', 'NotificationController@sendTestNotification');
   });
 
   // Routes which does not require auth
