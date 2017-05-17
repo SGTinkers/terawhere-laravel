@@ -18,7 +18,7 @@ class CreateDevicesTable extends Migration
       $table->char('user_id', 32); 
       
       $table->string('platform');
-      $table->string('device_token');
+      $table->string('device_token')->unique();
      
       $table->softDeletes();
       $table->timestamps();
