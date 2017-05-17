@@ -183,6 +183,7 @@ return [
     Spatie\Activitylog\ActivitylogServiceProvider::class,
     Benwilkins\FCM\FcmNotificationServiceProvider::class,
     Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
   ],
 
   /*
