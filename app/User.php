@@ -60,4 +60,16 @@ class User extends Authenticatable
   {
     return $this->hasMany('App\Device');
   }
+
+  public function devicesTokens()
+  {
+    $tokens = [];
+
+    $devices = $this->devices();
+    foreach ($devices as $device) {
+      $tokens[] = $device->device_token;
+    }
+
+    return $tokens;
+  }
 }

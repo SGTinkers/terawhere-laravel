@@ -12338,6 +12338,118 @@ namespace Sentry\SentryLaravel {
     }         
 }
     
+namespace LaravelFCM\Facades {
+
+    class FCM {
+        
+        /**
+         * send a downstream message to.
+         * 
+         * - a unique device with is registration Token
+         * - or to multiples devices with an array of registrationIds
+         *
+         * @param string|array $to
+         * @param \LaravelFCM\Sender\Options|null $options
+         * @param \LaravelFCM\Sender\PayloadNotification|null $notification
+         * @param \LaravelFCM\Sender\PayloadData|null $data
+         * @return \LaravelFCM\Sender\DownstreamResponse|null 
+         * @static 
+         */
+        public static function sendTo($to, $options = null, $notification = null, $data = null)
+        {
+            return \LaravelFCM\Sender\FCMSender::sendTo($to, $options, $notification, $data);
+        }
+        
+        /**
+         * Send a message to a group of devices identified with them notification key.
+         *
+         * @param $notificationKey
+         * @param \LaravelFCM\Sender\Options|null $options
+         * @param \LaravelFCM\Sender\PayloadNotification|null $notification
+         * @param \LaravelFCM\Sender\PayloadData|null $data
+         * @return \LaravelFCM\Sender\GroupResponse 
+         * @static 
+         */
+        public static function sendToGroup($notificationKey, $options = null, $notification = null, $data = null)
+        {
+            return \LaravelFCM\Sender\FCMSender::sendToGroup($notificationKey, $options, $notification, $data);
+        }
+        
+        /**
+         * Send message devices registered at a or more topics.
+         *
+         * @param \LaravelFCM\Sender\Topics $topics
+         * @param \LaravelFCM\Sender\Options|null $options
+         * @param \LaravelFCM\Sender\PayloadNotification|null $notification
+         * @param \LaravelFCM\Sender\PayloadData|null $data
+         * @return \LaravelFCM\Sender\TopicResponse 
+         * @static 
+         */
+        public static function sendToTopic($topics, $options = null, $notification = null, $data = null)
+        {
+            return \LaravelFCM\Sender\FCMSender::sendToTopic($topics, $options, $notification, $data);
+        }
+        
+    }         
+
+    class FCMGroup {
+        
+        /**
+         * Create a group.
+         *
+         * @param $notificationKeyName
+         * @param array $registrationIds
+         * @static 
+         */
+        public static function createGroup($notificationKeyName, $registrationIds)
+        {
+            return \LaravelFCM\Sender\FCMGroup::createGroup($notificationKeyName, $registrationIds);
+        }
+        
+        /**
+         * add registrationId to a existing group.
+         *
+         * @param $notificationKeyName
+         * @param $notificationKey
+         * @param array $registrationIds registrationIds to add
+         * @static 
+         */
+        public static function addToGroup($notificationKeyName, $notificationKey, $registrationIds)
+        {
+            return \LaravelFCM\Sender\FCMGroup::addToGroup($notificationKeyName, $notificationKey, $registrationIds);
+        }
+        
+        /**
+         * remove registrationId to a existing group.
+         * 
+         * >Note: if you remove all registrationIds the group is automatically deleted
+         *
+         * @param $notificationKeyName
+         * @param $notificationKey
+         * @param array $registeredIds registrationIds to remove
+         * @static 
+         */
+        public static function removeFromGroup($notificationKeyName, $notificationKey, $registeredIds)
+        {
+            return \LaravelFCM\Sender\FCMGroup::removeFromGroup($notificationKeyName, $notificationKey, $registeredIds);
+        }
+        
+        /**
+         * 
+         *
+         * @internal 
+         * @param $response
+         * @return bool 
+         * @static 
+         */
+        public static function isValidResponse($response)
+        {
+            return \LaravelFCM\Sender\FCMGroup::isValidResponse($response);
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -14385,6 +14497,10 @@ namespace {
     class Geohash extends \Latrell\Geohash\GeohashServiceProvider {}
     
     class Sentry extends \Sentry\SentryLaravel\SentryFacade {}
+    
+    class FCM extends \LaravelFCM\Facades\FCM {}
+    
+    class FCMGroup extends \LaravelFCM\Facades\FCMGroup {}
     
 }
 

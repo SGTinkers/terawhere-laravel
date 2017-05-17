@@ -2,23 +2,31 @@
 
 namespace App\Notifications;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Benwilkins\FCM\FcmMessage;
+use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\PayloadDataBuilder;
+use LaravelFCM\Message\PayloadNotificationBuilder;
 
 class TestNotification extends Notification
 {
     use Queueable;
 
     /**
+   * @var User
+   */
+    private $user;
+
+    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -34,18 +42,20 @@ class TestNotification extends Notification
 
     public function toFcm($notifiable) 
     {
-    $message = new FcmMessage();
-    $message->content([
-        'title'        => 'Foo', 
-        'body'         => 'Bar', 
-        'sound'        => '', // Optional 
-        'icon'         => '', // Optional
-        'click_action' => '' // Optional
-    ])->data([
-        'message' => 'success' // Optional
-    ])->priority(FcmMessage::PRIORITY_HIGH); // Optional - Default is 'normal'.
+      $optionBuilder = new OptionsBuilder();
+      $optionBuilder->setTimeToLive(60*20);
+
+      $notificationBuilder = new PayloadNotificationBuilder('Test Notification');
+      $notificationBuilder->setBody('Hello World')->setSound('default');
+
+      $dataBuilder = new PayloadDataBuilder();
+      $dataBuilder->addData(['test1' => 'data1']);
+
+      $option = $optionBuilder->build();
+      $notification = $notificationBuilder->build();
+      $data = $dataBuilder->build();
     
-    return $message;
+      return [$this->user, $notification, $data, $option];
     }
     /**
     * Route notifications for the FCM channel.

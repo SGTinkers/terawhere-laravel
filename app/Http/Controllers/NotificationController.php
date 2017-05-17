@@ -85,6 +85,6 @@ class NotificationController extends Controller
    *
    */
     public function sendTestNotification() {
-    	Auth::user()->notify(new TestNotification());
+    	Auth::user()->notify(new TestNotification(Auth::user()));
     }
 }

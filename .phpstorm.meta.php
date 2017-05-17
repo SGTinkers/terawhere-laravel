@@ -156,6 +156,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'fcm.client' instanceof \GuzzleHttp\Client,
+            'fcm.group' instanceof \LaravelFCM\Sender\FCMGroup,
+            'fcm.sender' instanceof \LaravelFCM\Sender\FCMSender,
         ],
         \Illuminate\Contracts\Container\Container::make('') => [
             '' == '@',
@@ -304,6 +307,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'fcm.client' instanceof \GuzzleHttp\Client,
+            'fcm.group' instanceof \LaravelFCM\Sender\FCMGroup,
+            'fcm.sender' instanceof \LaravelFCM\Sender\FCMSender,
         ],
         \App::make('') => [
             '' == '@',
@@ -452,6 +458,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'fcm.client' instanceof \GuzzleHttp\Client,
+            'fcm.group' instanceof \LaravelFCM\Sender\FCMGroup,
+            'fcm.sender' instanceof \LaravelFCM\Sender\FCMSender,
         ],
         \app('') => [
             '' == '@',
@@ -600,6 +609,9 @@ namespace PHPSTORM_META {
             'command.ide-helper.generate' instanceof \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand,
             'command.ide-helper.models' instanceof \Barryvdh\LaravelIdeHelper\Console\ModelsCommand,
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
+            'fcm.client' instanceof \GuzzleHttp\Client,
+            'fcm.group' instanceof \LaravelFCM\Sender\FCMGroup,
+            'fcm.sender' instanceof \LaravelFCM\Sender\FCMSender,
         ],
     ];
 }

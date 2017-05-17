@@ -181,9 +181,9 @@ return [
     Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
     Latrell\Geohash\GeohashServiceProvider::class,
     Spatie\Activitylog\ActivitylogServiceProvider::class,
-    Benwilkins\FCM\FcmNotificationServiceProvider::class,
     Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+    LaravelFCM\FCMServiceProvider::class,
   ],
 
   /*
@@ -237,6 +237,8 @@ return [
     'JWTFactory'   => Tymon\JWTAuth\Facades\JWTFactory::class,
     'Geohash'      => Latrell\Geohash\GeohashServiceProvider::class,
     'Sentry'       => Sentry\SentryLaravel\SentryFacade::class,
+    'FCM'          => LaravelFCM\Facades\FCM::class,
+    'FCMGroup'     => LaravelFCM\Facades\FCMGroup::class,
   ],
 
 ];

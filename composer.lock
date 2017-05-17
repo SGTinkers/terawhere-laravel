@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ca473d33b3ff06f8343ef6279b3b6589",
-    "content-hash": "92e405106b08aaed6483ce03e56199d3",
+    "hash": "d94b56a25d46a18e93b4b1e112aec5e5",
+    "content-hash": "6d9c04713dce6e7bedd0e5ccae20fa9d",
     "packages": [
         {
             "name": "alsofronie/eloquent-uuid",
@@ -271,37 +271,59 @@
             "time": "2016-06-13 19:28:20"
         },
         {
-            "name": "benwilkins/laravel-fcm-notification",
-            "version": "dev-master",
+            "name": "brozot/laravel-fcm",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/benwilkins/laravel-fcm-notification.git",
-                "reference": "697153b063b4439f13f96b1e990b1fb1060ec28e"
+                "url": "https://github.com/brozot/Laravel-FCM.git",
+                "reference": "2122ba0fda51fbec87a14a1a9dc7e292f10b26df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/benwilkins/laravel-fcm-notification/zipball/697153b063b4439f13f96b1e990b1fb1060ec28e",
-                "reference": "697153b063b4439f13f96b1e990b1fb1060ec28e",
+                "url": "https://api.github.com/repos/brozot/Laravel-FCM/zipball/2122ba0fda51fbec87a14a1a9dc7e292f10b26df",
+                "reference": "2122ba0fda51fbec87a14a1a9dc7e292f10b26df",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.2"
+                "guzzlehttp/guzzle": "~6.0",
+                "illuminate/support": "5.*",
+                "monolog/monolog": "^1.19",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.2.*",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.7.*",
+                "satooshi/php-coveralls": "dev-master"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Benwilkins\\FCM\\": "src/"
+                    "LaravelFCM\\": "src/",
+                    "LaravelFCM\\Mocks\\": "tests/mocks"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
-                    "name": "Ben Wilkins",
-                    "email": "bentwilkins@gmail.com"
+                    "name": "Nicolas Brosy",
+                    "email": "nicolas.brosy@gmail.com"
                 }
             ],
-            "description": "Laravel FCM (Firebase Cloud Messaging) Notification Channel",
-            "time": "2016-12-06 16:28:56"
+            "description": "Laravel / Lumen package for Firebase Cloud Messaging ",
+            "keywords": [
+                "FCM",
+                "Firebase Cloud Messaging",
+                "firebase",
+                "laravel",
+                "lumen",
+                "notification",
+                "push"
+            ],
+            "time": "2017-04-20 06:27:21"
         },
         {
             "name": "container-interop/container-interop",
@@ -5491,7 +5513,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "alsofronie/eloquent-uuid": 20,
-        "benwilkins/laravel-fcm-notification": 20,
         "latrell/geohash": 20
     },
     "prefer-stable": false,
