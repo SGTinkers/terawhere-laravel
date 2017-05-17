@@ -434,25 +434,25 @@ $.ajax(settings).done(function (response) {
 <!-- END_039cecacf2fd8264a352659da305ac9a -->
 <h1>Notification</h1>
 <p>Push notifications stuff with FCM is handled here.</p>
-<!-- START_88aeb15eed1153d765f336446997e4e2 -->
+<!-- START_7a1aac2c6fcc438f99fca121eaf1482f -->
 <h2>Store device token</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
-<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/store-device-token" \
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/devices" \
 -H "Accept: application/json" \
-    -d "device_token"="autem" \
-    -d "platform"="android" \
+    -d "device_token"="possimus" \
+    -d "platform"="web" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/store-device-token",
+    "url": "http://localhost/api/v1/devices",
     "method": "POST",
     "data": {
-        "device_token": "autem",
-        "platform": "android"
+        "device_token": "possimus",
+        "platform": "web"
 },
     "headers": {
         "accept": "application/json"
@@ -463,7 +463,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/v1/store-device-token</code></p>
+<p><code>POST api/v1/devices</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -488,7 +488,7 @@ $.ajax(settings).done(function (response) {
 </tr>
 </tbody>
 </table>
-<!-- END_88aeb15eed1153d765f336446997e4e2 -->
+<!-- END_7a1aac2c6fcc438f99fca121eaf1482f -->
 <!-- START_721d5d71e2f53268541f847dfdf27a84 -->
 <h2>Send test notification</h2>
 <p><strong>Requires Authentication Header - </strong> <em>Authorization: Bearer [JWTTokenHere]</em></p>
@@ -581,7 +581,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-16" \
+    -d "date"="2017-05-17" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -589,7 +589,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-16"
+        "date": "2017-05-17"
 },
     "headers": {
         "accept": "application/json"
@@ -732,7 +732,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 14:58" \
+    -d "meetup_time"="2017-05-17 06:29" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -754,7 +754,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-16 14:58",
+        "meetup_time": "2017-05-17 06:29",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -915,7 +915,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 14:58" \
+    -d "meetup_time"="2017-05-17 06:29" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -937,7 +937,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-16 14:58",
+        "meetup_time": "2017-05-17 06:29",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,

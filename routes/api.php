@@ -47,7 +47,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
 
     //Push Notifications
-    Route::post('store-device-token', 'NotificationController@storeDeviceToken');
+    Route::resource('devices','NotificationController', [ 'only' => [ 'store', 'delete']]);
     Route::post('test-notification', 'NotificationController@sendTestNotification');
   });
 

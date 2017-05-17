@@ -471,7 +471,7 @@ $.ajax(settings).done(function (response) {
 #Notification
 
 Push notifications stuff with FCM is handled here.
-<!-- START_88aeb15eed1153d765f336446997e4e2 -->
+<!-- START_7a1aac2c6fcc438f99fca121eaf1482f -->
 ## Store device token
 
 **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
@@ -479,10 +479,10 @@ Push notifications stuff with FCM is handled here.
 > Example request:
 
 ```bash
-curl -X POST "http://localhost/api/v1/store-device-token" \
+curl -X POST "http://localhost/api/v1/devices" \
 -H "Accept: application/json" \
-    -d "device_token"="autem" \
-    -d "platform"="android" \
+    -d "device_token"="possimus" \
+    -d "platform"="web" \
 
 ```
 
@@ -490,11 +490,11 @@ curl -X POST "http://localhost/api/v1/store-device-token" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/v1/store-device-token",
+    "url": "http://localhost/api/v1/devices",
     "method": "POST",
     "data": {
-        "device_token": "autem",
-        "platform": "android"
+        "device_token": "possimus",
+        "platform": "web"
 },
     "headers": {
         "accept": "application/json"
@@ -508,7 +508,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/v1/store-device-token`
+`POST api/v1/devices`
 
 #### Parameters
 
@@ -517,7 +517,7 @@ Parameter | Type | Status | Description
     device_token | string |  required  | 
     platform | string |  required  | `ios`, `android` or `web`
 
-<!-- END_88aeb15eed1153d765f336446997e4e2 -->
+<!-- END_7a1aac2c6fcc438f99fca121eaf1482f -->
 
 <!-- START_721d5d71e2f53268541f847dfdf27a84 -->
 ## Send test notification
@@ -629,7 +629,7 @@ Returns all offers on a requested date
 ```bash
 curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-16" \
+    -d "date"="2017-05-17" \
 
 ```
 
@@ -640,7 +640,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-16"
+        "date": "2017-05-17"
 },
     "headers": {
         "accept": "application/json"
@@ -784,7 +784,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 14:58" \
+    -d "meetup_time"="2017-05-17 06:29" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -809,7 +809,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-16 14:58",
+        "meetup_time": "2017-05-17 06:29",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -917,7 +917,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-16 14:58" \
+    -d "meetup_time"="2017-05-17 06:29" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -942,7 +942,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-16 14:58",
+        "meetup_time": "2017-05-17 06:29",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,

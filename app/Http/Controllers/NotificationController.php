@@ -22,13 +22,13 @@ use App\Notifications\TestNotification;
 
 class NotificationController extends Controller
 {
-	/**
+  /**
    * Store device token
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    */
-    public function storeDeviceToken(GetDeviceToken $request){
+    public function store(GetDeviceToken $request){
     	$data =	$request->all();
 	    $data["user_id"] = Auth::user()->id;
 
@@ -38,6 +38,36 @@ class NotificationController extends Controller
     	'data'    => $device,
     	], 200);
     }
+  /**
+   * Delete device token
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   */
+    public function destroy($id)
+  	{
+    $device = Device::find($id);
+    if (!$device) {
+      return response()->json([
+        'error' => 'Resource_not_found',
+        'message' => 'Device does not exist.'
+        ], 404);
+    }
+    
+    if($device->user_id != Auth::user()->id){
+      return response()->json([
+        'error' => 'Forbidden_request',
+        'message' => 'User does not have permission to delete this device.'
+        ], 403);
+    }
+    
+    $device->delete();     //device is soft deleted.
+    return response()->json([
+      'message' => 'Device deleted successfully.',
+      'data'    => $offer,
+    ]);
+
+  }
     /**
    * Send test notification
    *
