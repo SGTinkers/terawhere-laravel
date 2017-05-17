@@ -28,8 +28,11 @@ class FcmChannel
 
     Log::info("Notification: ");
     Log::info($notification->toArray());
-    foreach ($user->devicesTokens() as $token) {
-      Log::info('Sending notification to: ' . $token);
+    Log::info('Devices: ');
+    Log::info($user->devicesTokens());
+
+    if (empty($user->devicesTokens())) {
+      return;
     }
 
     $response = FCM::sendTo($user->devicesTokens(), $option, $notification, $data);
