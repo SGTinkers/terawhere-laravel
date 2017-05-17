@@ -67,8 +67,15 @@ class NotificationController extends Controller
       'data'    => $device,
     ]);
 
-  }
-  	public function getUsersDevices(){
+  	}
+  /**
+   * Get devices belonging to a user
+   *
+   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+   *
+   */
+  	public function getUsersDevices()
+  	{
   		return Auth::user()->devices();
   	}
     /**
