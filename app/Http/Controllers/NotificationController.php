@@ -44,7 +44,7 @@ class NotificationController extends Controller
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
    */
-    public function sendTestNotification(){
-    	$user->notify(new TestNotification($test));
+    public function sendTestNotification() {
+    	Auth::user()->notify(new TestNotification());
     }
 }

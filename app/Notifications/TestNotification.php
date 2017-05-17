@@ -4,8 +4,8 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Benwilkins\FCM\FcmMessage;
 
 class TestNotification extends Notification
 {
@@ -34,7 +34,7 @@ class TestNotification extends Notification
 
     public function toFcm($notifiable) 
     {
-    $message = new Benwilkins\FcmMessage();
+    $message = new FcmMessage();
     $message->content([
         'title'        => 'Foo', 
         'body'         => 'Bar', 
@@ -43,7 +43,7 @@ class TestNotification extends Notification
         'click_action' => '' // Optional
     ])->data([
         'message' => 'success' // Optional
-    ])->priority(Benwilkins\FcmMessage::PRIORITY_HIGH); // Optional - Default is 'normal'.
+    ])->priority(FcmMessage::PRIORITY_HIGH); // Optional - Default is 'normal'.
     
     return $message;
     }
@@ -52,10 +52,10 @@ class TestNotification extends Notification
     *
     * @return string
     */
-    public function routeNotificationForFcm()
-    {
-        return $this->device_token;
-    }
+//    public function routeNotificationForFcm()
+//    {
+//        return $this->device_token;
+//    }
 
     /**
      * Get the mail representation of the notification.
