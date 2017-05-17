@@ -32,6 +32,15 @@ class NotificationController extends Controller
     	$data =	$request->all();
 	    $data["user_id"] = Auth::user()->id;
 
+      $devicetoken = Device::where('device_token', $data['device_token'])->first();
+
+      if($devicetoken){
+        return response()->json([
+          'message' => 'Device token already exists.',
+          'data'    => $devicetoken,
+        ], 422);
+      }
+
     	$device = Device::create($data);
     	return response()->json([
       	'message' => 'Device token added successfully.',
