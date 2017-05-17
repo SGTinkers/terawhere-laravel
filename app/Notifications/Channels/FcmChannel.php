@@ -4,7 +4,6 @@ namespace App\Notifications\Channels;
 
 use App\Device;
 use FCM;
-use GuzzleHttp\Client;
 use Illuminate\Notifications\Notification;
 
 /**
@@ -13,22 +12,9 @@ use Illuminate\Notifications\Notification;
  */
 class FcmChannel
 {
-  /**
-   * @const The API URL for Firebase
-   */
-  const API_URI = 'https://fcm.googleapis.com/fcm/send';
-
-  /**
-   * @var Client
-   */
-  private $client;
-
-  /**
-   * @param Client $client
-   */
-  public function __construct(Client $client)
+  public function __construct()
   {
-    $this->client = $client;
+    //
   }
 
   /**
