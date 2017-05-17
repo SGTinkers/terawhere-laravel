@@ -64,10 +64,13 @@ class NotificationController extends Controller
     $device->delete();     //device is soft deleted.
     return response()->json([
       'message' => 'Device deleted successfully.',
-      'data'    => $offer,
+      'data'    => $device,
     ]);
 
   }
+  	public function getUsersDevices(){
+  		return Auth::user()->devices();
+  	}
     /**
    * Send test notification
    *

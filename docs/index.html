@@ -513,6 +513,34 @@ $.ajax(settings).done(function (response) {
 <h3>HTTP Request</h3>
 <p><code>POST api/v1/test-notification</code></p>
 <!-- END_721d5d71e2f53268541f847dfdf27a84 -->
+<!-- START_d787f9a72e2a991d0148cce413f7a85e -->
+<h2>api/v1/devices-for-user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/devices-for-user" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/devices-for-user",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/devices-for-user</code></p>
+<p><code>HEAD api/v1/devices-for-user</code></p>
+<!-- END_d787f9a72e2a991d0148cce413f7a85e -->
 <h1>Offer</h1>
 <p>All offers by drivers are handled here.</p>
 <!-- START_4c83e6d62d6e132846ce0b74ca077846 -->
@@ -732,7 +760,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-17 06:29" \
+    -d "meetup_time"="2017-05-17 06:34" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -754,7 +782,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-17 06:29",
+        "meetup_time": "2017-05-17 06:34",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -915,7 +943,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-17 06:29" \
+    -d "meetup_time"="2017-05-17 06:34" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -937,7 +965,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-17 06:29",
+        "meetup_time": "2017-05-17 06:34",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,

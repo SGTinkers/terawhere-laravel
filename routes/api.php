@@ -49,6 +49,7 @@ Route::group(['prefix' => '/v1'], function () {
     //Push Notifications
     Route::resource('devices','NotificationController', [ 'only' => [ 'store', 'delete']]);
     Route::post('test-notification', 'NotificationController@sendTestNotification');
+    Route::get('devices-for-user', 'NotificationController@getUsersDevices');
   });
 
   // Routes which does not require auth

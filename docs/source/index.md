@@ -554,6 +554,46 @@ $.ajax(settings).done(function (response) {
 
 <!-- END_721d5d71e2f53268541f847dfdf27a84 -->
 
+<!-- START_d787f9a72e2a991d0148cce413f7a85e -->
+## api/v1/devices-for-user
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/devices-for-user" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/devices-for-user",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/devices-for-user`
+
+`HEAD api/v1/devices-for-user`
+
+
+<!-- END_d787f9a72e2a991d0148cce413f7a85e -->
+
 #Offer
 
 All offers by drivers are handled here.
@@ -784,7 +824,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-17 06:29" \
+    -d "meetup_time"="2017-05-17 06:34" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -809,7 +849,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-17 06:29",
+        "meetup_time": "2017-05-17 06:34",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -917,7 +957,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-17 06:29" \
+    -d "meetup_time"="2017-05-17 06:34" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -942,7 +982,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-17 06:29",
+        "meetup_time": "2017-05-17 06:34",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
