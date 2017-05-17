@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-
 class User extends Authenticatable
 {
   use Notifiable, Uuid32ModelTrait;
@@ -65,7 +64,7 @@ class User extends Authenticatable
   {
     $tokens = [];
 
-    $devices = $this->devices();
+    $devices = $this->devices;
     foreach ($devices as $device) {
       $tokens[] = $device->device_token;
     }

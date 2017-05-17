@@ -26,6 +26,7 @@ class FcmChannel
   {
     list($user, $notification, $data, $option) = $notification->toFCM($notifiable);
 
+    // TODO: Remove in prod?
     Log::info("Notification: ");
     Log::info($notification->toArray());
     Log::info('Devices: ');
