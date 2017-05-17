@@ -5,6 +5,7 @@ namespace App\Notifications\Channels;
 use App\Device;
 use FCM;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class FcmChannel
@@ -25,7 +26,12 @@ class FcmChannel
   {
     list($user, $notification, $data, $option) = $notification->toFCM($notifiable);
 
-    $response = FCM::sendTo($user->devicesTokens(), $option, $notification);
+    Log::info("Notification: " . $notification->title);
+    foreach ($user->devicesTokens() as $token) {
+      Log::info('Sending notification to: ' . $token);
+    }
+
+    $response = FCM::sendTo($user->devicesTokens(), $option, $notification, $data);
 
     //return Array - you must remove all this tokens in your database
     foreach ($response->tokensToDelete() as $token) {
