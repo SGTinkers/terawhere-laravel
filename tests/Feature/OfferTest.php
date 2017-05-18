@@ -106,7 +106,7 @@ class OfferTest extends TestCase
   	$user  = User::first();
     $token = JWTAuth::fromUser($user);
 
-    $response = $this->json('POST', '/api/v1/offers/1', [
+    $response = $this->json('POST', '/api/v1/offers', [
 
       'meetup_time'    => '2012-12-21 23:59',
       'start_name'     => 'foo',
@@ -156,11 +156,11 @@ class OfferTest extends TestCase
    *
    * @return void
    */
-  public function testStoreWithNullables(){
+  public function testStoreWithoutNullables(){
   	$user  = User::first();
     $token = JWTAuth::fromUser($user);
 
-    $response = $this->json('POST', '/api/v1/offers/1', [
+    $response = $this->json('POST', '/api/v1/offers', [
 
       'meetup_time'    => '2012-12-21 23:59',
       'start_name'     => 'foo',
@@ -199,6 +199,60 @@ class OfferTest extends TestCase
 	      'vehicle_desc'   => null,
 	      'vehicle_model'  => 'Submarine',
 	      ],
+      ]);
+  }
+  /**
+   * Test POST /api/v1/offers sending nothing.
+   * Return with error messages.
+   *
+   * @return void
+   */  
+  public function testStoreEmpty(){
+  	$user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('POST', '/api/v1/offers', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(422)
+      ->assertExactJson(
+      	[
+			  "meetup_time" => [
+			    "The meetup time field is required."
+			  ],
+			  "start_name" => [
+			    "The start name field is required."
+			  ],
+			  "start_addr" => [
+			    "The start addr field is required."
+			  ],
+			  "start_lat" => [
+			    "The start lat field is required."
+			  ],
+			  "start_lng" => [
+			    "The start lng field is required."
+			  ],
+			  "end_name" => [
+			    "The end name field is required."
+			  ],
+			  "end_addr" => [
+			    "The end addr field is required."
+			  ],
+			  "end_lat" => [
+			    "The end lat field is required."
+			  ],
+			  "end_lng" => [
+			    "The end lng field is required."
+			  ],
+			  "vacancy" => [
+			    "The vacancy field is required."
+			  ],
+			  "vehicle_number" => [
+			    "The vehicle number field is required."
+			  ],
+			  "vehicle_model" => [
+			    "The vehicle model field is required."
+			  ]
       ]);
   }  	    
 }

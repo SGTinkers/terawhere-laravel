@@ -97,7 +97,7 @@ class OfferController extends Controller
     //IMPLEMENT CARBON HERE
     if ($latestoffer) { //if latest offer exists
       $now  = Carbon::now();
-      $diff = $now->diffInMinutes($latestoffer['created_at']);
+      $diff = Carbon::now()->diffInMinutes($latestoffer['created_at']);
 
       if ($diff < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']) {
         return response()->json([
@@ -143,7 +143,7 @@ class OfferController extends Controller
     //IMPLEMENT CARBON
     $meetup_time = $offer->meetup_time;
     $now         = Carbon::now();
-    $diff        = $now->diff($meetup_time);
+    $diff        = Carbon::now()->diff($meetup_time);
 
     if ($diff->format('%R%h') < 6) {
       return response()->json([
