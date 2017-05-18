@@ -1923,7 +1923,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://terawhere.ruqqq.sg/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 07:26" \
+    -d "meetup_time"="2017-05-18 07:31" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -1948,7 +1948,7 @@ var settings = {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-18 07:26",
+        "meetup_time": "2017-05-18 07:31",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -2059,7 +2059,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://terawhere.ruqqq.sg/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 07:26" \
+    -d "meetup_time"="2017-05-18 07:31" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -2084,7 +2084,7 @@ var settings = {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-18 07:26",
+        "meetup_time": "2017-05-18 07:31",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -2176,4 +2176,256 @@ $.ajax(settings).done(function (response) {
 
 
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
+
+#Review
+
+All reviews by users are handled here.
+<!-- START_af54b900bc64ab6f36a486fb0ef054b2 -->
+## Display a listing of the reviews
+
+> Example request:
+
+```bash
+curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "data": []
+}
+```
+
+### HTTP Request
+`GET api/v1/reviews`
+
+`HEAD api/v1/reviews`
+
+
+<!-- END_af54b900bc64ab6f36a486fb0ef054b2 -->
+
+<!-- START_e02d35fb51bdc8748c538fde24f87a41 -->
+## Create a new review
+
+To review an offer (and its driver), send offer_id.
+
+To review a booking (and its passenger), send booking_id.
+
+But don't send BOTH offer_id and booking_id. will fail.
+
+> Example request:
+
+```bash
+curl -X POST "http://terawhere.ruqqq.sg/api/v1/reviews" \
+-H "Accept: application/json" \
+    -d "offer_id"="157163" \
+    -d "booking_id"="157163" \
+    -d "body"="est" \
+    -d "rating"="4" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews",
+    "method": "POST",
+    "data": {
+        "offer_id": 157163,
+        "booking_id": 157163,
+        "body": "est",
+        "rating": 4
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/reviews`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    offer_id | integer |  optional  | Required if the parameters `booking_id` are not present.
+    booking_id | integer |  optional  | Required if the parameters `offer_id` are not present.
+    body | string |  required  | 
+    rating | integer |  required  | Between: `1` and `5`
+
+<!-- END_e02d35fb51bdc8748c538fde24f87a41 -->
+
+<!-- START_e2534a083bf0eb51f62a92e5256ca165 -->
+## Display the specified review.
+
+> Example request:
+
+```bash
+curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews/{review}" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews/{review}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Resource_not_found",
+    "message": "Review does not exist."
+}
+```
+
+### HTTP Request
+`GET api/v1/reviews/{review}`
+
+`HEAD api/v1/reviews/{review}`
+
+
+<!-- END_e2534a083bf0eb51f62a92e5256ca165 -->
+
+<!-- START_d6af07b065d16bfd491c836974f5ea74 -->
+## api/v1/reviews-for-user
+
+> Example request:
+
+```bash
+curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews-for-user" \
+-H "Accept: application/json" \
+    -d "user_id"="enim" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews-for-user",
+    "method": "GET",
+    "data": {
+        "user_id": "enim"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Resource_not_found",
+    "message": "User has not been reviewed."
+}
+```
+
+### HTTP Request
+`GET api/v1/reviews-for-user`
+
+`HEAD api/v1/reviews-for-user`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
+
+<!-- END_d6af07b065d16bfd491c836974f5ea74 -->
+
+<!-- START_d045b8f72b5dcb49da5193f2c9316efe -->
+## api/v1/reviewer-reviews
+
+> Example request:
+
+```bash
+curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviewer-reviews" \
+-H "Accept: application/json" \
+    -d "user_id"="est" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviewer-reviews",
+    "method": "GET",
+    "data": {
+        "user_id": "est"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "error": "Resource_not_found",
+    "message": "User has not made any reviews."
+}
+```
+
+### HTTP Request
+`GET api/v1/reviewer-reviews`
+
+`HEAD api/v1/reviewer-reviews`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
+
+<!-- END_d045b8f72b5dcb49da5193f2c9316efe -->
 

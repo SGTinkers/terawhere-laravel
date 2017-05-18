@@ -1865,7 +1865,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://terawhere.ruqqq.sg/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 07:26" \
+    -d "meetup_time"="2017-05-18 07:31" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -1887,7 +1887,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-18 07:26",
+        "meetup_time": "2017-05-18 07:31",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -2051,7 +2051,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://terawhere.ruqqq.sg/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 07:26" \
+    -d "meetup_time"="2017-05-18 07:31" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -2073,7 +2073,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-18 07:26",
+        "meetup_time": "2017-05-18 07:31",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -2222,6 +2222,252 @@ $.ajax(settings).done(function (response) {
 <h3>HTTP Request</h3>
 <p><code>DELETE api/v1/offers/{offer}</code></p>
 <!-- END_ed9803f1e1dd211d60541a24ba18c0f9 -->
+<h1>Review</h1>
+<p>All reviews by users are handled here.</p>
+<!-- START_af54b900bc64ab6f36a486fb0ef054b2 -->
+<h2>Display a listing of the reviews</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": []
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/reviews</code></p>
+<p><code>HEAD api/v1/reviews</code></p>
+<!-- END_af54b900bc64ab6f36a486fb0ef054b2 -->
+<!-- START_e02d35fb51bdc8748c538fde24f87a41 -->
+<h2>Create a new review</h2>
+<p>To review an offer (and its driver), send offer_id.</p>
+<p>To review a booking (and its passenger), send booking_id.</p>
+<p>But don't send BOTH offer_id and booking_id. will fail.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://terawhere.ruqqq.sg/api/v1/reviews" \
+-H "Accept: application/json" \
+    -d "offer_id"="157163" \
+    -d "booking_id"="157163" \
+    -d "body"="est" \
+    -d "rating"="4" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews",
+    "method": "POST",
+    "data": {
+        "offer_id": 157163,
+        "booking_id": 157163,
+        "body": "est",
+        "rating": 4
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/reviews</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>offer_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>Required if the parameters <code>booking_id</code> are not present.</td>
+</tr>
+<tr>
+<td>booking_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>Required if the parameters <code>offer_id</code> are not present.</td>
+</tr>
+<tr>
+<td>body</td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td>rating</td>
+<td>integer</td>
+<td>required</td>
+<td>Between: <code>1</code> and <code>5</code></td>
+</tr>
+</tbody>
+</table>
+<!-- END_e02d35fb51bdc8748c538fde24f87a41 -->
+<!-- START_e2534a083bf0eb51f62a92e5256ca165 -->
+<h2>Display the specified review.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews/{review}" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews/{review}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "Resource_not_found",
+    "message": "Review does not exist."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/reviews/{review}</code></p>
+<p><code>HEAD api/v1/reviews/{review}</code></p>
+<!-- END_e2534a083bf0eb51f62a92e5256ca165 -->
+<!-- START_d6af07b065d16bfd491c836974f5ea74 -->
+<h2>api/v1/reviews-for-user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviews-for-user" \
+-H "Accept: application/json" \
+    -d "user_id"="enim" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviews-for-user",
+    "method": "GET",
+    "data": {
+        "user_id": "enim"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "Resource_not_found",
+    "message": "User has not been reviewed."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/reviews-for-user</code></p>
+<p><code>HEAD api/v1/reviews-for-user</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>optional</td>
+<td>Only alpha-numeric characters allowed</td>
+</tr>
+</tbody>
+</table>
+<!-- END_d6af07b065d16bfd491c836974f5ea74 -->
+<!-- START_d045b8f72b5dcb49da5193f2c9316efe -->
+<h2>api/v1/reviewer-reviews</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://terawhere.ruqqq.sg/api/v1/reviewer-reviews" \
+-H "Accept: application/json" \
+    -d "user_id"="est" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://terawhere.ruqqq.sg/api/v1/reviewer-reviews",
+    "method": "GET",
+    "data": {
+        "user_id": "est"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "error": "Resource_not_found",
+    "message": "User has not made any reviews."
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/reviewer-reviews</code></p>
+<p><code>HEAD api/v1/reviewer-reviews</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>optional</td>
+<td>Only alpha-numeric characters allowed</td>
+</tr>
+</tbody>
+</table>
+<!-- END_d045b8f72b5dcb49da5193f2c9316efe -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
