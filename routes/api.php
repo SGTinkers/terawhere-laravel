@@ -28,28 +28,41 @@ Route::group(['prefix' => '/v1'], function () {
     "middleware" => ['jwt.auth'],
   ], function () {
     
+    //Offers
     Route::get('offers-for-user', 'OfferController@getUsersOffers'); //get offers by user
     Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
     Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
+    //Bookings
     Route::get('bookings-for-user', 'BookingController@getUsersBookings'); //get bookings by user
     Route::get('bookings-for-offer', 'BookingController@getOffersBookings'); //get bookings to an offer
     
+    //Offer Resource
     Route::resource('offers', 'OfferController', ['except' => [
       'create', 'edit',
     ]]);
 
+    //Booking Resource
     Route::resource('bookings', 'BookingController', ['except' => [
       'create', 'edit', 'update',
     ]]);
 
-    //User info
+    //User Info
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
 
     //Push Notifications
     Route::resource('devices','NotificationController', [ 'only' => [ 'store', 'delete']]);
     Route::post('test-notification', 'NotificationController@sendTestNotification');
     Route::get('devices-for-user', 'NotificationController@getUsersDevices');
+
+    //Review Resource
+    Route::resource('reviews', 'ReviewController', [ 'only' => ['index', 'store', 'show']]);
+    Route::get('reviews-for-user', 'ReviewController@getUsersReviews');       //Reviews OF the user
+    //Route::get('ratings-for-user', 'ReviewController@getUsersRatings');
+    
+    //Review analytics
+    Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews');   //Reviews WRITTEN BY USER
+
   });
 
   // Routes which does not require auth
