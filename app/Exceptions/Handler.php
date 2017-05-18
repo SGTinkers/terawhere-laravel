@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     if ($request->ajax() || $request->wantsJson()) {
       $error = $this->convertExceptionToResponse($exception);
       $response = [];
-      if ($error->getStatusCode() >= 400) {
+      if ($error->getStatusCode() >= 500) {
         $response['error'] = $exception->getMessage();
         if (Config::get('app.debug')) {
           $response['trace'] = $exception->getTraceAsString();
