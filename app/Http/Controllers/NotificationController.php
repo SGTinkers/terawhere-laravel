@@ -58,14 +58,14 @@ class NotificationController extends Controller
     $device = Device::find($id);
     if (!$device) {
       return response()->json([
-        'error' => 'Resource_not_found',
+        'error' => 'resource_not_found',
         'message' => 'Device does not exist.'
         ], 404);
     }
     
     if($device->user_id != Auth::user()->id){
       return response()->json([
-        'error' => 'Forbidden_request',
+        'error' => 'forbidden_request',
         'message' => 'User does not have permission to delete this device.'
         ], 403);
     }
@@ -87,15 +87,9 @@ class NotificationController extends Controller
   	{
   		$devices = Auth::user()->devices()->get();
 
-      if ($devices->isEmpty()) {
       return response()->json([
-        'error' => 'Resource_not_found',
-        'message' => 'There are no devices for this user.'
-        ], 404);
-      }
-      return response()->json([
-      'data' => $devices,
-    ], 200);
+        'data' => $devices,
+      ], 200);
   	}
     /**
    * Send test notification

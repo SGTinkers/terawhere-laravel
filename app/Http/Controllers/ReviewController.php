@@ -51,7 +51,7 @@ class ReviewController extends Controller
 
         if(isset($data['offer_id']) && isset($data['booking_id'])){
             return response()->json([
-            'error' =>   'Invalid_request',
+            'error' =>   'invalid_request',
             'message' => 'Unable to process both offer and booking. Please use only offer_id or booking_id but not both.'
             ], 422);
         }   
@@ -62,7 +62,7 @@ class ReviewController extends Controller
 
             if (!$offer) {
                 return response()->json([
-                'error' => 'Resource_not_found',
+                'error' => 'resource_not_found',
                 'message' => 'Offer does not exist.'
                 ], 404);
             }
@@ -82,7 +82,7 @@ class ReviewController extends Controller
 
             if (!$booking) {
                 return response()->json([
-                'error' => 'Resource_not_found',
+                'error' => 'resource_not_found',
                 'message' => 'Booking does not exist.'
                 ], 404);
             }
@@ -108,7 +108,7 @@ class ReviewController extends Controller
         $review = Review::find($id);
         if (!$review) {
           return response()->json([
-            'error' => 'Resource_not_found',
+            'error' => 'resource_not_found',
             'message' => 'Review does not exist.'
           ], 404);
         }
@@ -127,20 +127,13 @@ class ReviewController extends Controller
         }
 
         $reviews = Review::where('user_id', $user_id)->get();
-        
-        if ($reviews->isEmpty()) {
-          return response()->json([
-            'error' => 'Resource_not_found',
-            'message' => 'User has not been reviewed.'
-          ], 404);
-        } 
-        
-            return response()->json([
-                'data' => $reviews,
-            ], 200);
+
+        return response()->json([
+            'data' => $reviews,
+        ], 200);
     }
 
-    public function getUsersRatings(){
+    public function getUsersRatings($request) {
         //if user_id not passed (which it shouldn't be anyways)
         if(!isset($request->user_id) || empty($request->user_id)){
             $user_id = Auth::user()->id; //set user id to current user
@@ -149,10 +142,11 @@ class ReviewController extends Controller
         }
 
         $reviews = Review::where('user_id', $user_id)->get();
-        
+
+        // TODO: Return default rating for user if not reviewed
         if ($reviews->isEmpty()) {
           return response()->json([
-            'error' => 'Resource_not_found',
+            'error' => 'resource_not_found',
             'message' => 'User has not been reviewed.'
           ], 404);
         } 
@@ -177,20 +171,11 @@ class ReviewController extends Controller
         }
 
         $reviews = Review::where('reviewer_id', $user_id)->get();
-        
-        if ($reviews->isEmpty()) {
-          return response()->json([
-            'error' => 'Resource_not_found',
-            'message' => 'User has not made any reviews.'
-          ], 404);
-        } 
-        
+
         return response()->json([
                 'data' => $reviews,
         ], 200);
-
     }
-
 
     /**
      * Update the specified resource in storage.

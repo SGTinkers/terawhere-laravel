@@ -58,7 +58,7 @@ class OfferController extends Controller
     $offer = Offer::find($id);
     if (!$offer) {
       return response()->json([
-        'error' => 'Offer_not_found',
+        'error' => 'offer_not_found',
         'message' => 'Offer does not exist'
       ], 404);
     }
@@ -91,7 +91,7 @@ class OfferController extends Controller
     
     if(isset($data['pref_gender']) && $data['pref_gender'] != Auth::user()->gender){
         return response()->json([
-        'error' =>   'Invalid_request',
+        'error' =>   'invalid_request',
         'message' => 'Unable to select different prefered gender.'
         ], 422);
     }
@@ -105,7 +105,7 @@ class OfferController extends Controller
 
     if($diff < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']){
       return response()->json([
-        'error' => 'Invalid_request',
+        'error' => 'invalid_request',
         'message' => 'User cannot add another similar offer too soon.'
         ], 422);
       }
@@ -132,14 +132,14 @@ class OfferController extends Controller
 
     if (!$offer) {
       return response()->json([
-        'error' =>   'Offer_not_found',
+        'error' =>   'offer_not_found',
         'message' => 'Offer does not exist.'
         ], 404);
     }
 
     if($offer->user_id != Auth::user()->id){
       return response()->json([
-        'error' => 'Forbidden_request',
+        'error' => 'forbidden_request',
         'message' => 'User does not have permission to edit this offer.'
         ], 403);
     }
@@ -151,11 +151,10 @@ class OfferController extends Controller
 
     if($diff->format('%R%h') < 6){
       return response()->json([
-        'error' => 'Invalid_request',
+        'error' => 'invalid_request',
         'message' => 'User cannot edit the offer 6 hours before meetup time.'
         ], 422);
     }
-
 
     $offer->fill($request->all());
     $offer->save();
@@ -181,14 +180,14 @@ class OfferController extends Controller
     $offer = Offer::find($id);
     if (!$offer) {
       return response()->json([
-        'error' => 'Offer_not_found',
+        'error' => 'offer_not_found',
         'message' => 'Offer does not exist.'
         ], 404);
     }
     
     if($offer->user_id != Auth::user()->id){
       return response()->json([
-        'error' => 'Forbidden_request',
+        'error' => 'forbidden_request',
         'message' => 'User does not have permission to delete this offer.'
         ], 403);
     }
@@ -231,17 +230,10 @@ class OfferController extends Controller
     $offers = Offer::where('meetup_time', '<', $next)
               ->where('meetup_time','>=', $current)
               ->get();
-    
-    if ($offers->isEmpty()) {
-      return response()->json([
-        'error' => 'Offer_not_found',
-        'message' => 'There are no offers on this date.'
-      ], 404);
-    }
 
-      return response()->json([
-        'data' => $offers,
-      ], 200);
+    return response()->json([
+      'data' => $offers,
+    ], 200);
   }
   /**
    * Get offers belonging to a user
@@ -261,19 +253,10 @@ class OfferController extends Controller
     }
 
     $offers = Offer::where('user_id', $user_id)->get();
-    
-    if ($offers->isEmpty()) {
-      return response()->json([
-        'error' => 'Offer_not_found',
-        'message' => 'User does not have any offers.'
-      ], 404);
-    } 
-    
-    else {
-      return response()->json([
-        'data' => $offers,
-      ], 200);
-    }
+
+    return response()->json([
+      'data' => $offers,
+    ], 200);
   }
   /**
    * Get nearby offers
@@ -301,12 +284,6 @@ class OfferController extends Controller
     $limit = Carbon::now()->addHours(24);
 
     $offers = Offer::where('status', 1)->where('meetup_time','<=',$limit)->where('meetup_time','>',$now)->where('start_geohash', 'LIKE', $searchhash.'%')->get();
-    if ($offers->isEmpty()) {
-       return response()->json([
-        'error' => 'Offer_not_found',
-        'message' => 'There are no nearby offers.'
-      ], 404);
-    }
     return response()->json([
       'data' => $offers,
     ], 200);
