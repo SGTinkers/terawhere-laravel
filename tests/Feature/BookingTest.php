@@ -67,4 +67,48 @@ class BookingTest extends TestCase
         'data'  => [],
       ]);
   }
+
+  /**
+   * Test /api/v1/bookings/{id}
+   * Return with result
+   *
+   * @return void
+   */
+  public function testShow()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $booking = Booking::first();
+
+    $response = $this->json('GET', '/api/v1/bookings/' . $booking->id, [], ['Authorization' => 'Bearer ' . $token]);
+
+    $data = $booking->toArray();
+    $data['name']   = $user->name;
+    $data['gender'] = $user->gender;
+
+    $response
+      ->assertStatus(200)
+      ->assertExactJson([
+        'data'  => $data,
+      ]);
+  }
+
+  /**
+   * Test /api/v1/bookings/{id}
+   * Return with no result
+   *
+   * @return void
+   */
+  public function testShowNoResult()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $response = $this->json('GET', '/api/v1/bookings/0', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(404)
+      ->assertJson([
+        'error'   => 'booking_not_found',
+      ]);
+  }
 }
