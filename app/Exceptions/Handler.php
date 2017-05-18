@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Config;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -60,7 +61,7 @@ class Handler extends ExceptionHandler
 
       return response()->json($response, $error->getStatusCode());
     }
-    
+
     return parent::render($request, $exception);
   }
 
