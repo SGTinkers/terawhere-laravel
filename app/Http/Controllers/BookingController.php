@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetDate;
-use App\Http\Requests\GetUserId;
-use App\Http\Requests\GetOfferId;
-use App\Http\Requests\StoreBooking;
 use App\Booking;
+use App\Http\Requests\GetOfferId;
+use App\Http\Requests\GetUserId;
+use App\Http\Requests\StoreBooking;
 use App\Offer;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-
 
 /**
  * @resource Booking
@@ -51,14 +47,14 @@ class BookingController extends Controller
 
     if (!$booking) {
       return response()->json([
-        'error' => 'booking_not_found',
-        'message' => 'Booking does not exist.'
+        'error'   => 'booking_not_found',
+        'message' => 'Booking does not exist.',
       ], 404);
     }
 
-    $user = User::find($booking->user_id);
-    $booking['name']    = $user->name;
-    $booking['gender']  = $user->gender;
+    $user              = User::find($booking->user_id);
+    $booking['name']   = $user->name;
+    $booking['gender'] = $user->gender;
 
     return response()->json([
       'data' => $booking,
@@ -86,30 +82,30 @@ class BookingController extends Controller
     if (!$offer) {
       return response()->json([
         'error'   => 'offer_not_found',
-        'message' => 'That offer does not exist.'
-        ], 422);
+        'message' => 'That offer does not exist.',
+      ], 422);
     }
 
-    $bookings       = Booking::where('offer_id', $data['offer_id'])->get();
-    $usersBookings  = Booking::where('user_id', Auth::user()->id)->get();
+    $bookings      = Booking::where('offer_id', $data['offer_id'])->get();
+    $usersBookings = Booking::where('user_id', Auth::user()->id)->get();
 
-    if($offer->user_id == Auth::user()->id){
+    if ($offer->user_id == Auth::user()->id) {
       return response()->json([
-        'error'     => 'invalid_request',
-        'message'   => 'User cannot book their own offer.'        
+        'error'   => 'invalid_request',
+        'message' => 'User cannot book their own offer.',
       ], 422);
     }
 
     $totalpax = 0;
 
-    foreach($bookings as $booking){
-      $totalpax = $totalpax + $booking->pax; 
+    foreach ($bookings as $booking) {
+      $totalpax = $totalpax + $booking->pax;
     }
 
     if ($totalpax >= $offer->vacancy) {
       return response()->json([
-        'error'     => 'invalid_request',
-        'message'   => 'There is no more vacancy for that offer.'        
+        'error'   => 'invalid_request',
+        'message' => 'There is no more vacancy for that offer.',
       ], 422);
     }
 
@@ -118,16 +114,16 @@ class BookingController extends Controller
       if ($booking->user_id == $data['user_id']) {
         return response()->json([
           'error'   => 'invalid_request',
-          'message' => 'The same user cannot book an offer more than once.'
+          'message' => 'The same user cannot book an offer more than once.',
         ], 422);
       }
     }
 
-    if(count($usersBookings) >= 1){
+    if (count($usersBookings) >= 1) {
       return response()->json([
-          'error'   => 'invalid_request',
-          'message' => 'User already have an active booking.'
-        ], 422);
+        'error'   => 'invalid_request',
+        'message' => 'User already have an active booking.',
+      ], 422);
     }
 
     $booking = Booking::create($data);
@@ -150,16 +146,16 @@ class BookingController extends Controller
     $booking = Booking::find($id);
     if (!$booking) {
       return response()->json([
-        'error' => 'booking_not_found',
-        'message' => 'Booking does not exist.'
+        'error'   => 'booking_not_found',
+        'message' => 'Booking does not exist.',
       ], 404);
     }
 
-    if($booking->user_id != Auth::user()->id){
+    if ($booking->user_id != Auth::user()->id) {
       return response()->json([
-        'error' => 'forbidden_request',
-        'message' => 'User does not have permission to delete this booking.'
-        ], 403);
+        'error'   => 'forbidden_request',
+        'message' => 'User does not have permission to delete this booking.',
+      ], 403);
     }
 
     $booking->delete(); //booking is soft deleted.
@@ -187,31 +183,31 @@ class BookingController extends Controller
 
     if ($offers->isEmpty()) {
       return response()->json([
-        'error' => 'offer_not_found',
-        'message' => 'Selected offer does not exist.'
-        ], 404);
+        'error'   => 'offer_not_found',
+        'message' => 'Selected offer does not exist.',
+      ], 404);
     }
 
     return response()->json([
-      'data'    => $bookings,
+      'data' => $bookings,
     ], 200);
   }
 
 /**
-   * Get bookings belonging to a user
-   *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   * 
-   * Returns all offers belonging to user($id)
-   *
-   */
+ * Get bookings belonging to a user
+ *
+ * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+ *
+ * Returns all offers belonging to user($id)
+ *
+ */
   public function getUsersBookings(GetUserId $request)
   {
     //if user_id not passed (which it shouldn't be anyways)
-    if(!isset($request->user_id) || empty($request->user_id)){
-        $user_id = Auth::user()->id; //set user id to current user
+    if (!isset($request->user_id) || empty($request->user_id)) {
+      $user_id = Auth::user()->id; //set user id to current user
     } else {
-        $user_id = $request->user_id;
+      $user_id = $request->user_id;
     }
 
     $bookings = Booking::withTrashed()->where('user_id', $user_id)->get();

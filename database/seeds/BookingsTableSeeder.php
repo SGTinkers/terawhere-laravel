@@ -23,9 +23,9 @@ class BookingsTableSeeder extends Seeder
         }
 
         Booking::create([
-          'user_id' => $user->id,
+          'user_id'  => $user->id,
           'offer_id' => $offer->id,
-          'pax' => 1,
+          'pax'      => 1,
         ]);
       }
     }

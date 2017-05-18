@@ -16,7 +16,7 @@ class CreateOffersTable extends Migration
     Schema::create('offers', function (Blueprint $table) {
       $table->increments('id');
       $table->char('user_id', 32); //driver's id
-      
+
       $table->datetime('meetup_time');
 
       $table->string('start_name');
@@ -38,7 +38,7 @@ class CreateOffersTable extends Migration
       $table->string('vehicle_number');
       $table->string('vehicle_desc')->nullable();
       $table->string('vehicle_model');
-      
+
       $table->softDeletes();
       $table->timestamps();
     });

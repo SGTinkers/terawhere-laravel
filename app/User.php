@@ -5,7 +5,6 @@ namespace App;
 use Alsofronie\Uuid\Uuid32ModelTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
@@ -31,7 +30,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-    'name', 'email', 'password', 'dp', 'gender', 'exp', 'timezone'
+    'name', 'email', 'password', 'dp', 'gender', 'exp', 'timezone',
   ];
 
   /**

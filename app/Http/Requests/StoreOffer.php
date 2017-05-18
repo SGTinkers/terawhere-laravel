@@ -23,21 +23,21 @@ class StoreOffer extends JsonRequest
   public function rules()
   {
     return [
-      'meetup_time'     => 'required|date_format:Y-m-d H:i',
-      'start_name'      => 'required',
-      'start_addr'      => 'required',
-      'start_lat'       => 'required|numeric|between:-90,90',
-      'start_lng'       => 'required|numeric|between:-180,180',
-      'end_name'        => 'required',
-      'end_addr'        => 'required',
-      'end_lat'         => 'required|numeric|between:-90,90',
-      'end_lng'         => 'required|numeric|between:-180,180',
-      'vacancy'         => 'required|integer',
-      'remarks'         => 'nullable',
-      'pref_gender'     => 'nullable|in:male,female',
-      'vehicle_number'  => 'required|alpha_num',
-      'vehicle_desc'    => 'nullable',
-      'vehicle_model'   => 'required',
+      'meetup_time'    => 'required|date_format:Y-m-d H:i',
+      'start_name'     => 'required',
+      'start_addr'     => 'required',
+      'start_lat'      => 'required|numeric|between:-90,90',
+      'start_lng'      => 'required|numeric|between:-180,180',
+      'end_name'       => 'required',
+      'end_addr'       => 'required',
+      'end_lat'        => 'required|numeric|between:-90,90',
+      'end_lng'        => 'required|numeric|between:-180,180',
+      'vacancy'        => 'required|integer',
+      'remarks'        => 'nullable',
+      'pref_gender'    => 'nullable|in:male,female',
+      'vehicle_number' => 'required|alpha_num',
+      'vehicle_desc'   => 'nullable',
+      'vehicle_model'  => 'required',
     ];
   }
 }

@@ -23,8 +23,8 @@ class StoreBooking extends JsonRequest
   public function rules()
   {
     return [
-      'offer_id'       => 'required|integer',
-      'pax'            => 'nullable|integer'
+      'offer_id' => 'required|integer',
+      'pax'      => 'nullable|integer',
     ];
   }
 }

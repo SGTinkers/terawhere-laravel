@@ -40,11 +40,11 @@ class AuthenticateController extends Controller
   }
 
   /**
-  * Authenticate User
-  *
-  * Exchanges social network token to JWT bearer token.
-  *
-  */
+   * Authenticate User
+   *
+   * Exchanges social network token to JWT bearer token.
+   *
+   */
   public function auth(Authenticate $request)
   {
     $user  = null;
@@ -83,7 +83,7 @@ class AuthenticateController extends Controller
       } else {
         // update email if email field is empty
         if (!$user->email) {
-          $user->email    = $socialUser->getEmail();
+          $user->email = $socialUser->getEmail();
         }
 
         // update dp if dp field is empty

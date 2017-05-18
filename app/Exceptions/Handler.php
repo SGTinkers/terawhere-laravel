@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
         $response['error'] = $exception->getMessage();
         if (Config::get('app.debug')) {
           $response['trace'] = $exception->getTraceAsString();
-          $response['code'] = $exception->getCode();
+          $response['code']  = $exception->getCode();
         }
 
         return response()->json($response, 500);
@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
         $response['error'] = $exception->getMessage();
         if (Config::get('app.debug')) {
           $response['trace'] = $exception->getTraceAsString();
-          $response['code'] = $exception->getCode();
+          $response['code']  = $exception->getCode();
         }
 
         return response()->json($response, $exception->getResponse()->getStatusCode());

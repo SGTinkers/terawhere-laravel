@@ -27,7 +27,7 @@ Route::group(['prefix' => '/v1'], function () {
   Route::group([
     "middleware" => ['jwt.auth'],
   ], function () {
-    
+
     //Offers
     Route::get('offers-for-user', 'OfferController@getUsersOffers'); //get offers by user
     Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
@@ -36,7 +36,7 @@ Route::group(['prefix' => '/v1'], function () {
     //Bookings
     Route::get('bookings-for-user', 'BookingController@getUsersBookings'); //get bookings by user
     Route::get('bookings-for-offer', 'BookingController@getOffersBookings'); //get bookings to an offer
-    
+
     //Offer Resource
     Route::resource('offers', 'OfferController', ['except' => [
       'create', 'edit',
@@ -51,17 +51,17 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
 
     //Push Notifications
-    Route::resource('devices','NotificationController', [ 'only' => [ 'store', 'delete']]);
+    Route::resource('devices', 'NotificationController', ['only' => ['store', 'delete']]);
     Route::post('test-notification', 'NotificationController@sendTestNotification');
     Route::get('devices-for-user', 'NotificationController@getUsersDevices');
 
     //Review Resource
-    Route::resource('reviews', 'ReviewController', [ 'only' => ['index', 'store', 'show']]);
-    Route::get('reviews-for-user', 'ReviewController@getUsersReviews');       //Reviews OF the user
+    Route::resource('reviews', 'ReviewController', ['only' => ['index', 'store', 'show']]);
+    Route::get('reviews-for-user', 'ReviewController@getUsersReviews'); //Reviews OF the user
     //Route::get('ratings-for-user', 'ReviewController@getUsersRatings');
-    
+
     //Review analytics
-    Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews');   //Reviews WRITTEN BY USER
+    Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews'); //Reviews WRITTEN BY USER
 
   });
 

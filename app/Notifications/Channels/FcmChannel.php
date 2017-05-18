@@ -45,7 +45,7 @@ class FcmChannel
 
     //return Array (key : oldToken, value : new token - you must change the token in your database )
     foreach ($response->tokensToModify() as $tokenOld => $tokenNew) {
-      $device = Device::where('device_token', $tokenOld)->first();
+      $device               = Device::where('device_token', $tokenOld)->first();
       $device->device_token = $tokenNew;
       $device->save();
     }
