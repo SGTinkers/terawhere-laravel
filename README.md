@@ -51,4 +51,5 @@ Documentation can be found here: https://sgtinkers.github.io/terawhere-laravel/#
 - Run `docker-compose run --rm -w /var/www phpfpm php artisan api:generate --routePrefix="api/*" --noResponseCalls --header "Authorization: JWTToken" --force --output docs`
 
 ### Running Tests
-- Run `docker-compose run --rm -w /var/www phpfpm php tools/phpunit-6.1.phar`
+- Run normal tests: `docker-compose run --rm -w /var/www phpfpm bash -c "php tools/phpunit-6.1.phar"`
+- Run test for facebook login: `docker-compose run --rm -w /var/www phpfpm bash -c "FB_TOKEN='[PASTE_TOKEN_HERE]' php tools/phpunit-6.1.phar"`
