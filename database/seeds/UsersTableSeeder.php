@@ -3,8 +3,10 @@
 use App\User;
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
+  public static $fake_users_inserted = [];
+
   /**
    * Run the database seeds.
    *
@@ -14,12 +16,14 @@ class UserTableSeeder extends Seeder
   {
     $faker = Faker\Factory::create();
 
-    foreach (range(1, 5) as $index) {
-      User::create([
+    foreach (range(1, 20) as $index) {
+      $user = User::create([
         'name'     => $faker->userName,
         'email'    => $faker->email,
         'password' => bcrypt('secret'),
       ]);
+
+      UsersTableSeeder::$fake_users_inserted[] = $user->id;
     }
   }
 }
