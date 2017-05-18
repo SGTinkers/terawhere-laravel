@@ -51,7 +51,15 @@ class Handler extends ExceptionHandler
   {
     if ($request->ajax() || $request->wantsJson()) {
       $response = [];
-      if (!($exception->getResponse() instanceof JsonResponse)) {
+      if ($exception->getResponse() == null) {
+        $response['error'] = $exception->getMessage();
+        if (Config::get('app.debug')) {
+          $response['trace'] = $exception->getTraceAsString();
+          $response['code'] = $exception->getCode();
+        }
+
+        return response()->json($response, 500);
+      } else if (!($exception->getResponse() instanceof JsonResponse)) {
         $response['error'] = $exception->getMessage();
         if (Config::get('app.debug')) {
           $response['trace'] = $exception->getTraceAsString();
