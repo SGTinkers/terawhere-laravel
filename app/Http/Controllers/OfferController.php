@@ -26,7 +26,6 @@ use Illuminate\Support\Collection;
 
 class OfferController extends Controller
 {
-  private $simple = array('meetup_time', 'start_name','end_name','vacancy','status','pref_gender');
   /**
    * Get all offers
    *
@@ -40,15 +39,6 @@ class OfferController extends Controller
   public function index(Request $request)
   {
     $offers = Offer::all();
-
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
 
     return response()->json([
       'data' => $offers,
@@ -71,14 +61,6 @@ class OfferController extends Controller
         'error' => 'Offer_not_found',
         'message' => 'Offer does not exist'
       ], 404);
-    }
-  //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
     }
 
     $user = User::find($offer->user_id);
@@ -130,15 +112,6 @@ class OfferController extends Controller
     }
     
     $offer           = Offer::create($data); //create Offer object, store in db
-
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
 
     return response()->json([
       'message' => 'Offer added successfully.',
@@ -238,8 +211,6 @@ class OfferController extends Controller
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
    *
-   * Send a simple = true, to get a summarised version of offer.
-   *
    * If no date given, today's date is used.
    *
    * Returns all offers on a requested date
@@ -268,15 +239,6 @@ class OfferController extends Controller
       ], 404);
     }
 
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-
       return response()->json([
         'data' => $offers,
       ], 200);
@@ -285,8 +247,6 @@ class OfferController extends Controller
    * Get offers belonging to a user
    *
    * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
-   * Send a simple = true, to get a summarised version of offer.
    *
    * Returns all offers belonging to user($id)
    *
@@ -309,15 +269,6 @@ class OfferController extends Controller
       ], 404);
     } 
     
-    //if simple tag is set, only return certain fields
-    if ($request->simple == true) {
-      $filtered = $offers->only($this->simple);
-      
-      return response()->json([
-        'data' => $filtered->all(),
-      ], 200);
-    }
-
     else {
       return response()->json([
         'data' => $offers,
