@@ -91,7 +91,7 @@ class BookingController extends Controller
 
     if ($offer->user_id == Auth::user()->id) {
       return response()->json([
-        'error'   => 'invalid_request',
+        'error'   => 'cannot_book_own_offer',
         'message' => 'User cannot book their own offer.',
       ], 422);
     }
@@ -104,7 +104,7 @@ class BookingController extends Controller
 
     if ($totalpax >= $offer->vacancy) {
       return response()->json([
-        'error'   => 'invalid_request',
+        'error'   => 'no_more_vacancy',
         'message' => 'There is no more vacancy for that offer.',
       ], 422);
     }
@@ -113,7 +113,7 @@ class BookingController extends Controller
     foreach ($bookings as $booking) {
       if ($booking->user_id == $data['user_id']) {
         return response()->json([
-          'error'   => 'invalid_request',
+          'error'   => 'already_booked',
           'message' => 'The same user cannot book an offer more than once.',
         ], 422);
       }
@@ -121,7 +121,7 @@ class BookingController extends Controller
 
     if (count($usersBookings) >= 1) {
       return response()->json([
-        'error'   => 'invalid_request',
+        'error'   => 'active_booking_exists',
         'message' => 'User already have an active booking.',
       ], 422);
     }
