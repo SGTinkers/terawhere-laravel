@@ -57,9 +57,9 @@ class Handler extends ExceptionHandler
           $response['trace'] = $exception->getTraceAsString();
           $response['code'] = $exception->getCode();
         }
-      }
 
-      return response()->json($response, $error->getStatusCode());
+        return response()->json($response, $error->getStatusCode());
+      }
     }
 
     return parent::render($request, $exception);
