@@ -85,7 +85,17 @@ class NotificationController extends Controller
    */
   	public function getUsersDevices()
   	{
-  		return Auth::user()->devices();
+  		$devices = Auth::user()->devices();
+
+      if ($devices->isEmpty()) {
+      return response()->json([
+        'error' => 'Resource_not_found',
+        'message' => 'There are no devices for this user.'
+        ], 404);
+      }
+      return response()->json([
+      'data' => $devices,
+    ], 200);
   	}
     /**
    * Send test notification
