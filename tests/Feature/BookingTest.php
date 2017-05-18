@@ -28,19 +28,8 @@ class BookingTest extends TestCase
 
     $response
       ->assertStatus(200)
-      ->assertJson([
-        'data'  => true,
-//        [
-//          [
-//            'id' => true,
-//            'user_id' => true,
-//            'offer_id' => true,
-//            'pax' => true,
-//            'deleted_at' => true,
-//            'created_at' => true,
-//            'updated_at' => true,
-//          ],
-//        ],
+      ->assertJsonFragment([
+        'data'  => Booking::all()->toArray(),
       ]);
   }
 
@@ -52,6 +41,16 @@ class BookingTest extends TestCase
    */
   public function testIndexNoResults()
   {
+
+//    $user  = User::where('email', 'user_no_bookings@test.com')->first();
+//    if (!$user) {
+//      $user = new User;
+//      $user->email = 'user_no_bookings@test.com';
+//      $user->name = 'No bookings user';
+//      $user->password = Hash::make('1234');
+//      $user->dp = 'https://www.gravatar.com/avatar/5e551173b6c2eec67dd4ee697d51ebde';
+//      $user->save();
+//    }
     $user  = User::first();
     $token = JWTAuth::fromUser($user);
 
