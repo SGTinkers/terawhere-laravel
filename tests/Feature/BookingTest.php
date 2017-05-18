@@ -2,17 +2,69 @@
 
 namespace Tests\Feature;
 
+use App\Booking;
+use App\User;
+use Hash;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use JWTAuth;
 use Tests\TestCase;
 
 class BookingTest extends TestCase
 {
+  use DatabaseTransactions;
+
   /**
-   * A basic test example.
+   * Test /api/v1/bookings
+   * Return with results
    *
    * @return void
    */
-  public function testExample()
+  public function testIndex()
   {
-    $this->assertTrue(true);
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('GET', '/api/v1/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertJson([
+        'data'  => true,
+//        [
+//          [
+//            'id' => true,
+//            'user_id' => true,
+//            'offer_id' => true,
+//            'pax' => true,
+//            'deleted_at' => true,
+//            'created_at' => true,
+//            'updated_at' => true,
+//          ],
+//        ],
+      ]);
+  }
+
+  /**
+   * Test /api/v1/bookings
+   * Return no results
+   *
+   * @return void
+   */
+  public function testIndexNoResults()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    // It's okay to do this because we are using DatabaseTransactions
+    // Changes will be rollback-ed after test
+    Booking::where('id', 'like', '%%')->delete();
+
+    $response = $this->json('GET', '/api/v1/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertExactJson([
+        'data'  => [],
+      ]);
   }
 }
