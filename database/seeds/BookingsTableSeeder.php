@@ -14,13 +14,11 @@ class BookingsTableSeeder extends Seeder
    */
   public function run()
   {
-    $faker = Faker\Factory::create();
-
     $users = User::get();
     foreach ($users as $user) {
-      foreach (range(1, 3) as $index) {
-        $offer = Offer::find($faker->numberBetween($min = 1, $max = 30))->first();
-        if ($offer->user_id == $user->id) {
+      foreach (range(1, 5) as $index) {
+        $offer = Offer::find(rand(1, 50));
+        if (!$offer || $offer->user_id == $user->id) {
           continue;
         }
 
