@@ -85,7 +85,7 @@ class NotificationController extends Controller
    */
   	public function getUsersDevices()
   	{
-  		$devices = Auth::user()->devices();
+  		$devices = Auth::user()->devices()->get();
 
       if ($devices->isEmpty()) {
       return response()->json([
