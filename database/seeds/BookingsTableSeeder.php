@@ -1,6 +1,8 @@
 <?php
 
 use App\Booking;
+use App\Offer;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class BookingsTableSeeder extends Seeder
@@ -14,12 +16,20 @@ class BookingsTableSeeder extends Seeder
   {
     $faker = Faker\Factory::create();
 
-    foreach (range(1, 30) as $index) {
-      Booking::create([
-        'user_id'     => UsersTableSeeder::$fake_users_inserted[$faker->numberBetween(11, 20) - 1],
-        'offer_id'    => $faker->numberBetween($min = 1, $max = 30),
-        'pax'         => 1,
-      ]);
+    $users = User::get();
+    foreach ($users as $user) {
+      foreach (range(1, 3) as $index) {
+        $offer = Offer::find($faker->numberBetween($min = 1, $max = 30))->first();
+        if ($offer->user_id == $user->id) {
+          continue;
+        }
+
+        Booking::create([
+          'user_id' => $user->id,
+          'offer_id' => $offer->id,
+          'pax' => 1,
+        ]);
+      }
     }
   }
 
