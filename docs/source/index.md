@@ -946,9 +946,8 @@ $.ajax(settings).done(function (response) {
 
 ```json
 {
-    "error": "Trying to get property of non-object",
-    "trace": "#0 \/var\/www\/terawhere\/vendor\/sentry\/sentry\/lib\/Raven\/Breadcrumbs\/ErrorHandler.php(36): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Trying to get p...', '\/var\/www\/terawh...', 258, Array)\n#1 \/var\/www\/terawhere\/app\/Http\/Controllers\/OfferController.php(258): Raven_Breadcrumbs_ErrorHandler->handleError(8, 'Trying to get p...', '\/var\/www\/terawh...', 258, Array)\n#2 [internal function]: App\\Http\\Controllers\\OfferController->getUsersOffers(Object(App\\Http\\Requests\\GetUserId))\n#3 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Controller.php(55): call_user_func_array(Array, Array)\n#4 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/ControllerDispatcher.php(44): Illuminate\\Routing\\Controller->callAction('getUsersOffers', Array)\n#5 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php(203): Illuminate\\Routing\\ControllerDispatcher->dispatch(Object(Illuminate\\Routing\\Route), Object(App\\Http\\Controllers\\OfferController), 'getUsersOffers')\n#6 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php(160): Illuminate\\Routing\\Route->runController()\n#7 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php(559): Illuminate\\Routing\\Route->run()\n#8 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Pipeline.php(30): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))\n#9 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))\n#10 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php(561): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#11 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php(520): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))\n#12 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php(498): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))\n#13 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php(174): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))\n#14 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Pipeline.php(30): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))\n#15 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php(102): Illuminate\\Routing\\Pipeline->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))\n#16 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php(149): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#17 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php(116): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))\n#18 \/var\/www\/terawhere\/vendor\/mpociot\/laravel-apidoc-generator\/src\/Mpociot\/ApiDoc\/Generators\/LaravelGenerator.php(116): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))\n#19 \/var\/www\/terawhere\/vendor\/mpociot\/laravel-apidoc-generator\/src\/Mpociot\/ApiDoc\/Generators\/AbstractGenerator.php(98): Mpociot\\ApiDoc\\Generators\\LaravelGenerator->callRoute('GET', 'api\/v1\/offers-f...', Array, Array, Array, Array)\n#20 \/var\/www\/terawhere\/vendor\/mpociot\/laravel-apidoc-generator\/src\/Mpociot\/ApiDoc\/Generators\/LaravelGenerator.php(58): Mpociot\\ApiDoc\\Generators\\AbstractGenerator->getRouteResponse(Object(Illuminate\\Routing\\Route), Array, Array)\n#21 \/var\/www\/terawhere\/vendor\/mpociot\/laravel-apidoc-generator\/src\/Mpociot\/ApiDoc\/Commands\/GenerateDocumentation.php(261): Mpociot\\ApiDoc\\Generators\\LaravelGenerator->processRoute(Object(Illuminate\\Routing\\Route), Array, Array, true)\n#22 \/var\/www\/terawhere\/vendor\/mpociot\/laravel-apidoc-generator\/src\/Mpociot\/ApiDoc\/Commands\/GenerateDocumentation.php(83): Mpociot\\ApiDoc\\Commands\\GenerateDocumentation->processLaravelRoutes(Object(Mpociot\\ApiDoc\\Generators\\LaravelGenerator), Array, 'api\/*', NULL)\n#23 [internal function]: Mpociot\\ApiDoc\\Commands\\GenerateDocumentation->handle()\n#24 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/BoundMethod.php(29): call_user_func_array(Array, Array)\n#25 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/BoundMethod.php(87): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#26 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/BoundMethod.php(31): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#27 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php(531): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#28 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Console\/Command.php(182): Illuminate\\Container\\Container->call(Array)\n#29 \/var\/www\/terawhere\/vendor\/symfony\/console\/Command\/Command.php(264): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#30 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Console\/Command.php(167): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#31 \/var\/www\/terawhere\/vendor\/symfony\/console\/Application.php(835): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#32 \/var\/www\/terawhere\/vendor\/symfony\/console\/Application.php(200): Symfony\\Component\\Console\\Application->doRunCommand(Object(Mpociot\\ApiDoc\\Commands\\GenerateDocumentation), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#33 \/var\/www\/terawhere\/vendor\/symfony\/console\/Application.php(124): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#34 \/var\/www\/terawhere\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Console\/Kernel.php(122): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#35 \/var\/www\/terawhere\/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#36 {main}",
-    "code": 0
+    "error": "Offer_not_found",
+    "message": "User does not have any offers."
 }
 ```
 
@@ -1915,7 +1914,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://terawhere.ruqqq.sg/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 05:29" \
+    -d "meetup_time"="2017-05-18 05:38" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -1940,7 +1939,7 @@ var settings = {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-18 05:29",
+        "meetup_time": "2017-05-18 05:38",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -2051,7 +2050,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://terawhere.ruqqq.sg/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-18 05:29" \
+    -d "meetup_time"="2017-05-18 05:38" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -2076,7 +2075,7 @@ var settings = {
     "url": "http://terawhere.ruqqq.sg/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-18 05:29",
+        "meetup_time": "2017-05-18 05:38",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
