@@ -11,15 +11,15 @@ class Review extends Model
 
   protected $dates = ['deleted_at'];
 
-  public function offers()
+  public function offer()
   {
     return $this->belongsTo('App\Offer');
   }
-  public function bookings()
+  public function booking()
   {
     return $this->belongsTo('App\Booking');
   }
-  public function users()
+  public function user()
   {
     return $this->belongsTo('App\User');
   }

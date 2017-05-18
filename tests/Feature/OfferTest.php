@@ -7,6 +7,8 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use JWTAuth;
+use Latrell\Geohash\Facades\Geohash;
+use Carbon\Carbon;
 
 class OfferTest extends TestCase
 {
@@ -27,7 +29,7 @@ class OfferTest extends TestCase
     $response
       ->assertStatus(200)
       ->assertJson([
-        'data'  => true,
+        'data'  => Offer::all()->toArray(),
       ]);
   }
   /**
@@ -106,6 +108,9 @@ class OfferTest extends TestCase
   	$user  = User::first();
     $token = JWTAuth::fromUser($user);
 
+    $start_geohash =	Geohash::encode(89,179);
+    $end_geohash   =	Geohash::encode(-89,-179);
+
     $response = $this->json('POST', '/api/v1/offers', [
 
       'meetup_time'    => '2012-12-21 23:59',
@@ -128,7 +133,7 @@ class OfferTest extends TestCase
 
     $response
       ->assertStatus(200)
-      ->assertExactJson([
+      ->seeJson([
         'message' => 'Offer added successfully.',
       	'data'    => 
 	      [
@@ -147,9 +152,13 @@ class OfferTest extends TestCase
 	      'vehicle_number' => 'ABC123X',
 	      'vehicle_desc'   => 'Yellow',
 	      'vehicle_model'  => 'Submarine',
+	      'start_geohash'  => $start_geohash,
+	      'end_geohash'    => $end_geohash,
 	      ],
       ]);
   	}
+
+
   /**
    * Test POST /api/v1/offers without nullables filled.
    * Return with results.
@@ -159,6 +168,9 @@ class OfferTest extends TestCase
   public function testStoreWithoutNullables(){
   	$user  = User::first();
     $token = JWTAuth::fromUser($user);
+
+    $start_geohash =	Geohash::encode(89,179);
+    $end_geohash   =	Geohash::encode(-89,-179);
 
     $response = $this->json('POST', '/api/v1/offers', [
 
@@ -179,7 +191,7 @@ class OfferTest extends TestCase
 
     $response
       ->assertStatus(200)
-      ->assertExactJson([
+      ->seeJson([
         'message' => 'Offer added successfully.',
       	'data'    => 
 	      [
@@ -198,9 +210,13 @@ class OfferTest extends TestCase
 	      'vehicle_number' => 'ABC123X',
 	      'vehicle_desc'   => null,
 	      'vehicle_model'  => 'Submarine',
+	      'start_geohash'  => $start_geohash,
+	      'end_geohash'    => $end_geohash,
 	      ],
       ]);
   }
+
+
   /**
    * Test POST /api/v1/offers sending nothing.
    * Return with error messages.
@@ -217,42 +233,122 @@ class OfferTest extends TestCase
       ->assertStatus(422)
       ->assertExactJson(
       	[
-			  "meetup_time" => [
-			    "The meetup time field is required."
+			  'meetup_time' => [
+			    'The meetup time field is required.'
 			  ],
-			  "start_name" => [
-			    "The start name field is required."
+			  'start_name' => [
+			    'The start name field is required.'
 			  ],
-			  "start_addr" => [
-			    "The start addr field is required."
+			  'start_addr' => [
+			    'The start addr field is required.'
 			  ],
-			  "start_lat" => [
-			    "The start lat field is required."
+			  'start_lat' => [
+			    'The start lat field is required.'
 			  ],
-			  "start_lng" => [
-			    "The start lng field is required."
+			  'start_lng' => [
+			    'The start lng field is required.'
 			  ],
-			  "end_name" => [
-			    "The end name field is required."
+			  'end_name' => [
+			    'The end name field is required.'
 			  ],
-			  "end_addr" => [
-			    "The end addr field is required."
+			  'end_addr' => [
+			    'The end addr field is required.'
 			  ],
-			  "end_lat" => [
-			    "The end lat field is required."
+			  'end_lat' => [
+			    'The end lat field is required.'
 			  ],
-			  "end_lng" => [
-			    "The end lng field is required."
+			  'end_lng' => [
+			    'The end lng field is required.'
 			  ],
-			  "vacancy" => [
-			    "The vacancy field is required."
+			  'vacancy' => [
+			    'The vacancy field is required.'
 			  ],
-			  "vehicle_number" => [
-			    "The vehicle number field is required."
+			  'vehicle_number' => [
+			    'The vehicle number field is required.'
 			  ],
-			  "vehicle_model" => [
-			    "The vehicle model field is required."
+			  'vehicle_model' => [
+			    'The vehicle model field is required.'
 			  ]
       ]);
-  }  	    
+  }  	   
+  /**
+   * Test PUT /api/v1/offers/{offer}
+   * Return with results.
+   *
+   * @return void
+   */  
+  public function testUpdate(){
+  	$user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $offer = $user->offers()->first();
+    
+    $start_geohash =	Geohash::encode(-89,-179);
+    $end_geohash   =	Geohash::encode(89,179);
+
+    $response = $this->json('PUT', '/api/v1/offers/'. $offer->id, [
+
+		      'meetup_time'    => '2020-10-10 12:34',
+		      'start_name'     => 'bar',
+		      'start_addr'     => 'foo',
+		      'start_lat'      => -89,
+		      'start_lng'      => -179,
+		      'end_name'       => 'hello',
+		      'end_addr'       => 'world',
+		      'end_lat'        => 89,
+		      'end_lng'        => 179,
+		      'vacancy'        => 2,
+		      'remarks'        => 'World',
+		      'pref_gender'    => $user->gender,
+		      'vehicle_number' => 'DEF321Y',
+		      'vehicle_desc'   => 'Blue',
+		      'vehicle_model'  => 'Rocket',
+
+    	], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->seeJson([
+        'message' => 'Offer updated successfully.',
+      	'data'    => 
+	      [
+		      'meetup_time'    => '2020-10-10 12:34',
+		      'start_name'     => 'bar',
+		      'start_addr'     => 'foo',
+		      'start_lat'      => -89,
+		      'start_lng'      => -179,
+		      'end_name'       => 'hello',
+		      'end_addr'       => 'world',
+		      'end_lat'        => 89,
+		      'end_lng'        => 179,
+		      'vacancy'        => 2,
+		      'remarks'        => 'World',
+		      'pref_gender'    => $user->gender,
+		      'vehicle_number' => 'DEF321Y',
+		      'vehicle_desc'   => 'Blue',
+		      'vehicle_model'  => 'Rocket',
+	      	  'start_geohash'  => $start_geohash,
+	      	  'end_geohash'    => $end_geohash,
+	      ],
+      ]);
+  }
+  /**
+   * Test PUT /api/v1/offers/{offer}
+   * Return with results.
+   *
+   * @return void
+   */  
+  public function testDestroy(){
+  	$offer = Offer::first();
+	$user  = $offer->user();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('DELETE', '/api/v1/offers'.$offer->id, [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertJson([
+			'message' => 'Offer deleted successfully.',
+			'data'    => $offer,
+      ]);
+  }
 }

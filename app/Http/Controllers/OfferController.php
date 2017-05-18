@@ -189,6 +189,7 @@ class OfferController extends Controller
     }
 
     $offer->status = 0;
+    $offer->save();
     $bookings      = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
 
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
