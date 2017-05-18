@@ -6,6 +6,7 @@ use Config;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 
 class Handler extends ExceptionHandler
 {
@@ -49,16 +50,15 @@ class Handler extends ExceptionHandler
   public function render($request, Exception $exception)
   {
     if ($request->ajax() || $request->wantsJson()) {
-      $error = $this->convertExceptionToResponse($exception);
       $response = [];
-      if ($error->getStatusCode() >= 500) {
+      if ($exception->getResponse() instanceof JsonResponse) {
         $response['error'] = $exception->getMessage();
         if (Config::get('app.debug')) {
           $response['trace'] = $exception->getTraceAsString();
           $response['code'] = $exception->getCode();
         }
 
-        return response()->json($response, $error->getStatusCode());
+        return response()->json($response, $exception->getResponse()->getStatusCode());
       }
     }
 
