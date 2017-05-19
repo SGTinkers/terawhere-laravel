@@ -432,4 +432,54 @@ class BookingTest extends TestCase
         'data'   => [],
       ]);
   }
+
+  /**
+   * Test GET /users/bookings
+   * Success case
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testGetUsersBookings()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('GET', '/api/v1/users/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertJson([
+        'data'   => Booking::withTrashed()->where('user_id', $user->id)->get()->toArray(),
+      ]);
+  }
+
+  /**
+   * Test GET /api/v1/users/bookings
+   * Success: Empty array
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testGetUsersBookingsEmptyArray()
+  {
+    $user  = User::where('email', 'user_no_bookings@test.com')->first();
+    if (!$user) {
+      $user = new User;
+      $user->email = 'user_no_bookings@test.com';
+      $user->name = 'No bookings user';
+      $user->password = Hash::make('1234');
+      $user->dp = 'https://www.gravatar.com/avatar/5e551173b6c2eec67dd4ee697d51ebde';
+      $user->save();
+    }
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('GET', '/api/v1/users/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertExactJson([
+        'data'   => [],
+      ]);
+  }
 }

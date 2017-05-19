@@ -34,7 +34,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
 
     //Bookings
-    Route::get('bookings-for-user', 'BookingController@getUsersBookings'); //get bookings by user
+    Route::get('users/bookings', 'BookingController@getUsersBookings'); //get bookings by user
     Route::get('offers/{offer_id}/bookings', 'BookingController@getOffersBookings'); //get bookings to an offer
 
     //Offer Resource
