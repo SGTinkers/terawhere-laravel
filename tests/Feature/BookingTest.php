@@ -434,7 +434,7 @@ class BookingTest extends TestCase
   }
 
   /**
-   * Test GET /users/bookings
+   * Test GET /users/me/bookings
    * Success case
    *
    * @group Booking
@@ -445,7 +445,7 @@ class BookingTest extends TestCase
     $user  = User::first();
     $token = JWTAuth::fromUser($user);
 
-    $response = $this->json('GET', '/api/v1/users/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+    $response = $this->json('GET', '/api/v1/users/me/bookings', [], ['Authorization' => 'Bearer ' . $token]);
 
     $response
       ->assertStatus(200)
@@ -455,7 +455,7 @@ class BookingTest extends TestCase
   }
 
   /**
-   * Test GET /api/v1/users/bookings
+   * Test GET /api/v1/users/me/bookings
    * Success: Empty array
    *
    * @group Booking
@@ -474,7 +474,7 @@ class BookingTest extends TestCase
     }
     $token = JWTAuth::fromUser($user);
 
-    $response = $this->json('GET', '/api/v1/users/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+    $response = $this->json('GET', '/api/v1/users/me/bookings', [], ['Authorization' => 'Bearer ' . $token]);
 
     $response
       ->assertStatus(200)
