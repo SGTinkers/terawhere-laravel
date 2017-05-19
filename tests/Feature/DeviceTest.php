@@ -16,7 +16,7 @@ class DeviceTest extends TestCase
    * Test POST /api/v1/devices
    * Success
    *
-   * @group Notifications
+   * @group Device
    * @return void
    */
   public function testStore()
@@ -39,7 +39,7 @@ class DeviceTest extends TestCase
    * Test POST /api/v1/devices
    * Wrong platform
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testStoreWrongPlatform()
@@ -62,7 +62,7 @@ class DeviceTest extends TestCase
    * Test DELETE /api/v1/devices/{id}
    * Success
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testDelete()
@@ -85,7 +85,7 @@ class DeviceTest extends TestCase
    * Test DELETE /api/v1/devices/{id}
    * Fail: Not Exists
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testDeleteNotExists()
@@ -106,7 +106,7 @@ class DeviceTest extends TestCase
    * Test DELETE /api/v1/devices/{id}
    * Fail: Not Owner
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testDeleteNotOwner()
@@ -132,7 +132,7 @@ class DeviceTest extends TestCase
    * Test GET /api/v1/users/me/devices
    * Success
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testGetUsersDevices()
@@ -160,7 +160,7 @@ class DeviceTest extends TestCase
    * Test GET /api/v1/users/me/devices
    * Success: Empty
    *
-   * @group Devices
+   * @group Device
    * @return void
    */
   public function testGetUsersDevicesEmptyArray()
