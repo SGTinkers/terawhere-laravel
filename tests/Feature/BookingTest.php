@@ -301,4 +301,70 @@ class BookingTest extends TestCase
         'error'   => 'active_booking_exists',
       ]);
   }
+
+  /**
+   * Test DELETE /api/v1/bookings/{id}
+   * Successful case
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testDelete()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $booking = Booking::where('user_id', $user->id)->first();
+
+    $response = $this->json('DELETE', '/api/v1/bookings/' . $booking->id, [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertJson([
+        'data'  => true,
+        'message' => true,
+      ]);
+  }
+
+  /**
+   * Test DELETE /api/v1/bookings/{id}
+   * Failed case: Not found
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testDeleteNotFound()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('DELETE', '/api/v1/bookings/0', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(404)
+      ->assertJson([
+        'error'   => 'booking_not_found',
+      ]);
+  }
+
+  /**
+   * Test DELETE /api/v1/bookings/{id}
+   * Failed case: Not the owner
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testDeleteNotOwner()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $booking = Booking::where('user_id', '!=', $user->id)->first();
+
+    $response = $this->json('DELETE', '/api/v1/bookings/' . $booking->id, [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(403)
+      ->assertJson([
+        'error'   => 'forbidden_request',
+      ]);
+  }
 }
