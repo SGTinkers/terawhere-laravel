@@ -94,8 +94,8 @@ class OfferController extends Controller
 
     $now = Carbon::now();
     $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $data['meetup_time']);
-    // $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
-    if ($meetup_time < $now || !$meetup_time->isToday()) {
+    $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
+    if ($meetup_time < $now || $meetup_time >= $limit) {
           return response()->json([
               'error'   => 'invalid_request',
               'message' => 'Unable to create an offer at that date/time.',
@@ -161,7 +161,7 @@ class OfferController extends Controller
       ], 422);
     }
 
-    if ($meetup_time < $now || !$meetup_time->isToday()) {
+    if ($meetup_time < $now || $meetup_time >= $limit) {
           return response()->json([
               'error'   => 'invalid_request',
               'message' => 'Unable to update the offer at that date/time.',
