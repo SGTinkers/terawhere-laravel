@@ -285,8 +285,21 @@ class BookingTest extends TestCase
    */
   public function testStoreUserHasActiveBooking()
   {
-    $user  = Booking::active()->first()->user;
+    $user  = User::where('email', 'user_no_bookings@test.com')->first();
+    if (!$user) {
+      $user = new User;
+      $user->email = 'user_no_bookings@test.com';
+      $user->name = 'No bookings user';
+      $user->password = Hash::make('1234');
+      $user->dp = 'https://www.gravatar.com/avatar/5e551173b6c2eec67dd4ee697d51ebde';
+      $user->save();
+    }
     $token = JWTAuth::fromUser($user);
+    $offer = Offer::active()->first();
+    $booking = Booking::create([
+      'offer_id' => $offer->id,
+      'user_id' => $user->id,
+    ]);
 
     // Find an offer which has vacancies and does not belong to $user
     $offer = Offer::doesntHave('bookings')->where('user_id', '!=', $user->id)->first();
