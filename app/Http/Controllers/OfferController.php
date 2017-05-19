@@ -152,7 +152,7 @@ class OfferController extends Controller
     $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $offer->meetup_time);
     $now         = Carbon::now();
     $diff        = Carbon::now()->diffInHours($meetup_time);
-    // $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
+    $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
 
     if ($diff < 6) {
       return response()->json([
