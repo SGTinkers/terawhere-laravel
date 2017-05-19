@@ -28,7 +28,7 @@ class Booking extends Model
   public function scopeActive($query)
   {
       $now = Carbon::now();
-      return $query->where('status', Offer::STATUS['PENDING'])->where('meetup_time','<', $now);
+      return $query->where('status', Offer::STATUS['PENDING'])->where('meetup_time','>', $now);
   }
   public function offer()
   {
