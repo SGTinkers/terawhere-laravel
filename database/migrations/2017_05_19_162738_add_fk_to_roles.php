@@ -13,7 +13,7 @@ class AddFkToRoles extends Migration
      */
     public function up()
     {
-        Schema::table('reviews', function (Blueprint $table) {
+        Schema::table('roles', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
