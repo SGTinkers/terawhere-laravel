@@ -23,7 +23,7 @@ class UpdateOffer extends JsonRequest
   public function rules()
   {
     return [
-      'meetup_time'    => 'required|date_format:Y-m-d H:i',
+      'meetup_time'    => 'required|date_format:Y-m-d H:i:s',
       'start_name'     => 'required',
       'start_addr'     => 'required',
       'start_lat'      => 'required|numeric|between:-90,90',
