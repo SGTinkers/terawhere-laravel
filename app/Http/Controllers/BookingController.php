@@ -119,8 +119,8 @@ class BookingController extends Controller
       }
     }
 
-    $now = Carbon::now();
-    if ($now < $offer->meetup_time && $offer->status == Offer::STATUS['CANCELLED']) {
+    $activeBooking = Booking::active()->get();
+    if (count($activeBooking) >= 1) {
       return response()->json([
         'error'   => 'active_booking_exists',
         'message' => 'User already have an active booking.',
