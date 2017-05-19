@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Offer;
 use Carbon\Carbon;
 
 class Booking extends Model
@@ -23,12 +23,26 @@ class Booking extends Model
   protected $hidden = ['user'];
 
   /**
+   * The "booting" method of the model.
+   *
+   * @return void
+   */
+  protected static function boot()
+  {
+    parent::boot();
+
+    static::addGlobalScope('selectBookingsOnly', function (Builder $builder) {
+      $builder->select('bookings.*');
+    });
+  }
+
+  /**
    * Scope a query to only include active bookings.
    */
   public function scopeActive($query)
   {
       $now = Carbon::now();
-      return $query->where('status', Offer::STATUS['PENDING'])->where('meetup_time','<', $now);
+      return $query->join('offers', 'offers.id', '=', 'bookings.offer_id')->where('offers.status', Offer::STATUS['PENDING'])->where('offers.meetup_time','<', $now);
   }
   public function offer()
   {

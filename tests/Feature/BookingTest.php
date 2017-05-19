@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Booking;
 use App\Offer;
 use App\User;
+use Carbon\Carbon;
 use DB;
 use Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -284,7 +285,7 @@ class BookingTest extends TestCase
    */
   public function testStoreUserHasActiveBooking()
   {
-    $user  = User::has('bookings')->first();
+    $user  = Booking::active()->first()->user;
     $token = JWTAuth::fromUser($user);
 
     // Find an offer which has vacancies and does not belong to $user

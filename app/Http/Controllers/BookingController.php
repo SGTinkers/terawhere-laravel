@@ -87,7 +87,6 @@ class BookingController extends Controller
     }
 
     $bookings      = $offer->bookings;
-    $usersBookings = Booking::where('user_id', Auth::user()->id)->get();
 
     if ($offer->user_id == Auth::user()->id) {
       return response()->json([
@@ -119,8 +118,8 @@ class BookingController extends Controller
       }
     }
 
-    $activeBooking = Booking::active()->get();
-    if (count($activeBooking) >= 1) {
+    $activeBooking = Booking::where('bookings.user_id', Auth::user()->id)->active()->first();
+    if ($activeBooking) {
       return response()->json([
         'error'   => 'active_booking_exists',
         'message' => 'User already have an active booking.',
