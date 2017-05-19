@@ -27,4 +27,17 @@ class GetOfferId extends FormRequest
       'offer_id' => 'required|integer',
     ];
   }
+
+  /**
+   * Validate even url parameters
+   *
+   * @return array
+   */
+  public function all()
+  {
+    return array_replace_recursive(
+      parent::all(),
+      $this->route()->parameters()
+    );
+  }
 }

@@ -367,4 +367,69 @@ class BookingTest extends TestCase
         'error'   => 'forbidden_request',
       ]);
   }
+
+  /**
+   * Test GET /api/v1/offers/{id}/bookings
+   * Success case
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testGetOffersBookings()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $offer = Offer::first();
+
+    $response = $this->json('GET', '/api/v1/offers/' . $offer->id . '/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertJson([
+        'data'   => $offer->bookings->toArray(),
+      ]);
+  }
+
+  /**
+   * Test GET /api/v1/offers/{id}/bookings
+   * Not found
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testGetOffersBookingsNotFound()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+
+    $response = $this->json('GET', '/api/v1/offers/0/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(404)
+      ->assertJson([
+        'error'   => 'offer_not_found',
+      ]);
+  }
+
+  /**
+   * Test GET /api/v1/offers/{id}/bookings
+   * Success: Empty array
+   *
+   * @group Booking
+   * @return void
+   */
+  public function testGetOffersBookingsEmptyArray()
+  {
+    $user  = User::first();
+    $token = JWTAuth::fromUser($user);
+    $offer = Offer::doesntHave('bookings')->first();
+
+    $response = $this->json('GET', '/api/v1/offers/' . $offer->id . '/bookings', [], ['Authorization' => 'Bearer ' . $token]);
+
+    $response
+      ->assertStatus(200)
+      ->assertExactJson([
+        'data'   => [],
+      ]);
+  }
 }

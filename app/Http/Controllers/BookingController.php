@@ -178,10 +178,9 @@ class BookingController extends Controller
    */
   public function getOffersBookings(GetOfferId $request)
   {
-    $bookings = Booking::where('offer_id', $request->offer_id)->get();
-    $offers   = Offer::where('id', $request->offer_id)->get();
+    $offers   = Offer::where('id', $request->offer_id)->first();
 
-    if ($offers->isEmpty()) {
+    if (!$offers) {
       return response()->json([
         'error'   => 'offer_not_found',
         'message' => 'Selected offer does not exist.',
@@ -189,7 +188,7 @@ class BookingController extends Controller
     }
 
     return response()->json([
-      'data' => $bookings,
+      'data' => $offers->bookings,
     ], 200);
   }
 
@@ -203,14 +202,7 @@ class BookingController extends Controller
  */
   public function getUsersBookings(GetUserId $request)
   {
-    //if user_id not passed (which it shouldn't be anyways)
-    if (!isset($request->user_id) || empty($request->user_id)) {
-      $user_id = Auth::user()->id; //set user id to current user
-    } else {
-      $user_id = $request->user_id;
-    }
-
-    $bookings = Booking::withTrashed()->where('user_id', $user_id)->get();
+    $bookings = Booking::withTrashed()->where('user_id', Auth::user()->id)->get();
 
     return response()->json([
       'data' => $bookings,
