@@ -9,7 +9,7 @@ class Offer extends Model
 {
   use SoftDeletes;
 
-  const STATUSES = [
+  const STATUS = [
     'CANCELLED'           => 0,
     'PENDING'             => 1,
     'ONGOING'             => 2,

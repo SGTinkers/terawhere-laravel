@@ -8,6 +8,7 @@ use App\Http\Requests\GetUserId;
 use App\Http\Requests\StoreBooking;
 use App\Offer;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -85,7 +86,7 @@ class BookingController extends Controller
       ], 422);
     }
 
-    $bookings      = Booking::where('offer_id', $data['offer_id'])->get();
+    $bookings      = $offer->bookings;
     $usersBookings = Booking::where('user_id', Auth::user()->id)->get();
 
     if ($offer->user_id == Auth::user()->id) {
@@ -118,7 +119,8 @@ class BookingController extends Controller
       }
     }
 
-    if (count($usersBookings) >= 1) {
+    $now = Carbon::now();
+    if ($now < $offer->meetup_time && $offer->status == Offer::STATUS['CANCELLED']) {
       return response()->json([
         'error'   => 'active_booking_exists',
         'message' => 'User already have an active booking.',
