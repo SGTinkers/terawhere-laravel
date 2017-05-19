@@ -92,9 +92,18 @@ class OfferController extends Controller
       ], 422);
     }
 
+    $now = Carbon::now();
+    $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $data['meetup_time']);
+    // $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
+    if ($meetup_time < $now || !$meetup_time->isToday()) {
+          return response()->json([
+              'error'   => 'invalid_request',
+              'message' => 'Unable to create an offer at that date/time.',
+          ], 422);
+    }
+
     $latestoffer = Offer::where('user_id', $data['user_id'])->orderBy('created_at', 'desc')->first();
 
-    //IMPLEMENT CARBON HERE
     if ($latestoffer) { //if latest offer exists
       $now  = Carbon::now();
       $diff = Carbon::now()->diffInMinutes($latestoffer['created_at']);
@@ -140,18 +149,24 @@ class OfferController extends Controller
       ], 403);
     }
 
-    //IMPLEMENT CARBON
-    $meetup_time = $offer->meetup_time;
+    $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $offer->meetup_time);
     $now         = Carbon::now();
-    $diff        = Carbon::now()->diff($meetup_time);
+    $diff        = Carbon::now()->diffInHours($meetup_time);
+    // $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
 
-    if ($diff->format('%R%h') < 6) {
+    if ($diff < 6) {
       return response()->json([
         'error'   => 'invalid_request',
         'message' => 'User cannot edit the offer 6 hours before meetup time.',
       ], 422);
     }
 
+    if ($meetup_time < $now || !$meetup_time->isToday()) {
+          return response()->json([
+              'error'   => 'invalid_request',
+              'message' => 'Unable to update the offer at that date/time.',
+          ], 422);
+      }
     $offer->fill($request->all());
     $offer->save();
 
