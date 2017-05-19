@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Device;
 use App\Http\Requests\GetDeviceToken;
 use App\Notifications\TestNotification;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
  * Push notifications stuff with FCM is handled here.
  */
 
-class NotificationController extends Controller
+class DeviceController extends Controller
 {
   /**
    * Store device token
@@ -27,12 +26,12 @@ class NotificationController extends Controller
     $data            = $request->all();
     $data["user_id"] = Auth::user()->id;
 
-    $devicetoken = Device::where('device_token', $data['device_token'])->first();
+    $deviceToken = Device::where('device_token', $data['device_token'])->first();
 
-    if ($devicetoken) {
+    if ($deviceToken) {
       return response()->json([
         'message' => 'Device token already exists.',
-        'data'    => $devicetoken,
+        'data'    => $deviceToken,
       ], 422);
     }
 
@@ -42,6 +41,7 @@ class NotificationController extends Controller
       'data'    => $device,
     ], 200);
   }
+
   /**
    * Delete device token
    *
@@ -72,6 +72,7 @@ class NotificationController extends Controller
     ]);
 
   }
+
   /**
    * Get devices belonging to a user
    *
@@ -80,12 +81,11 @@ class NotificationController extends Controller
    */
   public function getUsersDevices()
   {
-    $devices = Auth::user()->devices()->get();
-
     return response()->json([
-      'data' => $devices,
+      'data' => Auth::user()->devices,
     ], 200);
   }
+
   /**
    * Send test notification
    *

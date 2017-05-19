@@ -51,9 +51,9 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('me', 'AuthenticateController@getAuthenticatedUser');
 
     //Push Notifications
-    Route::resource('devices', 'NotificationController', ['only' => ['store', 'delete']]);
-    Route::post('test-notification', 'NotificationController@sendTestNotification');
-    Route::get('devices-for-user', 'NotificationController@getUsersDevices');
+    Route::resource('devices', 'DeviceController', ['only' => ['store', 'destroy']]);
+    Route::get('users/me/devices', 'DeviceController@getUsersDevices');
+    Route::post('test-notification', 'DeviceController@sendTestNotification');
 
     //Review Resource
     Route::resource('reviews', 'ReviewController', ['only' => ['index', 'store', 'show']]);
