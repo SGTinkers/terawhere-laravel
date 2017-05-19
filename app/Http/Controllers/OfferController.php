@@ -188,7 +188,7 @@ class OfferController extends Controller
       ], 403);
     }
 
-    $offer->status = Offer::STATUSES['CANCELLED'];
+    $offer->status = Offer::STATUS['CANCELLED'];
     $offer->save();
     $bookings      = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
 
@@ -281,7 +281,7 @@ class OfferController extends Controller
     $now   = Carbon::now();
     $limit = Carbon::now()->addHours(24);
 
-    $offers = Offer::where('status', Offer::STATUSES['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)->where('start_geohash', 'LIKE', $searchhash . '%')->get();
+    $offers = Offer::where('status', Offer::STATUS['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)->where('start_geohash', 'LIKE', $searchhash . '%')->get();
     return response()->json([
       'data' => $offers,
     ], 200);
