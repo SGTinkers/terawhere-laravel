@@ -70,4 +70,8 @@ class User extends Authenticatable
 
     return $tokens;
   }
+
+  public function roles(){
+      return $this->hasMany('App\Role');
+  }
 }

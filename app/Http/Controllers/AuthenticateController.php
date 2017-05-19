@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Authenticate;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
@@ -143,6 +144,10 @@ class AuthenticateController extends Controller
   public function getAuthenticatedUser()
   {
     $user = Auth::user();
+
+    if($user->roles->first()){
+        $user->put('roles', $user->roles->get()->toArray());
+    }
 
     // the token is valid and we have found the user via the sub claim
     return response()->json(compact('user'));
