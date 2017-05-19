@@ -13,6 +13,13 @@ class Booking extends Model
 
   protected $dates = ['deleted_at'];
 
+  /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = ['user'];
+
   public function offer()
   {
     return $this->belongsTo('App\Offer');

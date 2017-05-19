@@ -52,9 +52,8 @@ class BookingController extends Controller
       ], 404);
     }
 
-    $user              = User::find($booking->user_id);
-    $booking['name']   = $user->name;
-    $booking['gender'] = $user->gender;
+    $booking['name']   = $booking->user->name;
+    $booking['gender'] = $booking->user->gender;
 
     return response()->json([
       'data' => $booking,

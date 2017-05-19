@@ -7,6 +7,10 @@ use Latrell\Geohash\Facades\Geohash;
 
 class OffersTableSeeder extends Seeder
 {
+  public static $offer_id_with_no_bookings = 0;
+
+  public static $offer_id_with_full_bookings = 0;
+
   /**
    * Run the database seeds.
    *
@@ -26,9 +30,11 @@ class OffersTableSeeder extends Seeder
         $end_lng       = $faker->longitude($min = 103, $max = 105);
         $end_geohash   = Geohash::encode($end_lat, $end_lng);
 
-        Offer::create([
+        $meetup_time = $faker->dateTimeBetween($startDate = 'now', $endDate = '+' . $index .' days', $timezone = date_default_timezone_get());
+
+        $offer = Offer::create([
           'user_id'        => $user->id,
-          'meetup_time'    => $faker->dateTimeBetween($startDate = 'now', $endDate = '+1 days', $timezone = date_default_timezone_get()),
+          'meetup_time'    => $meetup_time,
           'start_name'     => $faker->streetName,
           'start_addr'     => $faker->streetAddress,
           'start_lat'      => $start_lat,
@@ -43,6 +49,14 @@ class OffersTableSeeder extends Seeder
           'vehicle_number' => 'S' . $faker->randomLetter . $faker->randomLetter . $faker->randomNumber(4) . $faker->randomLetter,
           'vehicle_model'  => $faker->firstName . ' ' . $faker->lastName,
         ]);
+
+        if ($index == 1) {
+          if (OffersTableSeeder::$offer_id_with_no_bookings == 0) {
+            OffersTableSeeder::$offer_id_with_no_bookings = $offer->id;
+          } else if (OffersTableSeeder::$offer_id_with_full_bookings == 0) {
+            OffersTableSeeder::$offer_id_with_full_bookings = $offer->id;
+          }
+        }
       }
     }
   }

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Booking;
 use App\Offer;
 use App\User;
+use DB;
 use Hash;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use JWTAuth;
@@ -18,6 +19,7 @@ class BookingTest extends TestCase
    * Test /api/v1/bookings
    * Return with results
    *
+   * @group Booking
    * @return void
    */
   public function testIndex()
@@ -38,6 +40,7 @@ class BookingTest extends TestCase
    * Test /api/v1/bookings
    * Return no results
    *
+   * @group Booking
    * @return void
    */
   public function testIndexNoResults()
@@ -62,6 +65,7 @@ class BookingTest extends TestCase
    * Test /api/v1/bookings/{id}
    * Return with result
    *
+   * @group Booking
    * @return void
    */
   public function testShow()
@@ -73,8 +77,8 @@ class BookingTest extends TestCase
     $response = $this->json('GET', '/api/v1/bookings/' . $booking->id, [], ['Authorization' => 'Bearer ' . $token]);
 
     $data = $booking->toArray();
-    $data['name']   = $user->name;
-    $data['gender'] = $user->gender;
+    $data['name']   = $booking->user->name;
+    $data['gender'] = $booking->user->gender;
 
     $response
       ->assertStatus(200)
@@ -87,6 +91,7 @@ class BookingTest extends TestCase
    * Test /api/v1/bookings/{id}
    * Return with no result
    *
+   * @group Booking
    * @return void
    */
   public function testShowNoResult()
@@ -106,6 +111,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * Return success
    *
+   * @group Booking
    * @return void
    */
   public function testStore()
@@ -141,6 +147,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * Offer not found
    *
+   * @group Booking
    * @return void
    */
   public function testStoreOfferNotFound()
@@ -171,6 +178,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * Own offer
    *
+   * @group Booking
    * @return void
    */
   public function testStoreOwnOffer()
@@ -193,6 +201,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * No vacancy
    *
+   * @group Booking
    * @return void
    */
   public function testStoreNoVacancy()
@@ -208,7 +217,8 @@ class BookingTest extends TestCase
     }
     $token = JWTAuth::fromUser($user);
     // Find an offer which has no vacancies
-    $offer = Offer::has('bookings')->where('user_id', '!=', $user->id)->first();
+    $offersAndBookings = Offer::select([DB::raw('count(offers.id) as bookings'), 'offers.id as id'])->join('bookings', 'bookings.offer_id', '=', 'offers.id')->groupBy('offers.id');
+    $offer = Offer::select('offers.*')->leftJoin(DB::raw('(' . $offersAndBookings->toSql() . ') as meta'), 'meta.id', '=', 'offers.id')->where('offers.user_id', '!=', $user->id)->whereRaw(DB::raw('IFNULL(meta.bookings, 0) = offers.vacancy'))->first();
     $data = [
       'offer_id' => $offer->id,
     ];
@@ -225,6 +235,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * Book twice
    *
+   * @group Booking
    * @return void
    */
   public function testStoreBookTwice()
@@ -268,6 +279,7 @@ class BookingTest extends TestCase
    * Test POST /api/v1/bookings
    * User has active booking
    *
+   * @group Booking
    * @return void
    */
   public function testStoreUserHasActiveBooking()
