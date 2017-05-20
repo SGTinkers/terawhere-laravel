@@ -145,6 +145,7 @@ class AuthenticateController extends Controller
   {
     $user = Auth::user();
 
+    $roles = [];
     foreach($user->roles as $role){
         $roles[] = $role->role;
     }
