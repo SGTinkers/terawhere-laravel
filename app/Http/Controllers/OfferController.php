@@ -311,6 +311,16 @@ class OfferController extends Controller
     $limit = Carbon::now()->addHours(24);
 
     $offers = Offer::where('status', Offer::STATUS['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)->where('start_geohash', 'LIKE', $searchhash . '%')->get();
+
+    foreach($offers as $offer){
+     $totalpax = 0;
+     foreach($offers->bookings as $booking){
+         $totalpax = $totalpax + $booking->pax;
+     }
+     $offer['seats_booked'] = $totalpax;
+     $offer['seats_remaining'] = $offer->vacancy - $totalpax;
+     $offer['name'] = $offer->user->name;
+    }
     return response()->json([
       'data' => $offers,
     ], 200);
