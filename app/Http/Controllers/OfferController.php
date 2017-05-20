@@ -314,7 +314,7 @@ class OfferController extends Controller
 
     foreach($offers as $offer){
      $totalpax = 0;
-     foreach($offers->bookings as $booking){
+     foreach($offer->bookings as $booking){
          $totalpax = $totalpax + $booking->pax;
      }
      $offer['seats_booked'] = $totalpax;
