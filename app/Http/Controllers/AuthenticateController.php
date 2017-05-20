@@ -144,11 +144,12 @@ class AuthenticateController extends Controller
   public function getAuthenticatedUser()
   {
     $user = Auth::user();
+    $roles = [];
     foreach($user->roles as $role){
         $roles[] = $role->role;
     }
-
+    $user['roles'] = $roles;
     // the token is valid and we have found the user via the sub claim
-    return response()->json(compact('user','roles'));
+    return response()->json(compact('user');
   }
 }

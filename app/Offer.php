@@ -22,7 +22,9 @@ class Offer extends Model
   ];
   protected $dates = ['deleted_at'];
 
-  /**
+  protected $hidden = ['bookings','user'];
+
+    /**
    * Scope a query to only include active offers.
    */
   public function scopeActive($query)
