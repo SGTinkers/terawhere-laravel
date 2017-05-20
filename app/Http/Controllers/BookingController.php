@@ -52,7 +52,9 @@ class BookingController extends Controller
         'message' => 'Booking does not exist.',
       ], 404);
     }
-    $booking['offer']  = $booking->offer->withTrashed();
+    
+    $offer   = $booking->offer->withTrashed()->get();
+    $booking['offer']  = $offer;
     $booking['name']   = $booking->user->name;
     $booking['gender'] = $booking->user->gender;
 
@@ -203,8 +205,9 @@ class BookingController extends Controller
   public function getUsersBookings(GetUserId $request)
   {
     $bookings = Booking::withTrashed()->where('user_id', Auth::user()->id)->get();
+    $offers   = $bookings->offer->withTrashed()->get();
     foreach($bookings as $booking){
-        $booking['offer'] = $booking->offer->withTrashed();
+        $booking['offer'] = $offers->where('id', $booking['offer_id']);
     }
     return response()->json([
       'data' => $bookings,
