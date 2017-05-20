@@ -149,6 +149,20 @@ class OfferController extends Controller
       ], 403);
     }
 
+    //prevent user from changing vacancy to be lower than number of passengers.
+    $bookings      = $offer->bookings;
+    $totalpax = 0;
+    foreach ($bookings as $booking) {
+          $totalpax = $totalpax + $booking->pax;
+    }
+
+    if ($request->vacancy < $totalpax) {
+          return response()->json([
+              'error'   => 'invalid_request',
+              'message' => 'User cannot change vacancy to be lower than number of passengers booked: '. $totalpax ,
+          ], 422);
+      }
+
     $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $offer->meetup_time);
     $now         = Carbon::now();
     $diff        = Carbon::now()->diffInHours($meetup_time);
