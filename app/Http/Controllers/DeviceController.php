@@ -30,9 +30,9 @@ class DeviceController extends Controller
 
     if ($deviceToken) {
       return response()->json([
-        'message' => 'Device token already exists.',
+        'message' => 'Device token already registered.',
         'data'    => $deviceToken,
-      ], 422);
+      ], 200);
     }
 
     $device = Device::create($data);
