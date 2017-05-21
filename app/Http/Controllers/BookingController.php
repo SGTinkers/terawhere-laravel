@@ -29,7 +29,7 @@ class BookingController extends Controller
    */
   public function index()
   {
-    $bookings = Booking::all();
+    $bookings = Booking::with('offers')->all();
     return response()->json([
       'data' => $bookings,
     ], 200);
@@ -44,7 +44,7 @@ class BookingController extends Controller
    */
   public function show($id)
   {
-    $booking = Booking::find($id);
+    $booking = Booking::with('offers')->find($id);
 
     if (!$booking) {
       return response()->json([
@@ -52,7 +52,6 @@ class BookingController extends Controller
         'message' => 'Booking does not exist.',
       ], 404);
     }
-    $booking['offer']  = $booking->offer;
     $booking['name']   = $booking->user->name;
     $booking['gender'] = $booking->user->gender;
 
@@ -202,10 +201,7 @@ class BookingController extends Controller
  */
   public function getUsersBookings(GetUserId $request)
   {
-    $bookings = Booking::withTrashed()->where('user_id', Auth::user()->id)->get();
-    foreach($bookings as $booking){
-        $booking['offer'] = $booking->offer;
-    }
+    $bookings = Booking::with('offers')->withTrashed()->where('user_id', Auth::user()->id)->get();
     return response()->json([
       'data' => $bookings,
     ], 200);
