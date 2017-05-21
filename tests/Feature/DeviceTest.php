@@ -26,7 +26,7 @@ class DeviceTest extends TestCase
 
     $data = [
       'device_token' => 'testtoken',
-      'platform' => 'android',
+      'platform'     => 'android',
     ];
 
     $response = $this->json('POST', '/api/v1/devices', $data, ['Authorization' => 'Bearer ' . $token]);
@@ -49,7 +49,7 @@ class DeviceTest extends TestCase
 
     $data = [
       'device_token' => 'testtoken',
-      'platform' => 'test',
+      'platform'     => 'test',
     ];
 
     $response = $this->json('POST', '/api/v1/devices', $data, ['Authorization' => 'Bearer ' . $token]);
@@ -67,12 +67,12 @@ class DeviceTest extends TestCase
    */
   public function testDelete()
   {
-    $user  = User::first();
-    $token = JWTAuth::fromUser($user);
+    $user   = User::first();
+    $token  = JWTAuth::fromUser($user);
     $device = Device::create([
-      'user_id' => $user->id,
+      'user_id'      => $user->id,
       'device_token' => 'testtoken',
-      'platform' => 'android',
+      'platform'     => 'android',
     ]);
 
     $response = $this->json('DELETE', '/api/v1/devices/' . $device->id, [], ['Authorization' => 'Bearer ' . $token]);
@@ -98,7 +98,7 @@ class DeviceTest extends TestCase
     $response
       ->assertStatus(404)
       ->assertJson([
-        'error'   => 'resource_not_found',
+        'error' => 'resource_not_found',
       ]);
   }
 
@@ -111,12 +111,12 @@ class DeviceTest extends TestCase
    */
   public function testDeleteNotOwner()
   {
-    $user  = User::first();
-    $token = JWTAuth::fromUser($user);
+    $user   = User::first();
+    $token  = JWTAuth::fromUser($user);
     $device = Device::create([
-      'user_id' => User::where('id', '!=', $user->id)->first()->id,
+      'user_id'      => User::where('id', '!=', $user->id)->first()->id,
       'device_token' => 'testtoken',
-      'platform' => 'android',
+      'platform'     => 'android',
     ]);
 
     $response = $this->json('DELETE', '/api/v1/devices/' . $device->id, [], ['Authorization' => 'Bearer ' . $token]);
@@ -124,7 +124,7 @@ class DeviceTest extends TestCase
     $response
       ->assertStatus(403)
       ->assertJson([
-        'error'   => 'forbidden_request',
+        'error' => 'forbidden_request',
       ]);
   }
 
@@ -137,12 +137,12 @@ class DeviceTest extends TestCase
    */
   public function testGetUsersDevices()
   {
-    $user  = User::first();
-    $token = JWTAuth::fromUser($user);
+    $user   = User::first();
+    $token  = JWTAuth::fromUser($user);
     $device = Device::create([
-      'user_id' => $user->id,
+      'user_id'      => $user->id,
       'device_token' => 'testtoken',
-      'platform' => 'android',
+      'platform'     => 'android',
     ]);
 
     $response = $this->json('GET', '/api/v1/users/me/devices', [], ['Authorization' => 'Bearer ' . $token]);
@@ -150,7 +150,7 @@ class DeviceTest extends TestCase
     $response
       ->assertStatus(200)
       ->assertJson([
-        'data'   => [
+        'data' => [
           $device->toArray(),
         ],
       ]);
@@ -173,7 +173,7 @@ class DeviceTest extends TestCase
     $response
       ->assertStatus(200)
       ->assertJson([
-        'data'   => [],
+        'data' => [],
       ]);
   }
 }

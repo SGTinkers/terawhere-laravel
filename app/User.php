@@ -39,7 +39,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $hidden = [
-    'password', 'remember_token', 'roles'
+    'password', 'remember_token', 'roles',
   ];
 
   public function offers()
@@ -71,7 +71,8 @@ class User extends Authenticatable
     return $tokens;
   }
 
-  public function roles(){
-      return $this->hasMany('App\Role');
+  public function roles()
+  {
+    return $this->hasMany('App\Role');
   }
 }

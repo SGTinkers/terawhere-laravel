@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetDatesOffers extends FormRequest
+class GetDatesOffers extends JsonRequest
 {
   /**
    * Determine if the user is authorized to make this request.

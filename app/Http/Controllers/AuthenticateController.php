@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Authenticate;
-use App\User;
 use App\Role;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use JWTAuth;
@@ -146,13 +146,13 @@ class AuthenticateController extends Controller
     $user = Auth::user();
 
     $roles = [];
-    foreach($user->roles as $role){
-        $roles[] = $role->role;
+    foreach ($user->roles as $role) {
+      $roles[] = $role->role;
     }
     $user['role'] = $roles;
     // the token is valid and we have found the user via the sub claim
     return response()->json([
       'user' => $user,
-  ], 200);
+    ], 200);
   }
 }

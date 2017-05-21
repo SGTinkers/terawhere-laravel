@@ -92,14 +92,14 @@ class OfferController extends Controller
       ], 422);
     }
 
-    $now = Carbon::now();
+    $now         = Carbon::now();
     $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $data['meetup_time']);
-    $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
+    $limit       = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
     if ($meetup_time < $now || $meetup_time >= $limit) {
-          return response()->json([
-              'error'   => 'invalid_request',
-              'message' => 'Unable to create an offer at that date/time.',
-          ], 422);
+      return response()->json([
+        'error'   => 'invalid_request',
+        'message' => 'Unable to create an offer at that date/time.',
+      ], 422);
     }
 
     $latestoffer = Offer::where('user_id', $data['user_id'])->orderBy('created_at', 'desc')->first();
@@ -150,23 +150,23 @@ class OfferController extends Controller
     }
 
     //prevent user from changing vacancy to be lower than number of passengers.
-    $bookings      = $offer->bookings;
+    $bookings = $offer->bookings;
     $totalpax = 0;
     foreach ($bookings as $booking) {
-          $totalpax = $totalpax + $booking->pax;
+      $totalpax = $totalpax + $booking->pax;
     }
 
     if ($request->vacancy < $totalpax) {
-          return response()->json([
-              'error'   => 'invalid_request',
-              'message' => 'User cannot change vacancy to be lower than number of passengers booked: '. $totalpax ,
-          ], 422);
-      }
+      return response()->json([
+        'error'   => 'invalid_request',
+        'message' => 'User cannot change vacancy to be lower than number of passengers booked: ' . $totalpax,
+      ], 422);
+    }
 
     $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $offer->meetup_time);
     $now         = Carbon::now();
     $diff        = Carbon::now()->diffInHours($meetup_time);
-    $limit = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
+    $limit       = Carbon::now()->addHours(24); //Use this if want 24 hour range instead of isToday();
 
     if ($diff < 6) {
       return response()->json([
@@ -176,11 +176,11 @@ class OfferController extends Controller
     }
 
     if ($meetup_time < $now || $meetup_time >= $limit) {
-          return response()->json([
-              'error'   => 'invalid_request',
-              'message' => 'Unable to update the offer at that date/time.',
-          ], 422);
-      }
+      return response()->json([
+        'error'   => 'invalid_request',
+        'message' => 'Unable to update the offer at that date/time.',
+      ], 422);
+    }
     $offer->fill($request->all());
     $offer->save();
 
@@ -219,7 +219,7 @@ class OfferController extends Controller
 
     $offer->status = Offer::STATUS['CANCELLED'];
     $offer->save();
-    $bookings      = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
+    $bookings = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
 
     //Aziz: To add push notif here to tell passengers that offer is cancelled.
 
@@ -312,14 +312,14 @@ class OfferController extends Controller
 
     $offers = Offer::where('status', Offer::STATUS['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)->where('start_geohash', 'LIKE', $searchhash . '%')->get();
 
-    foreach($offers as $offer){
-     $totalpax = 0;
-     foreach($offer->bookings as $booking){
-         $totalpax = $totalpax + $booking->pax;
-     }
-     $offer['seats_booked'] = $totalpax;
-     $offer['seats_remaining'] = $offer->vacancy - $totalpax;
-     $offer['name'] = $offer->user->name;
+    foreach ($offers as $offer) {
+      $totalpax = 0;
+      foreach ($offer->bookings as $booking) {
+        $totalpax = $totalpax + $booking->pax;
+      }
+      $offer['seats_booked']    = $totalpax;
+      $offer['seats_remaining'] = $offer->vacancy - $totalpax;
+      $offer['name']            = $offer->user->name;
     }
     return response()->json([
       'data' => $offers,

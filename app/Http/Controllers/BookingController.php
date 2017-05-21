@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Http\Requests\GetOfferId;
-use App\Http\Requests\GetUserId;
 use App\Http\Requests\StoreBooking;
 use App\Offer;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -86,7 +84,7 @@ class BookingController extends Controller
       ], 422);
     }
 
-    $bookings      = $offer->bookings;
+    $bookings = $offer->bookings;
 
     if ($offer->user_id == Auth::user()->id) {
       return response()->json([
@@ -179,7 +177,7 @@ class BookingController extends Controller
    */
   public function getOffersBookings(GetOfferId $request)
   {
-    $offers   = Offer::where('id', $request->offer_id)->first();
+    $offers = Offer::where('id', $request->offer_id)->first();
 
     if (!$offers) {
       return response()->json([

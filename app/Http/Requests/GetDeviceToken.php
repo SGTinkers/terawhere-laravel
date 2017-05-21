@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetDeviceToken extends FormRequest
+class GetDeviceToken extends JsonRequest
 {
   /**
    * Determine if the user is authorized to make this request.

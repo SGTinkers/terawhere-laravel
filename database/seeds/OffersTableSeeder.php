@@ -30,7 +30,7 @@ class OffersTableSeeder extends Seeder
         $end_lng       = $faker->longitude($min = 103, $max = 105);
         $end_geohash   = Geohash::encode($end_lat, $end_lng);
 
-        $meetup_time = $faker->dateTimeBetween($startDate = 'now', $endDate = '+' . $index .' days', $timezone = date_default_timezone_get());
+        $meetup_time = $faker->dateTimeBetween($startDate = 'now', $endDate = '+' . $index . ' days', $timezone = date_default_timezone_get());
 
         $offer = Offer::create([
           'user_id'        => $user->id,

@@ -14,7 +14,7 @@ class BookingsTableSeeder extends Seeder
    */
   public function run()
   {
-    $users = User::get();
+    $users                              = User::get();
     $offer_id_with_full_bookings_filled = false;
 
     foreach ($users as $user) {
@@ -27,7 +27,7 @@ class BookingsTableSeeder extends Seeder
       } else {
         // Find offer with vacancies
         $offersAndBookings = Offer::select([DB::raw('count(offers.id) as bookings'), 'offers.id as id'])->join('bookings', 'bookings.offer_id', '=', 'offers.id')->groupBy('offers.id');
-        $offer = Offer::select('offers.*')->leftJoin(DB::raw('(' . $offersAndBookings->toSql() . ') as meta'), 'meta.id', '=', 'offers.id')->where('offers.id', '!=', OffersTableSeeder::$offer_id_with_no_bookings)->where('offers.user_id', '!=', $user->id)->whereRaw(DB::raw('IFNULL(meta.bookings, 0) < offers.vacancy'))->first();
+        $offer             = Offer::select('offers.*')->leftJoin(DB::raw('(' . $offersAndBookings->toSql() . ') as meta'), 'meta.id', '=', 'offers.id')->where('offers.id', '!=', OffersTableSeeder::$offer_id_with_no_bookings)->where('offers.user_id', '!=', $user->id)->whereRaw(DB::raw('IFNULL(meta.bookings, 0) < offers.vacancy'))->first();
       }
 
       if (!$offer) {
