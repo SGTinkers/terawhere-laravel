@@ -29,11 +29,12 @@ class BookingController extends Controller
    */
   public function index()
   {
-    $bookings = Booking::with('offers')->all();
+    $bookings = Booking::with('offer')->get();
     return response()->json([
       'data' => $bookings,
     ], 200);
   }
+
   /**
    * Show a particular booking
    *
@@ -44,7 +45,7 @@ class BookingController extends Controller
    */
   public function show($id)
   {
-    $booking = Booking::with('offers')->find($id);
+    $booking = Booking::with('offer')->find($id);
 
     if (!$booking) {
       return response()->json([
@@ -133,6 +134,7 @@ class BookingController extends Controller
     ], 200);
 
   }
+
   /**
    * Cancel a booking
    *
@@ -199,9 +201,9 @@ class BookingController extends Controller
  * Returns all offers belonging to user($id)
  *
  */
-  public function getUsersBookings(GetUserId $request)
+  public function getUsersBookings()
   {
-    $bookings = Booking::with('offers')->withTrashed()->where('user_id', Auth::user()->id)->get();
+    $bookings = Booking::with('offer')->withTrashed()->where('user_id', Auth::user()->id)->get();
     return response()->json([
       'data' => $bookings,
     ], 200);
