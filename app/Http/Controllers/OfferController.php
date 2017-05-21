@@ -51,7 +51,7 @@ class OfferController extends Controller
    */
   public function show(Request $request, $id)
   {
-    $offer = Offer::find($id);
+    $offer = Offer::with('bookings')->find($id);
     if (!$offer) {
       return response()->json([
         'error'   => 'offer_not_found',
