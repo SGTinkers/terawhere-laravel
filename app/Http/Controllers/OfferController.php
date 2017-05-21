@@ -60,7 +60,12 @@ class OfferController extends Controller
     }
 
     $user = User::find($offer->user_id);
-
+    $totalpax = 0;
+    foreach ($offer->bookings as $booking) {
+      $totalpax = $totalpax + $booking->pax;
+    }
+    $offer['seats_booked']    = $totalpax;
+    $offer['seats_remaining'] = $offer->vacancy - $totalpax;
     $offer['name']   = $user->name;
     $offer['gender'] = $user->gender;
 
