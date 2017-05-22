@@ -177,17 +177,19 @@ class BookingController extends Controller
    */
   public function getOffersBookings(GetOfferId $request)
   {
-    $offers = Offer::where('id', $request->offer_id)->first();
+    $offer = Offer::where('id', $request->offer_id)->first();
 
-    if (!$offers) {
+    if (!$offer) {
       return response()->json([
         'error'   => 'offer_not_found',
         'message' => 'Selected offer does not exist.',
       ], 404);
     }
 
+    $bookings = Booking::with('user')->where('offer_id',$request->offer_id)->get();
+
     return response()->json([
-      'data' => $offers->bookings,
+      'data' => $bookings,
     ], 200);
   }
 
