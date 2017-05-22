@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\Middleware\Wit;
 
-class BotManController extends Controller
+class BotController extends Controller
 {
     /**
      * Place your BotMan logic here.
@@ -18,10 +18,12 @@ class BotManController extends Controller
 
         // Wit.ai
         $botman->middleware(Wit::create('WIT_AI_TOKEN'));
-        $botman->hears('emotion', function($bot) {
-            $extras = $bot->getMessage()->getExtras();
+        $botman->hears('test_action', function($bot) {
+            //$extras = $bot->getMessage()->getExtras();
             // Access extra information
-            $entities = $extras['entities'];
+            //$entities = $extras['entities'];
+            $bot->types(); //typing
+            $bot->reply('Test success');
         });
     }
 
