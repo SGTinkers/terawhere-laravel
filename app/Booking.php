@@ -20,7 +20,7 @@ class Booking extends Model
    *
    * @var array
    */
-  protected $hidden = ['user'];
+  protected $hidden = [];
 
   /**
    * The "booting" method of the model.
