@@ -184,6 +184,8 @@ return [
     Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     LaravelFCM\FCMServiceProvider::class,
+    Mpociot\BotMan\BotManServiceProvider::class,
+
   ],
 
   /*
@@ -239,6 +241,7 @@ return [
     'Sentry'       => Sentry\SentryLaravel\SentryFacade::class,
     'FCM'          => LaravelFCM\Facades\FCM::class,
     'FCMGroup'     => LaravelFCM\Facades\FCMGroup::class,
+    'BotMan' => Mpociot\BotMan\Facades\BotMan::class,
   ],
 
 ];

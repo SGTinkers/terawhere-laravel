@@ -48,5 +48,9 @@ return [
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect'      => env('APP_URL') . '/auth/callback?service=google',
   ],
-
+    'botman' => [
+        'telegram_token' => env('TELEGRAM_TOKEN'),
+        'facebook_token' => env('FB_MESSENGER_TOKEN'),
+        'facebook_app_secret' => env('FACEBOOK_CLIENT_SECRET'), // Optional - this is used to verify incoming API calls,
+    ],
 ];
