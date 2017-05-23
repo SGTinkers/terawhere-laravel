@@ -94,6 +94,6 @@ class DeviceController extends Controller
   public function sendTestNotification($user_id)
   {
     $user = User::findOrFail($user_id);
-    Auth::user()->notify(new TestNotification($user));
+    $user->notify(new TestNotification($user));
   }
 }
