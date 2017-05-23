@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Http\Requests\GetOfferId;
 use App\Http\Requests\StoreBooking;
+use App\Notifications\PassengerCancelBooking;
+use App\Notifications\PassengerMadeBooking;
 use App\Offer;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -126,6 +128,9 @@ class BookingController extends Controller
 
     $booking = Booking::create($data);
 
+    // Send push notification to driver
+    $booking->offer->user->notify(new PassengerMadeBooking($booking->offer->user, $booking));
+
     return response()->json([
       'message' => 'Booking added successfully.',
       'data'    => $booking,
@@ -159,7 +164,8 @@ class BookingController extends Controller
 
     $booking->delete(); //booking is soft deleted.
 
-    //Aziz: To add push notif here to tell driver that booking is cancelled.
+    // Aziz: To add push notif here to tell driver that booking is cancelled.
+    $booking->offer->user->notify(new PassengerCancelBooking($booking->offer->user, $booking));
 
     return response()->json([
       'message' => 'Booking deleted successfully.',

@@ -7,6 +7,8 @@ use App\Http\Requests\GetDate;
 use App\Http\Requests\GetNearby;
 use App\Http\Requests\GetUserId;
 use App\Http\Requests\StoreOffer;
+use App\Notifications\DriverCancelOffer;
+use App\Notifications\DriverUpdateOffer;
 use App\Offer;
 use App\User;
 use Carbon\Carbon;
@@ -189,6 +191,11 @@ class OfferController extends Controller
     $offer->fill($request->all());
     $offer->save();
 
+    // Push notification here to tell passengers that offer is updated.
+    foreach ($offer->bookings as $booking) {
+      $booking->user->notify(new DriverUpdateOffer($booking->user, $offer));
+    }
+
     return response()->json([
       'message' => 'Offer updated successfully.',
       'data'    => $offer,
@@ -224,9 +231,13 @@ class OfferController extends Controller
 
     $offer->status = Offer::STATUS['CANCELLED'];
     $offer->save();
-    $bookings = Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
 
-    //Aziz: To add push notif here to tell passengers that offer is cancelled.
+    // Aziz: To add push notif here to tell passengers that offer is cancelled.
+    foreach ($offer->bookings as $booking) {
+      $booking->user->notify(new DriverCancelOffer($booking->user, $offer));
+    }
+
+    Booking::where('offer_id', $id)->delete(); //delete bookings under that offer deleted as well.
 
     $offer->delete(); //offer is soft deleted.
     return response()->json([
