@@ -53,7 +53,6 @@ Route::group(['prefix' => '/v1'], function () {
     //Push Notifications
     Route::resource('devices', 'DeviceController', ['only' => ['store', 'destroy']]);
     Route::get('users/me/devices', 'DeviceController@getUsersDevices');
-    Route::post('test-notification', 'DeviceController@sendTestNotification');
 
     //Review Resource
     Route::resource('reviews', 'ReviewController', ['only' => ['index', 'store', 'show']]);
@@ -68,4 +67,5 @@ Route::group(['prefix' => '/v1'], function () {
   // Routes which does not require auth
   Route::post('auth', 'AuthenticateController@auth');
   Route::get('auth/refresh', 'AuthenticateController@refresh');
+  Route::post('test-notification/{user_id}', 'DeviceController@sendTestNotification');
 });

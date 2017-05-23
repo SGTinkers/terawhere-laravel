@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Device;
 use App\Http\Requests\GetDeviceToken;
 use App\Notifications\TestNotification;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -89,11 +90,10 @@ class DeviceController extends Controller
   /**
    * Send test notification
    *
-   * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
-   *
    */
-  public function sendTestNotification()
+  public function sendTestNotification($user_id)
   {
-    Auth::user()->notify(new TestNotification(Auth::user()));
+    $user = User::findOrFail($user_id);
+    Auth::user()->notify(new TestNotification($user));
   }
 }
