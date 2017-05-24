@@ -74,6 +74,6 @@ Route::group(['prefix' => '/v1'], function () {
   Route::post('test-notification/{user_id}', 'DeviceController@sendTestNotification');
 
   //fbmessenger
-  Route::match(['get', 'post'], 'fb-webhook', 'BotController@handle');
+  Route::match(['get', 'post'], 'fb-webhook', 'BotManController@handle');
 
 });
