@@ -371,6 +371,16 @@ class OfferController extends Controller
 
     $offers = Offer::where('user_id', $user_id)->get();
 
+      foreach ($offers as $offer) {
+          $totalpax = 0;
+          foreach ($offer->bookings as $booking) {
+              $totalpax = $totalpax + $booking->pax;
+          }
+          $offer['seats_booked']    = $totalpax;
+          $offer['seats_remaining'] = $offer->vacancy - $totalpax;
+          $offer['name']            = $offer->user->name;
+      }
+
     return response()->json([
       'data' => $offers,
     ], 200);
