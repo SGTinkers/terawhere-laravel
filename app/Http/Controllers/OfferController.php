@@ -316,7 +316,7 @@ class OfferController extends Controller
         $offer->status = Offer::STATUS['COMPLETED'];
         $offer->save();
         $offer->bookings->delete();
-        
+
         return response()->json([
             'message' => 'Offer set to COMPLETED successfully.',
             'data'    => $offer,
