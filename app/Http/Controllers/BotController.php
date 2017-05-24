@@ -18,10 +18,10 @@ class BotController extends Controller
 
         // Wit.ai
         $botman->middleware(Wit::create('WIT_AI_TOKEN'));
-        $botman->hears('test_action', function($bot) {
-            //$extras = $bot->getMessage()->getExtras();
+        $botman->hears('test_action', function(BotMan $bot) {
+            $extras = $bot->getMessage()->getExtras();
             // Access extra information
-            //$entities = $extras['entities'];
+            $entities = $extras['entities'];
             $bot->types(); //typing
             $bot->reply('Test success');
         });
