@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mpociot\BotMan\BotMan;
+use Mpociot\BotMan\Middleware\Wit;
 class BotManController extends Controller
 {
     /**
