@@ -24,6 +24,19 @@ class Offer extends Model
 
   protected $hidden = ['bookings', 'user'];
 
+  public static function boot()
+    {
+        parent::boot();
+
+        // Attach event handler, on deleting of the offer
+        Offer::deleting(function($offer)
+        {
+            // Delete all bookings that belong to this offer
+            foreach ($offer->bookings as $booking) {
+                $booking->delete();
+            }
+        });
+    }
   /**
    * Scope a query to only include active offers.
    */
