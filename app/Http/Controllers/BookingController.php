@@ -181,9 +181,9 @@ class BookingController extends Controller
    * Returns all bookings made to an offer or 404
    *
    */
-  public function getOffersBookings(GetOfferId $request)
+  public function getOffersBookings($id)
   {
-    $offer = Offer::where('id', $request->offer_id)->first();
+    $offer = Offer::where('id', $id)->first();
 
     if (!$offer) {
       return response()->json([
@@ -192,7 +192,7 @@ class BookingController extends Controller
       ], 404);
     }
 
-    $bookings = Booking::with('user')->where('offer_id',$request->offer_id)->get();
+    $bookings = Booking::with('user')->where('offer_id', $id)->get();
 
     return response()->json([
       'data' => $bookings,

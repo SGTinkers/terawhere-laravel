@@ -27,4 +27,12 @@ class BotController extends Controller
         });
     }
 
+    public function fbWebhook(Request $request){
+        $local_verify_token = env('FB_WEBHOOK_VERIFY_TOKEN');
+        $hub_verify_token = $request->get('hub_verify_token');
+        if($local_verify_token ==  $hub_verify_token){
+            return $request->get('hub_challenge');
+        }
+        else return "Bad token";
+    }
 }
