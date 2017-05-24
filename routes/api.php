@@ -72,5 +72,8 @@ Route::group(['prefix' => '/v1'], function () {
   Route::post('auth', 'AuthenticateController@auth');
   Route::get('auth/refresh', 'AuthenticateController@refresh');
   Route::post('test-notification/{user_id}', 'DeviceController@sendTestNotification');
+
+  //fbmessenger
   Route::get('fb-webhook', 'BotController@fbWebhook');
+  Route::post('fb-webhook', 'BotController@handle');
 });

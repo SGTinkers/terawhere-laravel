@@ -14,7 +14,7 @@ class BotController extends Controller
     public function handle()
     {
         $botman = app('botman');
-        $botman->verifyServices(env('FB_MESSENGER_TOKEN'));
+        $botman->verifyServices(env('FB_PAGE_ACCESS_TOKEN'));
 
         // Wit.ai
         $botman->middleware(Wit::create('WIT_AI_TOKEN'));
