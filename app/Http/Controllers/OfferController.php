@@ -246,7 +246,80 @@ class OfferController extends Controller
     ]);
 
   }
-
+    /**
+     * Set an offer status to ongoing
+     *
+     * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+     *
+     * Status: Cancelled by User= 0, Pending = 1, Ongoing = 2, Completed = 3, Expired by server = 4.
+     *
+     * Returns Success.
+     *
+     */
+  public function setOngoing($id){
+      $offer = Offer::find($id);
+      if (!$offer) {
+          return response()->json([
+              'error'   => 'offer_not_found',
+              'message' => 'Offer does not exist.',
+          ], 404);
+      }
+      if ($offer->user_id != Auth::user()->id) {
+          return response()->json([
+              'error'   => 'forbidden_request',
+              'message' => 'User does not have permission to edit this offer.',
+          ], 403);
+      }
+      if ($offer->status != Offer::STATUS['PENDING']) { //can only change PENDING -> ONGOING
+          return response()->json([
+              'error'   => 'forbidden_request',
+              'message' => 'Unable to change the status to ONGOING. Current status is: '. $offer->status,
+          ], 403);
+      }
+      $offer->status = Offer::STATUS['ONGOING'];
+      $offer->save();
+      return response()->json([
+          'message' => 'Offer set to ONGOING successfully.',
+          'data'    => $offer,
+      ]);
+  }
+    /**
+     * Set an offer status to completed
+     *
+     * **Requires Authentication Header - ** *Authorization: Bearer [JWTTokenHere]*
+     *
+     * Status: Cancelled by User= 0, Pending = 1, Ongoing = 2, Completed = 3, Expired by server = 4.
+     *
+     * Returns Success.
+     *
+     */
+    public function setCompleted($id){
+        $offer = Offer::find($id);
+        if (!$offer) {
+            return response()->json([
+                'error'   => 'offer_not_found',
+                'message' => 'Offer does not exist.',
+            ], 404);
+        }
+        if ($offer->user_id != Auth::user()->id) {
+            return response()->json([
+                'error'   => 'forbidden_request',
+                'message' => 'User does not have permission to edit this offer.',
+            ], 403);
+        }
+        if ($offer->status != Offer::STATUS['ONGOING']) { //can only change ONGOING -> COMPLETED
+            return response()->json([
+                'error'   => 'forbidden_request',
+                'message' => 'Unable to change the status to COMPLETED. Current status is: '. $offer->status,
+            ], 403);
+        }
+        $offer->status = Offer::STATUS['COMPLETED'];
+        $offer->save();
+        return response()->json([
+            'message' => 'Offer set to COMPLETED successfully.',
+            'data'    => $offer,
+        ]);
+    }
   /**
    * Get offers from Date
    *

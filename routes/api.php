@@ -32,6 +32,8 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('offers-for-user', 'OfferController@getUsersOffers'); //get offers by user
     Route::get('offers-for-date', 'OfferController@getDatesOffers'); //get offers by date
     Route::post('nearby-offers', 'OfferController@getNearby'); //POST the coords and return nearby offers
+    Route::post('offers/{offer_id}/ongoing', 'OfferController@setOngoing'); //set an offer to be ongoing
+    Route::post('offers/{offer_id}/completed', 'OfferController@setCompleted'); //set an offer to be completed
 
     //Bookings
     Route::get('users/me/bookings', 'BookingController@getUsersBookings'); //get bookings by user
