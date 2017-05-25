@@ -42,5 +42,5 @@ Route::get('/credits', function () {
     echo "<p>iOS client by Muhd Mirza.</p>";
     echo "<br>";
     echo "<p>V1 released 27th May 2017. </p>";
-    echo "<a src='http://terawhere.com'>Terawhere Website</a>";
+    echo "<a href='http://terawhere.com'>Terawhere Website</a>";
 });
