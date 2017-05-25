@@ -47,7 +47,7 @@ class Booking extends Model
 
   public function offer()
   {
-    return $this->belongsTo('App\Offer')->withTrashed();
+    return $this->belongsTo('App\Offer')->withTrashed()->select(array('id', 'user_id', 'meetup_time', 'start_addr', 'end_addr' , 'status',  'vehicle_number', 'vehicle_desc', 'vehicle_model', 'deleted_at'));
   }
 
   public function user()

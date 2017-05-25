@@ -22,7 +22,7 @@ class Offer extends Model
   ];
   protected $dates = ['deleted_at'];
 
-  protected $hidden = ['bookings', 'user'];
+  protected $hidden = ['bookings'];
 
   public static function boot()
     {
