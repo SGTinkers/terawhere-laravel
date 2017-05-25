@@ -209,7 +209,7 @@ class BookingController extends Controller
  */
   public function getUsersBookings()
   {
-    $bookings = Booking::with('offer')->withTrashed()->where('user_id', Auth::user()->id)->get();
+    $bookings = Booking::with('offer.user')->withTrashed()->where('user_id', Auth::user()->id)->get();
     return response()->json([
       'data' => $bookings,
     ], 200);
