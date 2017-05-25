@@ -212,6 +212,7 @@ class BookingController extends Controller
     $bookings = Booking::with([
         'offer' => function ($q) {
             $q->orderBy('meetup_time', 'desc');
+            $q->orderBy('status', 'asc');
         },'offer.user'])
         ->withTrashed()
         ->where('user_id', Auth::user()->id)

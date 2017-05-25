@@ -52,7 +52,7 @@ class Booking extends Model
 
   public function user()
   {
-    return $this->belongsTo('App\User')->select(array('id', 'name', 'email', 'dp'));
+    return $this->belongsTo('App\User')->select(array('id', 'name', 'dp'));
   }
 
   public function review()
