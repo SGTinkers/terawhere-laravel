@@ -209,7 +209,15 @@ class BookingController extends Controller
  */
   public function getUsersBookings()
   {
-    $bookings = Booking::with('offer.user')->withTrashed()->where('user_id', Auth::user()->id)->get();
+    $bookings = Booking::with([
+        'offer' => function ($q) {
+            $q->orderBy('meetup_time', 'desc');
+        },'offer.user'])
+        ->withTrashed()
+        ->where('user_id', Auth::user()->id)
+        ->orderBy('deleted_at', 'asc')
+        ->get();
+
     return response()->json([
       'data' => $bookings,
     ], 200);
