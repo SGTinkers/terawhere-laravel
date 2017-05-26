@@ -418,9 +418,9 @@ class OfferController extends Controller
 
     $nearestids =
         DB::table('offers')
-        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance HAVING distance < '. $range. 'ORDER BY distance LIMIT 0 , 20')
-        ->toArray();
-    dd($nearestids);
+        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance HAVING distance < '. $range. 'ORDER BY distance LIMIT 0 , 20'))
+
+    dd($nearestids->toArray());
     $offers = Offer::findMany($nearestids);
 
 //    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
