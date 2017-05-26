@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
    */
   protected $commands = [
     '\App\Console\Commands\DeleteOldOffers',
+    '\App\Console\Commands\RemindUser',
   ];
 
   /**
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
   protected function schedule(Schedule $schedule)
   {
     $schedule->command('DeleteOldOffers:deleteoffers')->everyTenMinutes();
+    $schedule->command('RemindUser:reminduser')->everyFiveMinutes();
   }
 
   /**
