@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Latrell\Geohash\Facades\Geohash;
+use Illuminate\Support\Facades\DB;
+
 
 /**
  * @resource Offer
