@@ -401,20 +401,13 @@ class OfferController extends Controller
   {
 
     if (!isset($request->range) || empty($request->range)) {
-      $range = 10; //Range in kilometers
+      $range = 25; //Range in kilometers
     } else {
       $range = $request->range;
     }
 
     $lat = $request->lat;
     $lng = $request->lng;
-
-    $const1 = cos(deg2rad($lat));
-    $const2 = deg2rad($lng);
-    $const3 = sin(deg2rad($lat));
-
-    //THIS IS THE QUERY:
-    //SELECT id, ( 6371 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM your_table_name HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
 
     $offers = Offer::select('offers.*')
         ->selectRaw('( 3959 * acos( cos( radians(?) ) *
@@ -426,6 +419,7 @@ class OfferController extends Controller
         ->havingRaw("distance < ?", [$range])
         ->get();
 
+    // Old shitty implementation of geohash
 //    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
 //    $shortenby   = $range - strlen($currenthash);
 //    $searchhash  = substr($currenthash, 0, $shortenby);
