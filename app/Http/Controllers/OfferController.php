@@ -418,10 +418,10 @@ class OfferController extends Controller
 
     $offers = Offer::select('offers.*')
         ->selectRaw('( 3959 * acos( cos( radians(?) ) *
-                           cos( radians( offer_lat ) )
-                           * cos( radians( offer_long ) - radians(?)
+                           cos( radians( start_lat ) )
+                           * cos( radians( start_lng ) - radians(?)
                            ) + sin( radians(?) ) *
-                           sin( radians( offer_lat ) ) )
+                           sin( radians( start_lat ) ) )
                          ) AS distance', [$lat, $lng, $lat])
         ->havingRaw("distance < ?", [$range])
         ->get();
