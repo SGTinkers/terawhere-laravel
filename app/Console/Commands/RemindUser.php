@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Notifications\RemindDriverMeetup;
 use App\Notifications\RemindPassengerMeetup;
 use Illuminate\Console\Command;
+use App\Offer;
 use Carbon\Carbon;
 
 class RemindUser extends Command
