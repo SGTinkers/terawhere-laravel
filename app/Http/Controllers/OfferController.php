@@ -409,7 +409,7 @@ class OfferController extends Controller
 
     $const1 = cos(deg2rad($lat));
     $const2 = deg2rad($lng);
-    $const3 = sin(deg2rad('.$lat.'));
+    $const3 = sin(deg2rad($lat));
 
     //THIS IS THE QUERY:
     //SELECT id, ( 6371 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM your_table_name HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
