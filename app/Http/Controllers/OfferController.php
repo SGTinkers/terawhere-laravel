@@ -399,21 +399,42 @@ class OfferController extends Controller
   {
 
     if (!isset($request->range) || empty($request->range)) {
-      $range = 4; //set user id to current user
+      $range = 25; //Range in kilometers
     } else {
       $range = $request->range;
     }
 
-    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
-    $shortenby   = $range - strlen($currenthash);
-    $searchhash  = substr($currenthash, 0, $shortenby);
+    $lat = $request->lat;
+    $lng = $request->lng;
 
-    $now   = Carbon::now();
-    $limit = Carbon::now()->addHours(24);
+    $const1 = cos(deg2rad($lat));
+    $const2 = deg2rad($lng);
+    $const3 = sin(deg2rad('.$lat.'));
 
-    $offers = Offer::with('user')->where('status', Offer::STATUS['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)
-        //->where('start_geohash', 'LIKE', $searchhash . '%')
-        ->get();
+    //THIS IS THE QUERY:
+    //SELECT id, ( 6371 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM your_table_name HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
+
+    $nearestids =
+        DB::table('offers')
+        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance')
+        ->having('distance', '<', $range)
+        ->orderBy('distance')
+        ->take(20))
+        ->pluck('id')
+        ->toArray();
+    dd($nearestids);
+    $offers = Offer::findMany($nearestids);
+
+//    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
+//    $shortenby   = $range - strlen($currenthash);
+//    $searchhash  = substr($currenthash, 0, $shortenby);
+//
+//    $now   = Carbon::now();
+//    $limit = Carbon::now()->addHours(24);
+//
+//    $offers = Offer::with('user')->where('status', Offer::STATUS['PENDING'])->where('meetup_time', '<=', $limit)->where('meetup_time', '>', $now)
+//        //->where('start_geohash', 'LIKE', $searchhash . '%')
+//        ->get();
 
     foreach ($offers as $offer) {
       $totalpax = 0;
