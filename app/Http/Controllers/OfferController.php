@@ -426,8 +426,6 @@ class OfferController extends Controller
         ->havingRaw("distance < ?", [$range])
         ->get();
 
-    dd($offers);
-
 //    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
 //    $shortenby   = $range - strlen($currenthash);
 //    $searchhash  = substr($currenthash, 0, $shortenby);
