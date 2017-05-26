@@ -66,16 +66,17 @@ Route::group(['prefix' => '/v1'], function () {
     //Review analytics
     Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews'); //Reviews WRITTEN BY USER
 
-    //Routes requiring admin role
-    Route::group([
-          "middleware" => ['VerifyAdminAccess'],
-      ], function () {
-          Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
-          Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
-          Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
-      });
   });
 
+    //Routes requiring admin role
+    Route::group([
+        "middleware" => ['jwt.auth', 'VerifyAdminAccess'],
+    ], function () {
+        Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
+        Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
+        Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
+    });
+    
   // Routes which does not require auth
   Route::post('auth', 'AuthenticateController@auth');
   Route::get('auth/refresh', 'AuthenticateController@refresh');
