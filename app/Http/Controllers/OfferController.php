@@ -418,8 +418,7 @@ class OfferController extends Controller
 
     $nearestids =
         DB::table('offers')
-        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance')
-        ->having('distance', '<', $range)
+        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance HAVING distance < '. $range)
         ->orderBy('distance')
         ->take(20))
         ->pluck('id')
