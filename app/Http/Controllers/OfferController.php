@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Latrell\Geohash\Facades\Geohash;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Collection;
 
 /**
  * @resource Offer
@@ -420,7 +420,7 @@ class OfferController extends Controller
         DB::table('offers')
         ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance HAVING distance < '. $range. 'ORDER BY distance LIMIT 0 , 20'));
 
-    dd($nearestids->toArray());
+    dd($nearestids));
     $offers = Offer::findMany($nearestids);
 
 //    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
