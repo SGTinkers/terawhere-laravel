@@ -66,12 +66,23 @@ Route::group(['prefix' => '/v1'], function () {
     //Review analytics
     Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews'); //Reviews WRITTEN BY USER
 
+    //Routes requiring admin role
+    Route::group([
+          "middleware" => ['VerifyAdminAccess'],
+      ], function () {
+          Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
+          Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
+          Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
+      });
   });
 
   // Routes which does not require auth
   Route::post('auth', 'AuthenticateController@auth');
   Route::get('auth/refresh', 'AuthenticateController@refresh');
   Route::post('test-notification/{user_id}', 'DeviceController@sendTestNotification');
+
+  //storing new report
+  Route::post('reports', 'ReportController@store');
 
   //fbmessenger
   Route::match(['get', 'post'], 'fb-webhook', 'BotManController@handle');
