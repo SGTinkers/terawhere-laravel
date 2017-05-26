@@ -416,12 +416,17 @@ class OfferController extends Controller
     //THIS IS THE QUERY:
     //SELECT id, ( 6371 * acos( cos( radians(37) ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(-122) ) + sin( radians(37) ) * sin( radians( lat ) ) ) ) AS distance FROM your_table_name HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;
 
-    $nearestids =
-        DB::table('offers')
-        ->select(DB::raw('id, ( 6371 * acos( '.$const1.' * cos( radians( start_lat ) ) * cos( radians( start_lng ) - '.$const2.' ) + '.$const3.' * sin( radians( start_lat ) ) ) ) AS distance HAVING distance < '. $range. 'ORDER BY distance LIMIT 0 , 20'));
+    $offers = Offer::select('offers.*')
+        ->selectRaw('( 3959 * acos( cos( radians(?) ) *
+                           cos( radians( offer_lat ) )
+                           * cos( radians( offer_long ) - radians(?)
+                           ) + sin( radians(?) ) *
+                           sin( radians( offer_lat ) ) )
+                         ) AS distance', [$lat, $lng, $lat])
+        ->havingRaw("distance < ?", [$range])
+        ->get();
 
-    dd($nearestids);
-    $offers = Offer::findMany($nearestids);
+    dd($offers);
 
 //    $currenthash = Geohash::encode($request->lat, $request->lng); // hash current location
 //    $shortenby   = $range - strlen($currenthash);
