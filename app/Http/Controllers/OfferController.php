@@ -401,7 +401,7 @@ class OfferController extends Controller
   {
 
     if (!isset($request->range) || empty($request->range)) {
-      $range = 25; //Range in kilometers
+      $range = 10; //Range in kilometers
     } else {
       $range = $request->range;
     }
