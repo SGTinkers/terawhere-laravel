@@ -369,7 +369,7 @@ class OfferController extends Controller
       $user_id = $request->user_id;
     }
 
-    $offers = Offer::where('user_id', $user_id)->get();
+    $offers = Offer::where('user_id', $user_id)->orderBy('meetup_time', 'asc')->get();
 
       foreach ($offers as $offer) {
           $totalpax = 0;
