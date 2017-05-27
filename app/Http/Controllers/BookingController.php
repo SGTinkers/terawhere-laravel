@@ -95,7 +95,7 @@ class BookingController extends Controller
       ], 422);
     }
 
-    $totalpax = 0;
+    $totalpax = $request->pax;
 
     foreach ($bookings as $booking) {
       $totalpax = $totalpax + $booking->pax;
