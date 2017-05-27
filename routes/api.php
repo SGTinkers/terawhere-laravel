@@ -73,6 +73,10 @@ Route::group(['prefix' => '/v1'], function () {
           Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
           Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
           Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
+
+          //Manage roles
+          Route::get('users/me/roles', 'RoleController@getUsersRoles');
+          Route::resource('roles', 'RoleController', ['only'=>['index', 'store', 'destroy']]);
       });
   });
 

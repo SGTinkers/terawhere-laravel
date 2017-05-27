@@ -677,7 +677,7 @@ Returns all offers on a requested date
 ```bash
 curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-26" \
+    -d "date"="2017-05-27" \
 
 ```
 
@@ -688,7 +688,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-26"
+        "date": "2017-05-27"
 },
     "headers": {
         "accept": "application/json"
@@ -964,7 +964,7 @@ Returns Validation errors OR success message w/ data posted
 ```bash
 curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-26 10:33:54" \
+    -d "meetup_time"="2017-05-27 00:33:39" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -989,7 +989,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-26 10:33:54",
+        "meetup_time": "2017-05-27 00:33:39",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -1097,7 +1097,7 @@ Returns success message or 404.
 ```bash
 curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-26 10:33:54" \
+    -d "meetup_time"="2017-05-27 00:33:39" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -1122,7 +1122,7 @@ var settings = {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-26 10:33:54",
+        "meetup_time": "2017-05-27 00:33:39",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -1664,6 +1664,191 @@ Parameter | Type | Status | Description
     user_id | string |  optional  | Only alpha-numeric characters allowed
 
 <!-- END_d045b8f72b5dcb49da5193f2c9316efe -->
+
+#Role
+
+All methods relating to User Roles
+<!-- START_fa2b6949a5b281613fd9d9fe2669a2d8 -->
+## Display a user&#039;s roles
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/users/me/roles" \
+-H "Accept: application/json" \
+    -d "user_id"="temporibus" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/me/roles",
+    "method": "GET",
+    "data": {
+        "user_id": "temporibus"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/users/me/roles`
+
+`HEAD api/v1/users/me/roles`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  optional  | Only alpha-numeric characters allowed
+
+<!-- END_fa2b6949a5b281613fd9d9fe2669a2d8 -->
+
+<!-- START_d97fba8dbd0d0033960fdc6a25fca8d9 -->
+## Display a listing of all roles
+
+> Example request:
+
+```bash
+curl -X GET "http://localhost/api/v1/roles" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/v1/roles`
+
+`HEAD api/v1/roles`
+
+
+<!-- END_d97fba8dbd0d0033960fdc6a25fca8d9 -->
+
+<!-- START_5f753b2bffb6b34b6136ddfe1be7bcce -->
+## Add a role to user
+
+> Example request:
+
+```bash
+curl -X POST "http://localhost/api/v1/roles" \
+-H "Accept: application/json" \
+    -d "user_id"="quae" \
+    -d "role"="admin" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles",
+    "method": "POST",
+    "data": {
+        "user_id": "quae",
+        "role": "admin"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/roles`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  required  | 
+    role | string |  required  | `admin`
+
+<!-- END_5f753b2bffb6b34b6136ddfe1be7bcce -->
+
+<!-- START_04c524fc2f0ea8c793406426144b4c71 -->
+## Remove a role from user
+
+> Example request:
+
+```bash
+curl -X DELETE "http://localhost/api/v1/roles/{role}" \
+-H "Accept: application/json" \
+    -d "user_id"="sunt" \
+    -d "role"="admin" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles/{role}",
+    "method": "DELETE",
+    "data": {
+        "user_id": "sunt",
+        "role": "admin"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`DELETE api/v1/roles/{role}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    user_id | string |  required  | 
+    role | string |  required  | `admin`
+
+<!-- END_04c524fc2f0ea8c793406426144b4c71 -->
 
 #general
 <!-- START_cc3a2eac2f6d8441e6423e4ecf384927 -->

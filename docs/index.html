@@ -584,7 +584,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X GET "http://localhost/api/v1/offers-for-date" \
 -H "Accept: application/json" \
-    -d "date"="2017-05-26" \
+    -d "date"="2017-05-27" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -592,7 +592,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers-for-date",
     "method": "GET",
     "data": {
-        "date": "2017-05-26"
+        "date": "2017-05-27"
 },
     "headers": {
         "accept": "application/json"
@@ -841,7 +841,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X POST "http://localhost/api/v1/offers" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-26 10:33:54" \
+    -d "meetup_time"="2017-05-27 00:33:39" \
     -d "start_name"="est" \
     -d "start_addr"="est" \
     -d "start_lat"="40" \
@@ -863,7 +863,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers",
     "method": "POST",
     "data": {
-        "meetup_time": "2017-05-26 10:33:54",
+        "meetup_time": "2017-05-27 00:33:39",
         "start_name": "est",
         "start_addr": "est",
         "start_lat": 40,
@@ -1024,7 +1024,7 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-bash">curl -X PUT "http://localhost/api/v1/offers/{offer}" \
 -H "Accept: application/json" \
-    -d "meetup_time"="2017-05-26 10:33:54" \
+    -d "meetup_time"="2017-05-27 00:33:39" \
     -d "start_name"="ratione" \
     -d "start_addr"="ratione" \
     -d "start_lat"="-64" \
@@ -1046,7 +1046,7 @@ $.ajax(settings).done(function (response) {
     "url": "http://localhost/api/v1/offers/{offer}",
     "method": "PUT",
     "data": {
-        "meetup_time": "2017-05-26 10:33:54",
+        "meetup_time": "2017-05-27 00:33:39",
         "start_name": "ratione",
         "start_addr": "ratione",
         "start_lat": -64,
@@ -1607,6 +1607,196 @@ $.ajax(settings).done(function (response) {
 </tbody>
 </table>
 <!-- END_d045b8f72b5dcb49da5193f2c9316efe -->
+<h1>Role</h1>
+<p>All methods relating to User Roles</p>
+<!-- START_fa2b6949a5b281613fd9d9fe2669a2d8 -->
+<h2>Display a user&#039;s roles</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/users/me/roles" \
+-H "Accept: application/json" \
+    -d "user_id"="temporibus" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/users/me/roles",
+    "method": "GET",
+    "data": {
+        "user_id": "temporibus"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/users/me/roles</code></p>
+<p><code>HEAD api/v1/users/me/roles</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>optional</td>
+<td>Only alpha-numeric characters allowed</td>
+</tr>
+</tbody>
+</table>
+<!-- END_fa2b6949a5b281613fd9d9fe2669a2d8 -->
+<!-- START_d97fba8dbd0d0033960fdc6a25fca8d9 -->
+<h2>Display a listing of all roles</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET "http://localhost/api/v1/roles" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/roles</code></p>
+<p><code>HEAD api/v1/roles</code></p>
+<!-- END_d97fba8dbd0d0033960fdc6a25fca8d9 -->
+<!-- START_5f753b2bffb6b34b6136ddfe1be7bcce -->
+<h2>Add a role to user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/v1/roles" \
+-H "Accept: application/json" \
+    -d "user_id"="quae" \
+    -d "role"="admin" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles",
+    "method": "POST",
+    "data": {
+        "user_id": "quae",
+        "role": "admin"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/roles</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td>role</td>
+<td>string</td>
+<td>required</td>
+<td><code>admin</code></td>
+</tr>
+</tbody>
+</table>
+<!-- END_5f753b2bffb6b34b6136ddfe1be7bcce -->
+<!-- START_04c524fc2f0ea8c793406426144b4c71 -->
+<h2>Remove a role from user</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X DELETE "http://localhost/api/v1/roles/{role}" \
+-H "Accept: application/json" \
+    -d "user_id"="sunt" \
+    -d "role"="admin" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/v1/roles/{role}",
+    "method": "DELETE",
+    "data": {
+        "user_id": "sunt",
+        "role": "admin"
+},
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>DELETE api/v1/roles/{role}</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td>role</td>
+<td>string</td>
+<td>required</td>
+<td><code>admin</code></td>
+</tr>
+</tbody>
+</table>
+<!-- END_04c524fc2f0ea8c793406426144b4c71 -->
 <h1>general</h1>
 <!-- START_cc3a2eac2f6d8441e6423e4ecf384927 -->
 <h2>Place your BotMan logic here.</h2>
