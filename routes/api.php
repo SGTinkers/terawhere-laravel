@@ -67,16 +67,23 @@ Route::group(['prefix' => '/v1'], function () {
     Route::get('reviewer-reviews', 'ReviewController@getReviewersReviews'); //Reviews WRITTEN BY USER
 
     //Routes requiring admin role
+    //Panel stuff
     Route::group([
           "middleware" => ['admin'],
       ], function () {
-          Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
-          Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
-          Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
+      Route::post('reports/{report_id}/set-read', 'ReportController@setRead');
+      Route::post('reports/{report_id}/set-replied', 'ReportController@setReplied');
 
-          //Manage roles
-          Route::get('users/me/roles', 'RoleController@getUsersRoles');
-          Route::resource('roles', 'RoleController', ['only'=>['index', 'store', 'destroy']]);
+      //Manage roles
+      Route::get('users/me/roles', 'RoleController@getUsersRoles');
+
+      //User actions
+      Route::post('users/ban','UserController@ban');
+
+      //Resources
+      Route::resource('reports', 'ReportController', ['only' => ['index', 'show']]);
+      Route::resource('roles', 'RoleController', ['only'=>['index', 'store', 'destroy']]);
+      Route::resource('users', 'UserController', ['only'=>['index', 'show']]);
       });
   });
 

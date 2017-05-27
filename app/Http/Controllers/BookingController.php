@@ -29,7 +29,7 @@ class BookingController extends Controller
    */
   public function index()
   {
-    $bookings = Booking::with('offer')->get();
+    $bookings = Booking::withTrashed()->with('offer')->get();
     return response()->json([
       'data' => $bookings,
     ], 200);

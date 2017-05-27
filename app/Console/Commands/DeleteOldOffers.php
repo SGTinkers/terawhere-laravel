@@ -42,9 +42,21 @@ class DeleteOldOffers extends Command
     $now    = Carbon::now();
     $offers = Offer::where('meetup_time', '<=', $now)->get();
     foreach ($offers as $offer) {
-      if($offer->status = Offer::STATUS['PENDING']) {
+      if(!empty($offer->bookings) && $offer->status = Offer::STATUS['PENDING'])
+      {
+          //temporary solution to differentiating between completed and expired.
+          $offer->status = Offer::STATUS['COMPLETED'];
+          $offer->save();
+      }
+
+      if($offer->status = Offer::STATUS['PENDING'])
+      {
           $offer->status = Offer::STATUS['EXPIRED'];
           $offer->save();
+      }
+      foreach($offer->bookings as $booking){
+          $booking->delete();
+          //KIV notify user?
       }
     }
     Offer::where('meetup_time', '<=', $now)->delete();

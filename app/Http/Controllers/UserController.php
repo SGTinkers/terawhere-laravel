@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetUserId;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
   /**
-   * Display a listing of the resource.
+   * Display a listing of all users
    *
    * @return \Illuminate\Http\Response
    */
@@ -21,60 +22,47 @@ class UserController extends Controller
   }
 
    /**
-   * Display the specified resource.
+   * Display all info about selected user
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
   public function show($id)
   {
-    $user = User::find($id)->with;
+    $user = User::find($id)->with('roles','offers','bookings','devices');
       if (!$user) {
           return response()->json([
               'error'   => 'user_not_found',
               'message' => 'User does not exist',
           ], 404);
       }
-    $roles      = $user->roles;
-    $offers     = $user->offers;
-    $bookings   = $user->bookings;
-    $devices    = $user->devices;
-
-
+    return response()->json([
+          'data' => $user,
+    ], 200);
   }
 
+
   /**
-   * Show the form for editing the specified resource.
+   * Ban a user
    *
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
+  public function ban(GetUserId $request)
   {
-    //
-  }
+    $user = User::find($request->user_id);
+      if (!$user) {
+          return response()->json([
+              'error'   => 'user_not_found',
+              'message' => 'User does not exist',
+          ], 404);
+      }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
-    //
-  }
+      return response()->json([
+          'message'=> 'User successfully banned until (DEV NOTICE: not implemented yet)',
+          'data' => $user,
+      ], 200);
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
   }
 
 }

@@ -38,7 +38,7 @@ class OfferController extends Controller
    */
   public function index(Request $request)
   {
-    $offers = Offer::all();
+    $offers = Offer::withTrashed()->get();
 
     return response()->json([
       'data' => $offers,
