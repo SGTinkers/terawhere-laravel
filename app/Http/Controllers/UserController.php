@@ -6,6 +6,11 @@ use App\Http\Requests\GetUserId;
 use App\User;
 use Illuminate\Http\Request;
 
+/**
+ * @resource User
+ *
+ * Only admins
+ */
 class UserController extends Controller
 {
   /**
