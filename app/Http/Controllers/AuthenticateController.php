@@ -72,6 +72,9 @@ class AuthenticateController extends Controller
         if ($socialUser->offsetGet('gender') && ($socialUser->offsetGet('gender') === "male" || $socialUser->offsetGet('gender') === "female")) {
           $user->gender = $socialUser->offsetGet('gender');
         }
+        else{
+          $user->gender = 'other';
+        }
 
         // fill in the relevant ids
         if ($request->get('service') === "google") {

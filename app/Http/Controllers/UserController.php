@@ -14,31 +14,13 @@ class UserController extends Controller
    */
   public function index()
   {
-    return User::all();
+      $users = User::all();
+      return response()->json([
+          'data' => $users,
+      ], 200);
   }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    //
-  }
-
-  /**
+   /**
    * Display the specified resource.
    *
    * @param  int  $id
@@ -46,7 +28,19 @@ class UserController extends Controller
    */
   public function show($id)
   {
-    //
+    $user = User::find($id)->with;
+      if (!$user) {
+          return response()->json([
+              'error'   => 'user_not_found',
+              'message' => 'User does not exist',
+          ], 404);
+      }
+    $roles      = $user->roles;
+    $offers     = $user->offers;
+    $bookings   = $user->bookings;
+    $devices    = $user->devices;
+
+
   }
 
   /**
