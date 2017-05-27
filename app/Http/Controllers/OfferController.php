@@ -409,7 +409,7 @@ class OfferController extends Controller
     $lat = $request->lat;
     $lng = $request->lng;
 
-    $offers = Offer::select('offers.*')
+    $offers = Offer::with('user')->select('offers.*')
         ->selectRaw('( 3959 * acos( cos( radians(?) ) *
                            cos( radians( start_lat ) )
                            * cos( radians( start_lng ) - radians(?)
