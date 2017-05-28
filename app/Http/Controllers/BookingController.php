@@ -183,7 +183,7 @@ class BookingController extends Controller
    */
   public function getOffersBookings($id)
   {
-    $offer = Offer::find($id)->first();
+    $offer = Offer::where('id', $id)->first();
 
     if (!$offer) {
       return response()->json([
