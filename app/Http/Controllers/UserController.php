@@ -34,14 +34,22 @@ class UserController extends Controller
    */
   public function show($id)
   {
-    $user = User::find($id)->with('offers','bookings','devices','roles')->get();
+    $user = User::find($id);
       if (!$user) {
           return response()->json([
               'error'   => 'user_not_found',
               'message' => 'User does not exist',
           ], 404);
       }
-      
+      $roles = [];
+      foreach ($user->roles as $role) {
+          $roles[] = $role->role;
+      }
+      $user['role'] = $roles;
+      $user['devices'] = $user->devices;
+      $user['offers'] = $user->offers;
+      $user['bookings'] = $user->bookings;
+
     return response()->json([
           'data' => $user,
     ], 200);
