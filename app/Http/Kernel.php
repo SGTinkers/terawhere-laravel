@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
     'jwt.auth'    => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
     'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
     'admin'       => \App\Http\Middleware\VerifyAdminAccess::class,
+    'suspended'   => \App\Http\Middleware\SuspendedUserCheck::class,
   ];
 }
