@@ -62,7 +62,7 @@ class UserController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function ban(GetUserId $request)
+  public function ban(GetUserDate $request)
   {
     $user = User::find($request->user_id);
       if (!$user) {
@@ -72,8 +72,11 @@ class UserController extends Controller
           ], 404);
       }
 
+      $user->suspended_until = $request->suspended_until;
+      $user->save();
+
       return response()->json([
-          'message'=> 'User successfully banned until (DEV NOTICE: not implemented yet)',
+          'message'=> 'User successfully banned until '. $user->suspended_until,
           'data' => $user,
       ], 200);
 

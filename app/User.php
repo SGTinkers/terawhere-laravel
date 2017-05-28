@@ -5,6 +5,7 @@ namespace App;
 use Alsofronie\Uuid\Uuid32ModelTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -44,11 +45,11 @@ class User extends Authenticatable
 
   public function offers()
   {
-    return $this->hasMany('App\Offer');
+    return $this->hasMany('App\Offer')->withTrashed();
   }
   public function bookings()
   {
-    return $this->hasMany('App\Booking');
+    return $this->hasMany('App\Booking')->withTrashed();
   }
   public function reviews()
   {
@@ -87,4 +88,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+  public function isSuspended(){
+      $suspended_until = $this->suspended_until;
+      $now = Carbon::now();
+
+      if($now < $suspended_until){
+          return true;
+      }
+      return false;
+  }
 }
