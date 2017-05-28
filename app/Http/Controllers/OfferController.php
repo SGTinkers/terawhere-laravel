@@ -55,9 +55,9 @@ class OfferController extends Controller
    */
   public function show($id)
   {
-    $offer = Offer::withTrashed()->where('id', $id)->get();
+    $offer = Offer::withTrashed()->where('id', $id)->first();
 
-    if (!isset($offer) || empty($offer)) {
+    if (!isset($offer) || empty($offer) || !$booking) {
       return response()->json([
         'error'   => 'offer_not_found',
         'message' => 'Offer does not exist',
