@@ -43,7 +43,7 @@ Route::group(['prefix' => '/v1'], function () {
 
     //Offer Resource
     Route::resource('offers', 'OfferController', ['except' => [
-      'create', 'edit',
+      'create', 'edit', 'show'
     ]]);
 
     //Booking Resource
@@ -97,5 +97,8 @@ Route::group(['prefix' => '/v1'], function () {
 
   //fbmessenger
   Route::match(['get', 'post'], 'fb-webhook', 'BotManController@handle');
+
+  //show a single offer
+  Route::resource('offers', 'OfferController', ['only' => ['show']]);
 
 });
