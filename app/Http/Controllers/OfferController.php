@@ -53,10 +53,11 @@ class OfferController extends Controller
    * Returns a single offer from offer_id
    *
    */
-  public function show(Request $request, $id)
+  public function show($id)
   {
-    $offer = Offer::find($id);
-    if (!$offer) {
+    $offer = Offer::withTrashed()->where('id', $id)->get();
+
+    if (!isset($offer) || empty($offer)) {
       return response()->json([
         'error'   => 'offer_not_found',
         'message' => 'Offer does not exist',

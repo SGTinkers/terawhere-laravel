@@ -45,9 +45,9 @@ class BookingController extends Controller
    */
   public function show($id)
   {
-    $booking = Booking::with('offer')->find($id);
+    $booking = Booking::with('offer')->withTrashed()->where('id', $id)->get();
 
-    if (!$booking) {
+    if (!isset($booking) || empty($booking)) {
       return response()->json([
         'error'   => 'booking_not_found',
         'message' => 'Booking does not exist.',
