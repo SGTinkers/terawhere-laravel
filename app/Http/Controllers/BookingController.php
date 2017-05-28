@@ -192,7 +192,7 @@ class BookingController extends Controller
       ], 404);
     }
 
-    $bookings = Booking::with('user')->where('offer_id', $id)->get();
+    $bookings = Booking::with('user', 'offer')->where('offer_id', $id)->get();
 
     return response()->json([
       'data' => $bookings,
