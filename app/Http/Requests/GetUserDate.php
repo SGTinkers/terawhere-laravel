@@ -25,7 +25,7 @@ class GetUserDate extends FormRequest
     {
         return [
             'user_id' => 'required|alpha_num',
-            'suspended_until' = 'required|date_format:Y-m-d H:i:s'
+            'suspended_until' => 'required|date_format:Y-m-d H:i:s',
         ];
     }
 }

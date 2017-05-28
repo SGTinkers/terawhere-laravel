@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GetUserId;
+use App\Http\Requests\GetUserDate;
 use App\User;
 use Illuminate\Http\Request;
 
