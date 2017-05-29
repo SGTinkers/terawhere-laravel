@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.21 on 2017-05-22.
+ * Generated for Laravel 5.4.21 on 2017-05-29.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12450,6 +12450,430 @@ namespace LaravelFCM\Facades {
     }         
 }
     
+namespace Mpociot\BotMan\Facades {
+
+    class BotMan {
+        
+        /**
+         * 
+         *
+         * @param \Mpociot\BotMan\MiddlewareInterface|array $middleware
+         * @static 
+         */
+        public static function middleware($middleware)
+        {
+            return \Mpociot\BotMan\BotMan::middleware($middleware);
+        }
+        
+        /**
+         * Set a fallback message to use if no listener matches.
+         *
+         * @param callable $callback
+         * @static 
+         */
+        public static function fallback($callback)
+        {
+            return \Mpociot\BotMan\BotMan::fallback($callback);
+        }
+        
+        /**
+         * 
+         *
+         * @param \Mpociot\BotMan\DriverInterface $driver
+         * @static 
+         */
+        public static function setDriver($driver)
+        {
+            return \Mpociot\BotMan\BotMan::setDriver($driver);
+        }
+        
+        /**
+         * 
+         *
+         * @return \Mpociot\BotMan\DriverInterface 
+         * @static 
+         */
+        public static function getDriver()
+        {
+            return \Mpociot\BotMan\BotMan::getDriver();
+        }
+        
+        /**
+         * Retrieve the chat message.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMessages()
+        {
+            return \Mpociot\BotMan\BotMan::getMessages();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Mpociot\BotMan\Answer 
+         * @static 
+         */
+        public static function getConversationAnswer()
+        {
+            return \Mpociot\BotMan\BotMan::getConversationAnswer();
+        }
+        
+        /**
+         * 
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isBot()
+        {
+            return \Mpociot\BotMan\BotMan::isBot();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Mpociot\BotMan\UserInterface 
+         * @static 
+         */
+        public static function getUser()
+        {
+            return \Mpociot\BotMan\BotMan::getUser();
+        }
+        
+        /**
+         * 
+         *
+         * @param string $pattern the pattern to listen for
+         * @param \Closure|string $callback the callback to execute. Either a closure or a Class@method notation
+         * @param string $in the channel type to listen to (either direct message or public channel)
+         * @return \Mpociot\BotMan\Command 
+         * @static 
+         */
+        public static function hears($pattern, $callback, $in = null)
+        {
+            return \Mpociot\BotMan\BotMan::hears($pattern, $callback, $in);
+        }
+        
+        /**
+         * Listening for image files.
+         *
+         * @param $callback
+         * @return \Mpociot\BotMan\Command 
+         * @static 
+         */
+        public static function receivesImages($callback)
+        {
+            return \Mpociot\BotMan\BotMan::receivesImages($callback);
+        }
+        
+        /**
+         * Listening for image files.
+         *
+         * @param $callback
+         * @return \Mpociot\BotMan\Command 
+         * @static 
+         */
+        public static function receivesVideos($callback)
+        {
+            return \Mpociot\BotMan\BotMan::receivesVideos($callback);
+        }
+        
+        /**
+         * Listening for audio files.
+         *
+         * @param $callback
+         * @return \Mpociot\BotMan\Command 
+         * @static 
+         */
+        public static function receivesAudio($callback)
+        {
+            return \Mpociot\BotMan\BotMan::receivesAudio($callback);
+        }
+        
+        /**
+         * Listening for location attachment.
+         *
+         * @param $callback
+         * @return \Mpociot\BotMan\Command 
+         * @static 
+         */
+        public static function receivesLocation($callback)
+        {
+            return \Mpociot\BotMan\BotMan::receivesLocation($callback);
+        }
+        
+        /**
+         * Create a command group with shared attributes.
+         *
+         * @param array $attributes
+         * @param \Closure $callback
+         * @static 
+         */
+        public static function group($attributes, $callback)
+        {
+            return \Mpociot\BotMan\BotMan::group($attributes, $callback);
+        }
+        
+        /**
+         * Try to match messages with the ones we should
+         * listen to.
+         *
+         * @static 
+         */
+        public static function listen()
+        {
+            return \Mpociot\BotMan\BotMan::listen();
+        }
+        
+        /**
+         * 
+         *
+         * @param string|\Mpociot\BotMan\Question $message
+         * @param string|array $channel
+         * @param \Mpociot\BotMan\DriverInterface|null $driver
+         * @param array $additionalParameters
+         * @return $this 
+         * @static 
+         */
+        public static function say($message, $channel, $driver = null, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::say($message, $channel, $driver, $additionalParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|\Mpociot\BotMan\Question $question
+         * @param array|\Closure $next
+         * @param array $additionalParameters
+         * @return $this 
+         * @static 
+         */
+        public static function ask($question, $next, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::ask($question, $next, $additionalParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function types()
+        {
+            return \Mpociot\BotMan\BotMan::types();
+        }
+        
+        /**
+         * 
+         *
+         * @param int $seconds Number of seconds to wait
+         * @return $this 
+         * @static 
+         */
+        public static function typesAndWaits($seconds)
+        {
+            return \Mpociot\BotMan\BotMan::typesAndWaits($seconds);
+        }
+        
+        /**
+         * Low-level method to perform driver specific API requests.
+         *
+         * @param string $endpoint
+         * @param array $additionalParameters
+         * @return $this 
+         * @static 
+         */
+        public static function sendRequest($endpoint, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::sendRequest($endpoint, $additionalParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|\Mpociot\BotMan\Question $message
+         * @param array $additionalParameters
+         * @return $this 
+         * @static 
+         */
+        public static function reply($message, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::reply($message, $additionalParameters);
+        }
+        
+        /**
+         * Return a random message.
+         *
+         * @param array $messages
+         * @return $this 
+         * @static 
+         */
+        public static function randomReply($messages)
+        {
+            return \Mpociot\BotMan\BotMan::randomReply($messages);
+        }
+        
+        /**
+         * 
+         *
+         * @param string|\Mpociot\BotMan\Question $message
+         * @param array $additionalParameters
+         * @return $this 
+         * @static 
+         */
+        public static function replyPrivate($message, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::replyPrivate($message, $additionalParameters);
+        }
+        
+        /**
+         * 
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getMatches()
+        {
+            return \Mpociot\BotMan\BotMan::getMatches();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Mpociot\BotMan\Message 
+         * @static 
+         */
+        public static function getMessage()
+        {
+            return \Mpociot\BotMan\BotMan::getMessage();
+        }
+        
+        /**
+         * Verify service webhook URLs.
+         *
+         * @param string $facebookVerification The Facebook verification string to match
+         * @param string $weChatVerification The WeChat verification token to match
+         * @return \Response 
+         * @static 
+         */
+        public static function verifyServices($facebookVerification = null, $weChatVerification = null)
+        {
+            return \Mpociot\BotMan\BotMan::verifyServices($facebookVerification, $weChatVerification);
+        }
+        
+        /**
+         * 
+         *
+         * @return \Storage 
+         * @static 
+         */
+        public static function userStorage()
+        {
+            return \Mpociot\BotMan\BotMan::userStorage();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Storage 
+         * @static 
+         */
+        public static function channelStorage()
+        {
+            return \Mpociot\BotMan\BotMan::channelStorage();
+        }
+        
+        /**
+         * 
+         *
+         * @return \Storage 
+         * @static 
+         */
+        public static function driverStorage()
+        {
+            return \Mpociot\BotMan\BotMan::driverStorage();
+        }
+        
+        /**
+         * 
+         *
+         * @param \Mpociot\BotMan\Conversation $instance
+         * @param null|string $channel
+         * @param null|string $driver
+         * @static 
+         */
+        public static function startConversation($instance, $channel = null, $driver = null)
+        {
+            return \Mpociot\BotMan\BotMan::startConversation($instance, $channel, $driver);
+        }
+        
+        /**
+         * 
+         *
+         * @param \Mpociot\BotMan\Conversation $instance
+         * @param array|\Closure $next
+         * @param string|\Mpociot\BotMan\Question $question
+         * @param array $additionalParameters
+         * @static 
+         */
+        public static function storeConversation($instance, $next, $question = null, $additionalParameters = array())
+        {
+            return \Mpociot\BotMan\BotMan::storeConversation($instance, $next, $question, $additionalParameters);
+        }
+        
+        /**
+         * Get a stored conversation array from the cache for a given message.
+         *
+         * @param null|\Mpociot\BotMan\Message $message
+         * @return array 
+         * @static 
+         */
+        public static function getStoredConversation($message = null)
+        {
+            return \Mpociot\BotMan\BotMan::getStoredConversation($message);
+        }
+        
+        /**
+         * Remove a stored conversation array from the cache for a given message.
+         *
+         * @param null|\Mpociot\BotMan\Message $message
+         * @static 
+         */
+        public static function removeStoredConversation($message = null)
+        {
+            return \Mpociot\BotMan\BotMan::removeStoredConversation($message);
+        }
+        
+        /**
+         * 
+         *
+         * @param \Closure $closure
+         * @return string 
+         * @static 
+         */
+        public static function serializeClosure($closure)
+        {
+            return \Mpociot\BotMan\BotMan::serializeClosure($closure);
+        }
+        
+        /**
+         * Look for active conversations and clear the payload
+         * if a conversation is found.
+         *
+         * @static 
+         */
+        public static function loadActiveConversation()
+        {
+            return \Mpociot\BotMan\BotMan::loadActiveConversation();
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -14501,6 +14925,8 @@ namespace {
     class FCM extends \LaravelFCM\Facades\FCM {}
     
     class FCMGroup extends \LaravelFCM\Facades\FCMGroup {}
+    
+    class BotMan extends \Mpociot\BotMan\Facades\BotMan {}
     
 }
 
