@@ -46,6 +46,7 @@ return [
     'model'         => App\User::class,
     'client_id'     => env('GOOGLE_CLIENT_ID'),
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'api_key'       => env('GOOGLE_CLIENT_API_KEY'),
     'redirect'      => env('APP_URL') . '/auth/callback?service=google',
   ],
     'botman' => [

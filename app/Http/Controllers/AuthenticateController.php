@@ -53,13 +53,26 @@ class AuthenticateController extends Controller
 
     try {
       // verify the credentials
-      $socialUser = Socialite::driver($request->get('service'))->stateless()->userFromToken($request->get('token'));
+      if ($request->get('service') == "google") {
+        $client = new \PulkitJalan\Google\Client(['client_id' => config('services.google.client_id'), 'client_secret' => config('services.google.client_secret'), 'redirect_uri' => config('services.google.redirect'), 'developer_key' => config('services.google.api_key')]);
+        $google = $client->getClient();
+        $google->authenticate($request->get('token'));
+        $accessToken = $client->getAccessToken()["access_token"];
+        $socialUser = Socialite::driver("google")->stateless()->userFromToken($accessToken);
+      } else {
+        $socialUser = Socialite::driver("facebook")->stateless()->userFromToken($request->get('token'));
+      }
       if (!$socialUser) {
         return response()->json(['error' => 'invalid_credentials', 'message' => 'Invalid credentials'], 401);
       }
 
       // check if we already have user in db
       $user = User::where($request->get('service') . '_id', $socialUser->getId())->first();
+      if (!$user && $socialUser->getEmail()) {
+        // if not found, try to get user by email
+        // NOTE: THIS IS INSECURE AND SHOULD SUPPLEMENT THIS WITH VERIFICATION EMAIL
+        $user = User::where('email', $socialUser->getEmail())->first();
+      }
       if (!$user) {
         // create user if we don't and fill some data from social network
         $user           = new User;
