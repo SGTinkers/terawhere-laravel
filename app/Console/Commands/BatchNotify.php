@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Notifications\BatchOfferReminder;
 use Illuminate\Console\Command;
 use App\Offer;
+use App\User;
 
 class BatchNotify extends Command
 {
@@ -42,21 +43,22 @@ class BatchNotify extends Command
         //Aziz: To do: Only remind users based on location and whether they want to be reminded.
         $offers = Offer::active()->get();
         $total_active_offers_count   = count($offers->toArray());
-
         $new_offers_count    = 0;
+
         foreach($offers as $offer){
             if($offer->notified = 0) {
                 $new_offers_count++;
-            }
-        }
 
-        foreach($offers as $offer) {
-            if ($offer->notified == 0) {
-                $offer->user->notify(new BatchOfferReminder($offer->user, $offers, $new_offers_count, $total_active_offers_count));
                 //set notified to 1.
                 $offer->notified = 1;
                 $offer->save();
             }
+        }
+
+        $users = User::all();
+        foreach($users as $user)
+        {
+            $user->notify(new BatchOfferReminder($user, $offers, $new_offers_count, $total_active_offers_count));
         }
     }
 }
