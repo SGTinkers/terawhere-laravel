@@ -49,11 +49,11 @@ class RemindUser extends Command
         foreach($offers as $offer){
             //get meetup_time from for this offer
             $meetup_time = Carbon::createFromFormat('Y-m-d H:i:s', $offer->meetup_time);
-            if($now >= $meetup_time->subMinutes($driver_countdown) && $offer->notified == 0){
+            if($now >= $meetup_time->subMinutes($driver_countdown) && $offer->notified != 2){
                 //send push notif
                 $offer->user->notify(new RemindDriverMeetup($offer->user, $offer, $driver_countdown));
-                //set notified to 1.
-                $offer->notified = 1;
+                //set notified to 2.
+                $offer->notified = 2;
                 $offer->save();
             }
 
