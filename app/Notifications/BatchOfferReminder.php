@@ -52,8 +52,8 @@ class BatchOfferReminder extends Notification
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60 * 60 * 24);
 
-        $notificationBuilder = new PayloadNotificationBuilder('There are new ride offers!');
-        $notificationBuilder->setBody('There are '. $this->new_offers_count .' new ride offers available. There are now '. $this->total_active_offers_count  .' rides in total!')->setSound('default');
+        $notificationBuilder = new PayloadNotificationBuilder('There are new offers!');
+        $notificationBuilder->setBody('There are '. $this->new_offers_count .' new ride offer(s) available. There are now '. $this->total_active_offers_count  .' offer(s) in total!')->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([]);
