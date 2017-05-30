@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
   protected $commands = [
     '\App\Console\Commands\DeleteOldOffers',
     '\App\Console\Commands\RemindUser',
+    '\App\Console\Commands\BatchNotify',
   ];
 
   /**
