@@ -46,7 +46,7 @@ class BatchNotify extends Command
         $new_offers_count    = 0;
 
         foreach($offers as $offer){
-            if($offer->notified = 0) {
+            if($offer->notified == 0) {
                 $new_offers_count++;
 
                 //set notified to 1.
