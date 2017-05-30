@@ -42,7 +42,7 @@ class BatchNotify extends Command
     {
         //Aziz: To do: Only remind users based on location and whether they want to be reminded.
         $offers = Offer::active()->get();
-        $total_active_offers_count   = count($offers->toArray());
+        $total_active_offers_count   = count($offers);
         $new_offers_count    = 0;
 
         foreach($offers as $offer){
@@ -58,7 +58,9 @@ class BatchNotify extends Command
         $users = User::all();
         foreach($users as $user)
         {
+            if($new_offers_count != 0 && $total_active_offers_count != 0){
             $user->notify(new BatchOfferReminder($user, $new_offers_count, $total_active_offers_count));
+            }
         }
     }
 }
