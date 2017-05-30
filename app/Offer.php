@@ -43,7 +43,7 @@ class Offer extends Model
   public function scopeActive($query)
   {
     $now = Carbon::now();
-    return $query->where('offers.status', Offer::STATUS['PENDING'])->where('offers.meetup_time', '<', $now);
+    return $query->where('offers.status', Offer::STATUS['PENDING'])->where('offers.meetup_time', '>', $now);
   }
 
   public function user()
