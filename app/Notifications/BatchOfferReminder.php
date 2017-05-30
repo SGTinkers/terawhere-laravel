@@ -20,11 +20,6 @@ class BatchOfferReminder extends Notification
      */
     private $user;
 
-    /**
-     * @var Offer
-     */
-    private $offer;
-
     private $new_offers_count;
 
     private $total_active_offers_count;
@@ -34,10 +29,9 @@ class BatchOfferReminder extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, Offer $offer, $new_offers_count, $total_active_offers_count)
+    public function __construct(User $user, $new_offers_count, $total_active_offers_count)
     {
         $this->user = $user;
-        $this->offer = $offer;
         $this->total_active_offers_count   = $total_active_offers_count;
         $this->new_offers_count            = $new_offers_count ;
     }

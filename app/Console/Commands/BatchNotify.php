@@ -58,7 +58,7 @@ class BatchNotify extends Command
         $users = User::all();
         foreach($users as $user)
         {
-            $user->notify(new BatchOfferReminder($user, $offers, $new_offers_count, $total_active_offers_count));
+            $user->notify(new BatchOfferReminder($user, $new_offers_count, $total_active_offers_count));
         }
     }
 }
