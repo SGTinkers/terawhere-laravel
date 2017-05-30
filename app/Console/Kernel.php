@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
   {
     $schedule->command('DeleteOldOffers:deleteoffers')->everyTenMinutes();
     $schedule->command('RemindUser:reminduser')->everyFiveMinutes();
-    $schedule->command('BatchNotify:notify')->twiceDaily(1, 9);
+    $schedule->command('BatchNotify:notify')->hourly();
   }
 
   /**

@@ -24,6 +24,10 @@ class BatchOfferReminder extends Notification
 
     private $total_active_offers_count;
 
+    private $string_one;
+
+    private $string_two;
+
     /**
      * Create a new notification instance.
      *
@@ -33,7 +37,19 @@ class BatchOfferReminder extends Notification
     {
         $this->user = $user;
         $this->total_active_offers_count   = $total_active_offers_count;
-        $this->new_offers_count            = $new_offers_count ;
+        $this->new_offers_count            = $new_offers_count;
+
+        if($this->new_offers_count == 1){
+            $this->string_one = 'There is one new ride offer posted.';
+        }else{
+            $this->string_one = 'There are '. $this->new_offers_count .' new ride offers posted.';
+        }
+
+        if($this->total_active_offers_count == 1){
+            $this->string_two = 'Tap to book now!';
+        }else{
+            $this->string_two = 'There are now ' . $this->total_active_offers_count. ' offers available in total!';
+        }
     }
 
     /**
@@ -53,7 +69,7 @@ class BatchOfferReminder extends Notification
         $optionBuilder->setTimeToLive(60 * 60 * 24);
 
         $notificationBuilder = new PayloadNotificationBuilder('There are new offers!');
-        $notificationBuilder->setBody('There are '. $this->new_offers_count .' new ride offer(s) available. There are now '. $this->total_active_offers_count  .' offer(s) in total!')->setSound('default');
+        $notificationBuilder->setBody($this->string_one.' '.$this->string_two)->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData([]);
