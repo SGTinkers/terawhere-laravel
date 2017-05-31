@@ -48,8 +48,7 @@ class BatchNotify extends Command
 
         $latest_offer                = Offer::orderBy('meetup_time', 'desc')->first();
         $latest_meetup_time          = Carbon::createFromFormat('Y-m-d H:i:s', $latest_offer->meetup_time);
-        $now                         = Carbon::now();
-        $diff                        = $now->diffInHours($latest_meetup_time);
+        $diff                        = Carbon::now()->diffInHours($latest_meetup_time);
 
         $users = User::all();
         if($new_offers_count >= 3 || $diff <= 2){

@@ -115,7 +115,6 @@ class OfferController extends Controller
     $latestoffer = Offer::where('user_id', $data['user_id'])->orderBy('created_at', 'desc')->first();
 
     if ($latestoffer) { //if latest offer exists
-      $now  = Carbon::now();
       $diff = Carbon::now()->diffInMinutes($latestoffer['created_at']);
 
       if ($diff < 10 && $latestoffer['start_addr'] == $data['start_addr'] && $latestoffer['end_addr'] == $data['end_addr']) {
